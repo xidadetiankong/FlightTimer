@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">
+	<view class="conversationArea">
+  <view>{{question}}</view>
+  <view>{{answer}}</view>
+  </view>
+	<view class="inputArea">
+		<input value="{{inputvalue}}" class="input" confirm-type="done" confirm-hold="" bindconfirm="send"  ></input>
+		<button size="mini" class="btn_send" > send</button>
+	</view>
+</view>

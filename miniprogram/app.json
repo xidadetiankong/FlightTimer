@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/calclator/calculator",
+    "pages/echo/echo"
+    
+
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "echo",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#dddddd",
+    "selectedColor": "#000",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/calclator/calculator",
+        "iconPath": "img/calculatorSimUS.png",
+        "selectedIconPath": "img/calculatorSim.png",
+        "text": "计算器"
+      },
+      {
+        "pagePath": "pages/echo/echo",
+        "iconPath": "img/1.png",
+        "selectedIconPath": "img/2.png",
+        "text": "echo"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

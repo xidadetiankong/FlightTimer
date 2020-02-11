@@ -1,0 +1,104 @@
+/* pages/calclator/calculator.wxss */
+.container {
+  background: -webkit-linear-gradient(left,rgb(189, 189, 189),rgb(184, 184, 184),rgb(172, 172, 172));
+  box-shadow: 2px 2px 2px 1px gray;
+  margin:2px;
+  height: 97.4vh;
+  display: flex;
+  flex-direction: column;
+  border:4px outset rgb(117, 117, 117);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultArea {
+  background-color: rgb(206, 225, 226);
+  margin:5px;
+  margin-top: 10px;
+  border: 5px inset grey;
+  border-radius: 3px;
+  width:89vw;
+  height:24%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.resultData{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width:88.9vw;
+  height:195rpx;
+}
+.resultTemp{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  border-top: 1px solid gray;
+  width:88.9vw;
+  height: 20px;
+}
+
+.inputArea {
+  background-color:rgb(206, 225, 226);
+  
+  display: flex;
+  flex-direction: row;
+  border: 5px inset grey;
+  border-radius: 3px;
+  height:9%;
+  width: 89vw;
+}
+.savedValue{
+  font-size: 30px;
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  width:70%
+}
+.inputvalue{
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:15%;
+  border-left:3px solid rgb(201, 201, 201)
+}
+
+.buttonArea {
+  margin-top: 2px;
+  padding: 2px;
+  align-items: center;
+  justify-content: center;
+  height:60%;
+  width:98vw;
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+.button{
+  transform: scale(0.95, 0.95);
+  
+}
+
+.buttonArea view {
+  background-color: rgb(88, 88, 88);
+  color: rgb(241, 241, 241);
+  box-shadow: 1px 1px 1px 1px grey;
+  font-size: 25px;
+  margin: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:17%;
+  width:160rpx;
+  border: 3px outset rgb(155, 155, 155);
+  border-radius: 10px;
+  
+ 
+}
