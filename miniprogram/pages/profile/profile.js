@@ -105,7 +105,7 @@ Page({
     return {
       title: '大家都在用的值勤时间记录小程序',
       path: '/page/user?id=123',
-      imageUrl: '../../img/queryDuty.png'
+      imageUrl: '../../img/shareimage1.png'
     }
 
   },

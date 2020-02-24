@@ -36,22 +36,23 @@
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator> -->
-
-
-		<view class="list" hover-class="tapList">
+<navigator url="../summary/summary" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
 				<view class="titleWord">值勤时间汇总</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</view>
-		<view class="list" hover-class="tapList">
+		</navigator>
+
+<navigator url="../record/record" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
-				<image class="titleimg" src="../../img/search.png"></image>
+				<image class="titleimg" src="../../img/search.png" mode="aspectFit"></image>
 				<view class="titleWord">值勤期记录本</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</view>
+		</navigator>
+		
+		
 		<view class="list" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/share.png"></image> <button class="titleBTN" open-type="share">分享给好友</button>
