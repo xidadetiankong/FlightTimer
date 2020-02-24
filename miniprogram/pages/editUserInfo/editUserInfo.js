@@ -127,7 +127,12 @@ this.setData({
         title: '更新成功',
       })
       app.userInfo.profession=this.data.profession
-    })}
+    }).then((res)=>{
+      wx.switchTab({
+        url: '../profile/profile',
+      })
+    })
+  }
     
   }
  
