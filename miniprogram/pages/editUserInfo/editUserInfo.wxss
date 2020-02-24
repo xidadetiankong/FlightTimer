@@ -1,0 +1,90 @@
+/* pages/editUserInfo/editUserInfo.wxss */
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #2A465C;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.listParent {
+  margin-top: 60rpx;
+  width: 100%;
+
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #2A465C;
+}
+.titleWord{
+  font-size:32rpx;
+  margin-left: 20rpx;
+  text-align: center;
+}
+.list {
+ 
+  color: aliceblue;
+  height: 130rpx;
+  width: 89%;
+
+  border-radius: 10rpx;
+  margin: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #6D869A;
+}
+.avatar{
+  height: 150rpx;
+  width:150rpx;
+  border: 0.5px solid aliceblue;
+  border-radius: 50%;
+  margin-right: 80rpx;
+} 
+#headphotoID {
+  height: 200rpx;
+}
+.listInput{
+  width: 400rpx;
+  border-bottom: 1px solid rgb(129, 159, 184);
+  margin-right: 80rpx;
+}
+.tapList{
+  background:rgb(143, 176, 202) ;
+}
+.point {
+  
+  height: 38rpx;
+  width: 38rpx;
+  margin-right: 30rpx;
+  opacity: 0.6;
+}
+.confirmBTN{
+  color: aliceblue;
+  position: absolute;
+  background:#6D869A ;
+  bottom: 198.38rpx;
+  left: 0;
+  right: 0;
+}
+.listInput{
+  font-size: 30rpx;
+color: aliceblue;
+}
+#listInputNick{
+  text-align: center;
+}
+.confirmType{
+  transform: scale(0.95,0.95);
+}
+.placeholderF{
+  color:aliceblue
+}

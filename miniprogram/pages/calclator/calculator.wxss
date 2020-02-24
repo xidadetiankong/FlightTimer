@@ -1,11 +1,21 @@
 /* pages/calclator/calculator.wxss */
+
+.page{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background:#2A465C ;
+}
 .container {
-  background: -webkit-linear-gradient(left,rgb(189, 189, 189),rgb(184, 184, 184),rgb(172, 172, 172));
+  background: -webkit-linear-gradient(left,rgb(231, 231, 231),rgb(209, 209, 209),rgb(216, 214, 214));
   box-shadow: 2px 2px 2px 1px gray;
   margin:2px;
   height: 97.4vh;
   display: flex;
   flex-direction: column;
+  
   border:4px outset rgb(117, 117, 117);
   border-radius: 10px;
   align-items: center;
@@ -31,15 +41,27 @@
   align-items: flex-end;
   width:88.9vw;
   height:195rpx;
+  flex-grow: 1;
+}
+.resultData{
+  margin-right: 10rpx;
+  width:95%;
+  height: 30rpx;
+  color: rgb(77, 77, 77);
+  font-style: oblique ;
 }
 .resultTemp{
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  
+
   border-top: 1px solid gray;
-  width:88.9vw;
+  width:87.8vw;
   height: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 2px;
 }
 
 .inputArea {
@@ -49,8 +71,11 @@
   flex-direction: row;
   border: 5px inset grey;
   border-radius: 3px;
-  height:9%;
+  height:60rpx;
   width: 89vw;
+}
+.tag{
+  color: rgb(192, 192, 192);
 }
 .savedValue{
   font-size: 30px;
@@ -84,6 +109,9 @@
 .button{
   transform: scale(0.95, 0.95);
   
+}
+.takeTheResult{
+  background-color: azure;
 }
 
 .buttonArea view {

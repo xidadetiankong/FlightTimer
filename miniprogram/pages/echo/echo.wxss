@@ -1,27 +1,220 @@
 /**index.wxss**/
-.container{
-  height: 100vh;
-  width: 100vw;
+ 
+.container {
+  height:95vh;
+ 
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  
+ 
+  
 }
-.conversationArea{
-  height: 85vh;
-  width: 95vw;
-  flex-grow: 1;
-  border:1px solid rgb(79, 109, 114);
+.background{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ 
 }
 .inputArea{
-margin-top: 30px;
-margin-bottom: 20px;
+  position: absolute;
+  width: 95vw;
+  
+  border-radius: 30rpx;
+  background: #6D869A;
+  opacity: 0.8;
+}
+.intiArgs{
+  width:95vw
+}
+.head{
+  font-size: 40rpx;
+  font-weight: bolder;
+  color: white;
+  text-align: center;
+  margin-top: 20rpx
+}
+
+.timeInti {
+  font-size: 27rpx;
+  text-align: center;
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20rpx;
+  height: 80rpx;
+  /* border-top: 1px solid transparent; */
+  border-bottom: 1px solid white;
+  
+  margin-top: 30rpx;
+  margin-bottom: 40rpx;
+
 }
-.input{
-  border-bottom: 1px solid;
+
+.checkIn {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60rpx
 }
-.btn_send{
-  height: 30px;
+.checkIn2 {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  height: 60rpx
+}
+
+.checkIn_class {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border-top: 1px solid transparent; */
+  border-bottom: 1px solid white;
+  
+}
+
+.checkIn view {
+  font-size: 29rpx;
+  margin: 10rpx;
+}
+.title{
+ 
+  font-size: 29rpx;
+  width: auto;
+  height: fit-content;
+  color:white;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.addRestBtn{
+  color: white;
+  font-size: 30rpx;
+  margin-left: 2rpx;
+  margin-right: 30rpx;
+  padding: 10rpx;
+  border:1px solid white ;
+  border-radius: 5px;
+}
+.addRestBtn_h{
+  transform: scale(0.95, 0.95);
+background:#2A465C;
+}
+.title_radiogroup{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: white;
+  margin-right: 30rpx;
+}
+.selected_view{
+  width:95vw
+}
+
+
+.submit{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 45rpx;
+  justify-content: space-around;
+  align-items: center;
+
+  display: flex;
+  flex-direction: row;
+  height:37rpx;
+  width: 100vw;
+}
+.submit view{
+  text-align:center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: rgb(56, 56, 56);
+  font-size: 38rpx;
+  font-weight: bolder;
+  height:65rpx;
+  width:160rpx;
+  border:1px solid aliceblue;
+  border-radius: 30rpx;
+  background: aliceblue;
+  opacity: 0.7;
+}
+
+.reBTN{
+  transform: scale(0.95, 0.95);
+
+}
+.resultArea{
+  height:500rpx;
+  width:75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.confirm_button{
+  position: relative;
+  bottom: 0;
+  width: 500rpx;
+  height:80rpx;
+  /* border:1px solid black; */
+margin-top: 45rpx;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  
+
+}
+.button1{
+  height: 70rpx;
+  width: 130rpx;
+  border: 1px solid #2A465C;
+  border-radius: 20rpx;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  font-weight: bolder;
+  font-size: 35rpx;
+  color: rgb(89, 148, 194);
+}
+.pressBTN1{
+  background: rgb(64, 83, 97) ;
+}
+.resultText{
+  font-size: 35rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  margin:15rpx;
+  width:90%;
+  height: 60rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20rpx;
+  background: white;
 }

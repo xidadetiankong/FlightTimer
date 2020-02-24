@@ -1,0 +1,78 @@
+<!--pages/profile/profile.wxml-->
+
+<view class="container">
+	<view class="myAcount">
+
+		<image class="avater" src="{{avatarUrl}}"></image>
+		<view class="myAcountChild" wx:if="{{hasCount}}">
+			<view><text >Hello~!{{nickName}}</text></view>
+
+			<open-data class="sex" type='userGender' lang="zh_CN"></open-data>
+			<open-data class="city" type='userCity' lang="zh_CN"></open-data>
+
+		</view>
+
+		<button wx:else disabled="{{disabled}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+		
+
+	</view>
+	<view class="listParent" hidden="{{!hasCount}}">
+
+
+	
+		<navigator url="../editUserInfo/editUserInfo" class="list" open-type="navigate" hover-class="tapList">
+			<view class="title">
+				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
+				<view class="titleWord">编辑个人信息</view>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</navigator>
+
+
+		<!-- <navigator url="../friendList/friendList" class="list" open-type="navigate" hover-class="tapList">//后期开发
+			<view class="title">
+				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
+				<view class="titleWord">我的好友列表</view>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</navigator> -->
+
+
+		<view class="list" hover-class="tapList">
+			<view class="title">
+				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
+				<view class="titleWord">值勤时间汇总</view>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</view>
+		<view class="list" hover-class="tapList">
+			<view class="title">
+				<image class="titleimg" src="../../img/search.png"></image>
+				<view class="titleWord">值勤期记录本</view>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</view>
+		<view class="list" hover-class="tapList">
+			<view class="title">
+				<image class="titleimg" src="../../img/share.png"></image> <button class="titleBTN" open-type="share">分享给好友</button>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</view>
+
+		<view class="list" hover-class="tapList">
+			<view class="title">
+				<image class="titleimg" src="../../img/service.png"></image> <button class="titleBTN" open-type="contact" bindcontact="handleContact">帮助和反馈</button>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</view>
+
+
+		<view class="versionInfo">Flight Timer Version 1.0.0</view>
+
+	</view>
+
+
+
+
+	
+</view>

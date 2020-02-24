@@ -1,0 +1,22 @@
+<!--pages/editUserInfo/editUserInfo.wxml-->
+<view class="container">
+<view class=".listParent">
+
+  <view url="../avatar/avatar" class="list" id="headphotoID" open-type="navigate" hover-class="tapList">
+		<view class="titleWord">头像</view>
+		<image class="avatar" src="{{avatarUrl}}" mode="aspectFit"></image>
+	</view>
+  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
+		<view class="titleWord">昵称:</view><input id="listInputNick" class="listInput" value="{{nickName}}" bindinput="inputnickName" ></input>
+	</view>
+  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
+		<view class="titleWord">个性签名:</view><input id="listInputNick" class="listInput" value="{{signature}}"  bindinput="inputsignature"></input>
+	</view>
+  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
+		<view class="titleWord">职业：</view><input id="listInputNick" class="listInput" value="{{profession}}" bindinput="inputprofession" ></input>
+	</view>
+ 
+</view>
+	<button class="confirmBTN" hover-class="confirmType" bindtap="confirmCHG">确认修改</button>
+
+</view>

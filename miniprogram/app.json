@@ -1,34 +1,48 @@
 {
   "pages": [
-    "pages/calclator/calculator",
-    "pages/echo/echo"
+    "pages/echo/echo",
+    "pages/profile/profile",
+    "pages/editUserInfo/editUserInfo",
     
-
+    "pages/tools/tools",
+    
+    "pages/calclator/calculator",
+    
+    "pages/friendList/friendList",
+    "pages/summary/summary",
+    "pages/record/record"
+    
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#2A465C",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "echo",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#2A465C",
+    "navigationBarTitleText": "FlightTimer",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#dddddd",
-    "selectedColor": "#000",
-    "borderStyle": "black",
-    "backgroundColor": "#fff",
+    "color": "#6D869A",
+    "selectedColor": "#2A465C",
+    "borderStyle": "white",
+    "backgroundColor": "aliceblue",
     "list": [
       {
-        "pagePath": "pages/calclator/calculator",
-        "iconPath": "img/calculatorSimUS.png",
-        "selectedIconPath": "img/calculatorSim.png",
-        "text": "计算器"
+        "pagePath": "pages/echo/echo",
+        "iconPath": "img/UNqueryDuty.png",
+        "selectedIconPath": "img/queryDuty.png",
+        "text": "执勤期查询"
       },
       {
-        "pagePath": "pages/echo/echo",
-        "iconPath": "img/1.png",
-        "selectedIconPath": "img/2.png",
-        "text": "echo"
+        "pagePath": "pages/tools/tools",
+        "iconPath": "img/toolsUS.png",
+        "selectedIconPath": "img/toolsS.png",
+        "text": "简易小工具"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "img/profileUS.png",
+        "selectedIconPath": "img/profileS.png",
+        "text": "我的主页"
       }
     ]
   },

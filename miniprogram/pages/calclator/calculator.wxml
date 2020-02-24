@@ -1,20 +1,23 @@
 <!--pages/calclator/calculator.wxml-->
-<view class="container">
+<view class="page"><view class="container">
 	<view class="resultArea">
-  <view class="resultData">{{resultData}}{{equationRC}}</view>
-  <view class="resultTemp">{{resultTemp}}</view>
-  </view>
+		<view class="resultData" hover-class="takeTheResult" bindlongpress="takeTheResult" id="{{item}}" hover-start-time="60" wx:for="{{resultData}}" wx:key="index"> {{item}}</view>
+		<view class="resultTemp" hover-class="takeTheResult" bindlongpress="takeTheResult" id="{{equationRC}}" hover-start-time="60">
+			<view class="tag">长按复制</view>
+			<view>{{equationRC}}</view>
+		</view>
+	</view>
 	<view class="inputArea">
-		<view class="savedValue"  >{{inputTemp}}</view>
+		<view class="savedValue">{{inputTemp}}</view>
 		<view class="inputvalue">{{inputvalue}}</view>
 
 	</view>
-  <!-- opBtn /numBtn/dotBtn/delBtn/restBtn-->
+	<!-- opBtn /numBtn/dotBtn/delBtn/restBtn-->
 	<view class="buttonArea">
 
-<!-- aaq//hoverclass can take a value through with the attribute "data-val" -->
-		<view hover-class="button"  bindtap="restBtn">CLR</view>
-		<view hover-class="button"  bindtap="delBtn">BACK</view>
+		<!-- aaq//hoverclass can take a value through with the attribute "data-val" -->
+		<view hover-class="button" bindtap="restBtn">CLR</view>
+		<view hover-class="button" bindtap="delBtn">BACK</view>
 		<view hover-class="button" data-val="%" bindtap="opBtn">%</view>
 		<view hover-class="button" data-val="/" bindtap="opBtn">÷</view>
 		<view hover-class="button" data-val="7" bindtap="numBtn">7</view>
@@ -29,12 +32,12 @@
 		<view hover-class="button" data-val="2" bindtap="numBtn">2</view>
 		<view hover-class="button" data-val="3" bindtap="numBtn">3</view>
 		<view hover-class="button" data-val="+" bindtap="opBtn">+</view>
-		<view hover-class="button"  data-val="3.14" bindtap="numBtn">π</view>
+		<view hover-class="button" data-val="3.14" bindtap="numBtn">π</view>
 		<view hover-class="button" data-val="0" bindtap="numBtn">0</view>
-		<view hover-class="button"  bindtap="dotBtn">.</view>
-		<view hover-class="button"  bindtap="equalbtn">=</view>
+		<view hover-class="button" bindtap="dotBtn">.</view>
+		<view hover-class="button" bindtap="equalbtn">=</view>
 
 
 
 	</view>
-</view>
+</view></view>

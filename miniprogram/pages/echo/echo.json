@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "resulkt":"/components/resulkt/resulkt"
+  }
+ 
 }

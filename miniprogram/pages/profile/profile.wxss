@@ -1,0 +1,169 @@
+/* pages/profile/profile.wxss */
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #2A465C;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.myAcount {
+  position: fixed;
+  background: #2A465C;
+  top: 0;
+  height: 250rpx;
+  width: 100%;
+  z-index: 100;
+  
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.myAcountChild {
+ margin-top: 20rpx;
+  color: aliceblue;
+  margin-left: 40rpx;
+  width: 450rpx;
+  height: 200rpx;
+
+}
+
+.myAcountChild view {
+  color: aliceblue;
+  margin-top: 10rpx;
+}
+.nickname{
+  font-size: 41rpx;
+  font-weight: bolder;
+}
+
+.myAcountChild_child {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+}
+
+.city{
+  font-size: 30rpx;
+  margin-top: 10rpx;
+  margin-left: 60rpx;
+}
+.sex{
+  font-size: 30rpx;
+}
+
+.avater {
+  width:200rpx;
+    height: 200rpx;
+    margin: 0 auto;
+    border: 0.5rpx solid white;
+    border-radius: 50%;
+    display:flex;
+    overflow: hidden;
+}
+
+.signature {
+  font-size: 25rpx;
+
+  height: 60rpx
+}
+
+.listParent {
+  margin-top: 250rpx;
+  width: 100%;
+
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #2A465C;
+}
+
+.list {
+  height: 130rpx;
+  width: 89%;
+
+  border-radius: 25rpx;
+  margin: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #6D869A;
+}
+
+.service{
+  font-weight: bolder;
+  position: absolute;
+  bottom: 60rpx;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+  text-align: center;
+  color: aliceblue;
+ 
+   background: #6D869A;
+}
+
+.tapList {
+  transform: scale(1.02, 1.02);
+}
+
+.title {
+  color: aliceblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 120rpx;
+  width: 550rpx;
+  margin-left: 30rpx;
+
+}
+
+.titleimg {
+  
+  height: 80rpx;
+  width: 80rpx;
+  opacity: 0.8;
+}
+.titleWord{
+  padding-left: 50rpx;
+}
+.titleBTN{
+  background: #6D869A;
+  text-align: start;
+  padding-left: 0;
+  color: aliceblue;
+  font-weight: normal;
+}
+
+.point {
+  
+  height: 38rpx;
+  width: 38rpx;
+  margin-right: 30rpx;
+  opacity: 0.6;
+}
+
+.versionInfo {
+  text-align: center;
+ margin-top: 30rpx;
+ margin-bottom: 30rpx;
+  background: #2A465C;
+  width: 100vw;
+  bottom: 0rpx;
+  color: aliceblue;
+  font-size: 20rpx;
+}

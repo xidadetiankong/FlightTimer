@@ -1,11 +1,172 @@
 <!--index.wxml-->
+
+
+
+
 <view class="container">
-	<view class="conversationArea">
-  <view>{{question}}</view>
-  <view>{{answer}}</view>
-  </view>
+
+
+	<image class="background" src="../../img/lanbackgroud.png"></image>
 	<view class="inputArea">
-		<input value="{{inputvalue}}" class="input" confirm-type="done" confirm-hold="" bindconfirm="send"  ></input>
-		<button size="mini" class="btn_send" > send</button>
+		<view class="intiArgs">
+			<view class="head">执勤期查询器</view>
+
+
+			<view class="timeInti">
+				<view class="checkIn">
+					<view class="title" >签到时间：</view>
+					<view class="checkIn_class">
+						<view class="checkIn_date">
+							<picker mode="date" value="{{date}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDate"> {{date}}</picker>
+						</view>
+						<view class="checkIn_time">
+							<picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{time}}</picker>
+						</view>
+					</view>
+				</view>
+			</view>
+
+
+			<view class="timeInti">
+				<view class="checkIn">
+					<view class="title" >机组编制：</view>
+					<view class="checkIn_class">
+						<view class="checkIn_date">
+							<picker value="{{index}}" range="{{teamSize}}" bindchange="selectTeam"> {{selectedTeam}}</picker>
+						</view>
+					</view>
+				</view>
+			</view>
+
+
+			<view class="timeInti">
+				<view class="checkIn2">
+					<view class="title" >中间关车：</view>
+					<view class="checkIn_class">
+						<view class="checkIn_date">
+							<picker mode="time" value="{{CheckOutTime}}" start="00:00" end="24:00" bindchange="selectCheckOutTime"> {{CheckOutTime}}</picker>
+						</view>
+					</view>
+					<view class="title">中途进场：</view>
+					<view class="checkIn_class">
+						<view class="checkIn_date">
+							<picker mode="time" value="{{CheckInTime2}}" start="00:00" end="24:00" bindchange="selectCheckInTime2"> {{CheckInTime2}}</picker>
+						</view>
+					</view>
+				</view>
+				<view class="addRestBtn" hover-class="addRestBtn_h" bindtap="addRestTime">添加</view>
+			</view>
+
+
+
+			<view class="timeInti">
+				<view class="checkIn">
+					<view class="title">关车时间：</view>
+					<view class="checkIn_class">
+						<view class="checkIn_date">
+							<picker mode="date" value="{{EndDate}}" start="1900-0-01" end="2200-12-31" bindchange="selectEndDate"> {{EndDate}}</picker>
+						</view>
+						<view class="checkIn_time">
+							<picker mode="time" value="{{EndTime}}" start="00:00" end="23:59" bindchange="selectEndTime"> {{EndTime}}</picker>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+
+
+		<view class="selected_view">
+
+			<view class="unaugment" hidden="{{selectedTeam==='扩编机组'?true:false}}">
+
+				<view class="timeInti">
+					<view class="title">段数：</view>
+					<view class="title_radiogroup">
+						<radio-group bindchange="choseSegment">
+							<radio value='4' checked>1~4段</radio>
+							<radio value='5'>5段</radio>
+							<radio value='6'>6段</radio>
+							<radio value='7'>7段或以上</radio>
+						</radio-group>
+					</view>
+
+				</view>
+			</view>
+			<view class="augment" hidden="{{selectedTeam==='非扩编机组'?true:false}}">
+
+				<view class="timeInti">
+					<view class="title">休息设施等级：</view>
+					<view class="title_radiogroup">
+						<radio-group bindchange="choseRestFacility">
+							<radio value='1'>1级</radio>
+							<radio value='2'>2级</radio>
+							<radio value='3' checked>3级</radio>
+						</radio-group>
+					</view>
+
+
+				</view>
+				<view class="timeInti">
+					<view class="title">飞行机组人数：</view>
+					<view class="title_radiogroup">
+						<radio-group bindchange="chosePilotNumbers">
+							<radio value='3' checked>3名</radio>
+							<radio value='4'>4名</radio>
+						</radio-group>
+					</view>
+
+				</view>
+
+			</view>
+		</view>
 	</view>
+
+
+
+	<view class="submit">
+		<view hover-class="reBTN" class="refreshBTN" bindtap="refreshBTN"> 重置</view>
+		
+		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">提示</view>
+		<view hover-class="reBTN" class="resultBTN" bindtap="resultBTN">查询</view>
+	</view>
+
+	<resulkt myProperty="{{show_result}}">
+
+		<view class="resultArea">
+			<view class="resultText">
+				<view>最大飞行时间：</view>
+				<view>{{maxFlightTime}}</view>
+			</view>
+			<view class="resultText">
+				<view>最大执勤时间：</view>
+				<view>{{maxDutyTime}}</view>
+			</view>
+			<view class="resultText">
+				<view>执勤截止时间：</view>
+				<view>{{dutyEndTime}}</view>
+			</view>
+			<view class="resultText">
+				<view>中途退场时间：</view>
+				<view>{{totalRestTimeInhours}}</view>
+			</view>
+			<view class="resultText">
+				<view>剩余执勤时间：</view>
+				<view>{{dutyTimeRemain}}</view>
+			</view>
+			<view class="resultText">
+				<view>今日执勤时间：</view>
+				<view>{{totalDutyTime}}</view>
+			</view>
+			<text>温馨提示！请确认数据正确后再上传。</text>
+			<text>结果仅供参考请以实际规定为准!</text>
+			
+
+		</view>
+		<view class="confirm_button">
+			<view hover-class="pressBTN1" class="button1" bindtap="upload">上传</view>
+			<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>
+		</view>
+	</resulkt>
+	
 </view>

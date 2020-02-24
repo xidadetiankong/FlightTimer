@@ -2,7 +2,7 @@
 Page({
 
   data: {
-    resultData: [], //最终结果存储，按下等号后起作用
+    resultData: [''], //最终结果存储，按下等号后起作用
     inputvalue: '', //only for showing the inputvalue将输入参数单独展示
     inputTemp: '', //记录数字输入记录
     equationRC:'',//算式输入记录
@@ -19,26 +19,38 @@ Page({
     var resultTemp = this.data.resultTemp;
     var numberInput = this.data.numberInput;
     var opValue = this.data.opValue;
-    var equationRC=this.data.equationRC
+    var equationRC=this.data.equationRC;
+    var resultData=this.data.resultData;
 
     //先判断是否为空值
     if(resultTemp!=''&&opValue!=''&&numberInput!=''){
 console.log('在哪里',(123).toString())
+
+if(resultTemp.indexOf('.')>=0 ||numberInput.indexOf('.')>=0){
+
+  resultTemp=parseFloat(resultTemp);
+  numberInput=parseFloat(numberInput)
+
+}else{
+  resultTemp=parseInt(resultTemp);
+  numberInput=parseInt(numberInput)
+}
+
       switch(opValue){
         
-        case '+': resultTemp=((parseFloat(resultTemp)+parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '+': resultTemp=(((resultTemp)+(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '-': resultTemp=((parseFloat(resultTemp)-parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '-': resultTemp=(((resultTemp)-(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '*': resultTemp=((parseFloat(resultTemp)*parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '*': resultTemp=(((resultTemp)*(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '/': resultTemp=((parseFloat(resultTemp)/parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '/': resultTemp=(((resultTemp)/(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '%': resultTemp=((parseFloat(resultTemp)%parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '%': resultTemp=(((resultTemp)%(numberInput) ) ).toString()
         console.log('在这里')
         break;
 
@@ -46,17 +58,43 @@ console.log('在哪里',(123).toString())
       }
     }
 
+    resultData.push(equationRC)
+    if(resultData.length>3){//限制数组长度
+      
+      resultData.shift()
+    };
+   
 
-
-    console.log('终于到这了')
+    console.log('终于到这了',resultData)
     this.setData({
-      opValue: '',
-      inputvalue: '=',
+      inputTemp: '',
       resultTemp:resultTemp,
+      opValue: '',
+      inputvalue: '',
+      equationRC:resultTemp,
       numberInput:'',
-      equationRC:resultTemp
+      resultData:resultData
     })
 
+  },
+
+  takeTheResult:function(e){
+
+    console.log(e.currentTarget)
+    wx.setClipboardData({
+      data:e.currentTarget.id,
+      success (res) {
+      wx.getClipboardData({
+      success (res) {
+      console.log(res.data) // data
+      }
+      })
+      }
+      })
+      
+    
+    
+    
   },
 
 
@@ -85,21 +123,30 @@ console.log('在哪里',(123).toString())
        })
     }else if(resultTemp!=''&&opValue!=''&&numberInput!=''){
 console.log('在哪里',(123).toString())
+if(resultTemp.indexOf('.')>=0 ||numberInput.indexOf('.')>=0){
+
+  resultTemp=parseFloat(resultTemp);
+  numberInput=parseFloat(numberInput)
+
+}else{
+  resultTemp=parseInt(resultTemp);
+  numberInput=parseInt(numberInput)
+}
       switch(opValue){
         
-        case '+': resultTemp=((parseFloat(resultTemp)+parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '+': resultTemp=(((resultTemp)+(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '-': resultTemp=((parseFloat(resultTemp)-parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '-': resultTemp=(((resultTemp)-(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '*': resultTemp=((parseFloat(resultTemp)*parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '*': resultTemp=(((resultTemp)*(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '/': resultTemp=((parseFloat(resultTemp)/parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '/': resultTemp=(((resultTemp)/(numberInput) ) ).toString()
         console.log('在这里')
         break;
-        case '%': resultTemp=((parseFloat(resultTemp)%parseFloat(numberInput) ) .toFixed(6)).toString()
+        case '%': resultTemp=(((resultTemp)%(numberInput) ) ).toString()
         console.log('在这里')
         break;
 
@@ -107,15 +154,21 @@ console.log('在哪里',(123).toString())
       }
     }
 
-
-
+    var resultData=this.data.resultData;
+    resultData.push(equationRC)
+    
+    if(resultData.length>3){//限制数组长度
+      
+      resultData.shift()
+    };
     console.log(e.target.dataset.val)
     this.setData({
       opValue: e.target.dataset.val,
       inputvalue: e.target.dataset.val,
       resultTemp:resultTemp,
       numberInput:'',
-      equationRC:resultTemp
+      equationRC:resultTemp,
+      resultData:resultData
     })
   },
   //2.define the value of number button
@@ -199,7 +252,8 @@ console.log('在哪里',(123).toString())
 
       this.setData({
         numberInput: numberIp,
-        inputTemp: numberIp //只是传数据至输入框
+        inputTemp: numberIp, //只是传数据至输入框
+        equationRC:resultTemp+opValue+numberIp+'='
       })
       console.log('cc', numberIp)
     } else if ((resultTemp != '') && (opValue != '') && numberIp != '') { //构建2号值
@@ -224,7 +278,7 @@ console.log('在哪里',(123).toString())
       })
       this.data.numberInput = numberIp.substring(0, 12);
       this.data.inputTemp = inputTemp.substring(0, 12);
-      this.data.resultTemp = resultTemp.substring(0, 12)
+      this.data.resultTemp = resultTemp.substring(0, 11)
     };
 
     //限制π值重复输入
@@ -319,7 +373,7 @@ console.log('在哪里',(123).toString())
   restBtn: function () {
     console.log('清空')
     this.setData({
-      resultData: [], //最终结果存储，按下等号后起作用
+      resultData: [''], //最终结果存储，按下等号后起作用
       numberInput: '', //输入数据展示，点击num或op后生效
       inputvalue: '', //only for showing the inputvalue
       resultTemp: '', //临时结果展示，点击op后生效

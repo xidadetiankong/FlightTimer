@@ -1,0 +1,13 @@
+<!--components/result/resulkt.wxml-->
+  
+<view class="background" hidden="{{myProperty}}">
+
+
+	<view class="container">
+  
+   <slot></slot>
+	
+  </view>
+
+ 
+</view>

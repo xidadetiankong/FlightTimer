@@ -1,0 +1,12 @@
+<!--pages/tools/tools.wxml-->
+<image class="background" src="../../img/lanbackgroud.png"></image>
+<view class="container">
+	<view class="choseBTN" wx:for="{{toolsIcon}}" wx:key="id" id="{{item.id}}" hover-class="icontap" bindtap="iconTap">
+		<view class="toolsIcon"  >
+			<image src="{{item.url}}" mode="aspectFit"></image>
+		</view>
+		<view class="toolsTitle">{{item.title}}</view>
+	</view>
+	
+
+</view>
