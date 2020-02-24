@@ -175,8 +175,7 @@
 				<view>今日执勤时间：</view>
 				<view>{{totalDutyTimeForShow}}</view>
 			</view>
-			<text>温馨提示！请确认数据正确后再上传。</text>
-			<text>结果仅供参考请以实际规定为准!</text>
+			
 			<view class="TOInput">
 				<view class="TOInputElement">
 					<view>实际飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
@@ -185,6 +184,15 @@
 					<view>操纵落地数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureLandings}}" bindinput="inputLandings"></input>
 				</view>
 			</view>
+			<view class="TOInput">
+				<view class="TOInputElement">
+					<view>备注：</view><input class="ToInputInput1" type="text" maxlength="50" value="{{remarks}}" bindinput="remarks"></input>
+				</view>
+				
+			</view>
+
+			<text>温馨提示！请确认数据正确后再上传。</text>
+			<text>结果仅供参考请以实际规定为准!</text>
 
 
 		</view>

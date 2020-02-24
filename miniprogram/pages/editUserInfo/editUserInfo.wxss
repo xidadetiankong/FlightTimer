@@ -33,10 +33,10 @@
  
   color: aliceblue;
   height: 130rpx;
-  width: 89%;
+  width:99%;
 
   border-radius: 10rpx;
-  margin: 10rpx;
+  margin:2rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

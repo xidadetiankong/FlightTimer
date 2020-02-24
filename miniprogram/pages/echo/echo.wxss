@@ -253,5 +253,9 @@ margin-top: 45rpx;
   margin-bottom: 5rpx;
   width: 80rpx;
   
-  background: rgb(212, 212, 212);
+  border-bottom: 1px solid#2A465C;
+}
+.ToInputInput1{
+  width: 75%;
+  border-bottom: 1px solid#2A465C;
 }

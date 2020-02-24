@@ -28,6 +28,7 @@ Page({
     actureFlightLegs:0,
     actureLandings:0,
     userID:'',
+    remarks:'',
 
 
     //结果参数
@@ -115,7 +116,7 @@ Page({
               db.collection('timeData').doc(res._id).update({
                 
                 data:{
-                  
+                  remarks:this.data.remarks,
                   checkintime:checkintime,
                   EndTime:EndTime,
                   totalDutyTime:this.total_dutytime(),
@@ -177,6 +178,7 @@ Page({
     crewNumbers: '3', //机组人数
     actureFlightLegs:0,
     actureLandings:0,
+    remarks:'',
 
     //结果参数
     dutyTimeRemainForShow:'',
@@ -293,6 +295,11 @@ Page({
   inputLandings:function(ev){
     let value=ev.detail.value;
     this.data.actureLandings=value
+    
+  },
+ remarks:function(ev){
+    let value=ev.detail.value;
+    this.data.remarks=value
     
   },
   addRestTime: function () {//optimized
