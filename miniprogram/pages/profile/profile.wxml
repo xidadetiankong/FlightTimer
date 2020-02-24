@@ -12,7 +12,7 @@
 
 		</view>
 
-		<button wx:else disabled="{{disabled}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+		<button wx:else disabled="{{disabled}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">点击开启记录</button>
 		
 
 	</view>

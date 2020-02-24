@@ -71,14 +71,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  
   width: 80%;
-  height: 60rpx
+  
 }
 
 .checkIn_class {
+  font-size: 20rpx;
   text-align: start;
-  width:268rpx;
+  width:275rpx;
   color: white;
   display: flex;
   flex-direction: row;
@@ -95,10 +96,14 @@
 .checkIn_date{
   margin-right: 15rpx;
 }
+.checkIn_date1{
+  margin-left: 15rpx;
+  font-size: 26rpx;
+}
 .title{
  
   font-size: 29rpx;
-  width: auto;
+  width:auto;
   height: fit-content;
   color:white;
   margin-left: 10rpx;
@@ -168,7 +173,7 @@ background:#2A465C;
 
 }
 .resultArea{
-  height:500rpx;
+  height:80%;
   width:75%;
   display: flex;
   flex-direction: column;
@@ -178,8 +183,7 @@ background:#2A465C;
 }
 
 .confirm_button{
-  position: relative;
-  bottom: 0;
+  
   width: 500rpx;
   height:80rpx;
   /* border:1px solid black; */
@@ -212,15 +216,42 @@ margin-top: 45rpx;
 }
 .resultText{
   font-size: 32rpx;
-  padding-left: 40rpx;
-  padding-right: 40rpx;
+ 
   margin:15rpx;
-  width:95%;
-  height: 60rpx;
+  width:600rpx;
+  height: 100rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-radius: 20rpx;
   background: white;
+}
+.resultText view{
+  margin:10rpx
+}
+.TOInput{
+  height:80rpx;
+  width:600rpx;
+  margin: 20rpx;
+  border-radius: 20rpx;
+  background: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.TOInputElement{
+  margin: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.ToInputInput{
+  margin-top: 5rpx;
+  margin-bottom: 5rpx;
+  width: 80rpx;
+  
+  background: rgb(212, 212, 212);
 }

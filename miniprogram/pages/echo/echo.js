@@ -25,6 +25,10 @@ Page({
     //扩编机组
     rstFaciliyLevel: '3', //休息设施等级
     crewNumbers: '3', //机组人数
+    actureFlightLegs:0,
+    actureLandings:0,
+    userID:'',
+
 
     //结果参数
     dutyTimeRemainForShow:'',
@@ -38,6 +42,50 @@ Page({
     pauseTime: [],
     totalRestTime: 0, //total rest time in millisecond
     totalRestTimeInhours: '00:00'
+
+  },
+  onShow: function () {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {}
+    }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
+      // console.log(res);
+      db.collection('userprofile').where({
+        _openid: res.result.openid
+      }).get().then((res) => {
+        if(res.data.length){
+          app.userInfo = Object.assign(app.userInfo, res.data[0]);
+          this.setData({
+            
+            userID: app.userInfo._id,
+            
+          })
+        }
+        
+      })
+    })
+  },
+  onReady: function () {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {}
+    }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
+      // console.log(res);
+      db.collection('userprofile').where({
+        _openid: res.result.openid
+      }).get().then((res) => {
+        if(res.data.length){
+          app.userInfo = Object.assign(app.userInfo, res.data[0]);
+          this.setData({
+            
+            userID: app.userInfo._id,
+            
+          })
+        }
+        
+      })
+    })
+
 
   },
   uploadBTN:function(){
@@ -54,9 +102,11 @@ Page({
           _openid: res.result.openid
         }).get().then((res) => {
           if(res.data.length){
+            
             db.collection('timeData').add({
               data:{
-                userid:app.userInfo._id
+                userid:this.data.userID,
+                
               }
             }).then( (res)=>{
               wx.showLoading({
@@ -65,16 +115,22 @@ Page({
               db.collection('timeData').doc(res._id).update({
                 
                 data:{
+                  
                   checkintime:checkintime,
                   EndTime:EndTime,
                   totalDutyTime:this.total_dutytime(),
-                  overTime:this.data.overTime
+                  overTime:this.data.overTime,
+                  actureFlightLegs:this.data.actureFlightLegs,
+                  actureLandings:this.data.actureLandings,
                 }
               }).then((res)=>{
                 wx.hideLoading({})
                 wx.showToast({
                   title: '成功添加记录',
                 })
+                this.setData({
+                  show_result:true,
+                }) 
                 console.log(res)
               })
             })
@@ -119,6 +175,8 @@ Page({
     //扩编机组
     rstFaciliyLevel: '3', //休息设施等级
     crewNumbers: '3', //机组人数
+    actureFlightLegs:0,
+    actureLandings:0,
 
     //结果参数
     dutyTimeRemainForShow:'',
@@ -132,6 +190,7 @@ Page({
     pauseTime: [],
     totalRestTime: 0, //total rest time in millisecond
     totalRestTimeInhours: '00:00'
+
 
     })
   },
@@ -222,6 +281,19 @@ Page({
       })
     }
     console.log(this.data.rstFaciliyLevel)
+  },
+  //add flightlegs and landings//actureFlightLegs:0, actureLandings:0,
+
+   
+  inputFltLegs:function(ev){
+    let value=ev.detail.value;
+    this.data.actureFlightLegs=value
+    
+  },
+  inputLandings:function(ev){
+    let value=ev.detail.value;
+    this.data.actureLandings=value
+    
   },
   addRestTime: function () {//optimized
     var checkintime=DATE.timeToStamp(this.data.date,this.data.time);
@@ -337,13 +409,7 @@ Page({
       icon:'none'
     })
     return
-  }else if(EndTime==checkintime){//watch out the using of'='
-    wx.showToast({
-      title: '输入截止时间无效',
-      icon:'none'
-    })
-    return
-  }else if(EndTime>checkintime){
+  }else if(EndTime>=checkintime){
     var totalDutyTime = EndTime-checkintime
   };
 
@@ -497,7 +563,7 @@ Page({
     var timepassed = CheckOutTime-checkintime;
     var totalDutyTime=this.total_dutytime()
     var dutyTimeRemain;
-    if ((timepassed <= 0)&&(totalDutyTime<=0)) {
+    if ((timepassed <= 0)||(totalDutyTime=0)) {
      wx.showToast({
        title: '能量还未开始消耗哦',
        icon:'none'

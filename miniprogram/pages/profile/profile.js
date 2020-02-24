@@ -84,7 +84,14 @@ Page({
             nickName: app.userInfo.nickName,
             hasCount: true
           })
-        }))
+        })).then((res)=>{
+          
+          wx.switchTab({
+            url: '../echo/echo',
+          })
+        })
+
+
       })
     }
   },

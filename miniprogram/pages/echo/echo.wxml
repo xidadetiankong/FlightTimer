@@ -14,7 +14,7 @@
 
 			<view class="timeInti">
 				<view class="checkIn">
-					<view class="title" >签到时间：</view>
+					<view class="title">签到时间：</view>
 					<view class="checkIn_class">
 						<view class="checkIn_date">
 							<picker mode="date" value="{{date}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDate"> {{date}}</picker>
@@ -29,7 +29,7 @@
 
 			<view class="timeInti">
 				<view class="checkIn">
-					<view class="title" >机组编制：</view>
+					<view class="title">机组编制：</view>
 					<view class="checkIn_class">
 						<view class="checkIn_date">
 							<picker value="{{index}}" range="{{teamSize}}" bindchange="selectTeam"> {{selectedTeam}}</picker>
@@ -41,30 +41,30 @@
 
 			<view class="timeInti">
 				<view class="checkIn2">
-					<view class="title" >短停关车（退场）：</view>
+					<view class="title">短停或退场：</view>
 					<view class="checkIn_class">
-					<view class="checkIn_date">
+						<view class="checkIn_date1">
 							<picker mode="date" value="{{CheckOutDate}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckOutDate"> {{CheckOutDate}}</picker>
 						</view>
-						<view class="checkIn_date">
-							<picker mode="time" value="{{CheckOutTime}}" start="00:00" end="24:00" bindchange="selectCheckOutTime">  {{CheckOutTime}}</picker>
+						<view class="checkIn_date1">
+							<picker mode="time" value="{{CheckOutTime}}" start="00:00" end="24:00" bindchange="selectCheckOutTime"> {{CheckOutTime}}</picker>
 						</view>
 					</view>
-					
+
 				</view>
-				
+
 			</view>
 
-			
+
 			<view class="timeInti">
 				<view class="checkIn2">
-					
+
 					<view class="title">中途进场：</view>
 					<view class="checkIn_class">
-					<view class="checkIn_date">
+						<view class="checkIn_date1">
 							<picker mode="date" value="{{CheckInDate2}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDate2"> {{CheckInDate2}}</picker>
 						</view>
-						<view class="checkIn_date">
+						<view class="checkIn_date1">
 							<picker mode="time" value="{{CheckInTime2}}" start="00:00" end="24:00" bindchange="selectCheckInTime2"> {{CheckInTime2}}</picker>
 						</view>
 					</view>
@@ -141,7 +141,7 @@
 
 	<view class="submit">
 		<view hover-class="reBTN" class="refreshBTN" bindtap="refreshBTN"> 重置</view>
-		
+
 		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">提示</view>
 		<view hover-class="reBTN" class="resultBTN" bindtap="resultBTN">查询</view>
 	</view>
@@ -161,8 +161,8 @@
 				<view>执勤期截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
-			
-    
+
+
 			<view class="resultText">
 				<view>中途退场时间：</view>
 				<view>{{totalRestTimeInhours}}</view>
@@ -177,7 +177,15 @@
 			</view>
 			<text>温馨提示！请确认数据正确后再上传。</text>
 			<text>结果仅供参考请以实际规定为准!</text>
-			
+			<view class="TOInput">
+				<view class="TOInputElement">
+					<view>实际飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
+				</view>
+				<view class="TOInputElement">
+					<view>操纵落地数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureLandings}}" bindinput="inputLandings"></input>
+				</view>
+			</view>
+
 
 		</view>
 		<view class="confirm_button">
@@ -185,5 +193,5 @@
 			<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>
 		</view>
 	</resulkt>
-	
+
 </view>
