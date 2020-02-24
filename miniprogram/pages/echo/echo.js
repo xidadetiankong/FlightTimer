@@ -13,7 +13,9 @@ Page({
     time: DATE.formatTime(date).substring(11, 16), //签到时间
     teamSize: ['非扩编机组', '扩编机组'],
     selectedTeam: '非扩编机组', //已选机组编制
-    CheckOutTime: null, //中途退场时间
+    CheckOutDate: DATE.formatTime(date).substring(0, 10), //中途退场日期
+    CheckInDate2: DATE.formatTime(date).substring(0, 10), //中途进场日期
+    CheckOutTime:DATE.formatTime(date).substring(11, 16), //中途退场时间
     CheckInTime2: DATE.formatTime(date).substring(11, 16), //中途进场时间
     EndDate: DATE.formatTime(date).substring(0, 10), //关车日期
     EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
@@ -25,6 +27,9 @@ Page({
     crewNumbers: '3', //机组人数
 
     //结果参数
+    dutyTimeRemainForShow:'',
+    totalDutyTimeForShow:'',
+    overTime:false,
     maxFlightTime: '',
     maxDutyTime: '',
     dutyEndTime: '',
@@ -35,42 +40,64 @@ Page({
     totalRestTimeInhours: '00:00'
 
   },
-  upload:function(){
-    wx.cloud.callFunction({//用户鉴权确认是否已经注册
-      name: 'login',
-      data: {}
-    }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
-      // console.log(res);
-      db.collection('userprofile').where({
-        _openid: res.result.openid
-      }).get().then((res) => {
-        if(res.data.length){
-          wx.showToast({
-            title: '欢迎朋友',
-          })
-        }else{
-          wx.switchTab({
-            url: '../profile/profile',
-          })
-        }
-        
+  uploadBTN:function(){
+    var totalDutyTime=this.total_dutytime()
+    var checkintime=DATE.timeToStamp(this.data.date,this.data.time);
+    var EndTime = DATE.timeToStamp(this.data.EndDate,this.data.EndTime)
+    if (totalDutyTime>0) {
+      wx.cloud.callFunction({//用户鉴权确认是否已经注册
+        name: 'login',
+        data: {}
+      }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
+        // console.log(res);
+        db.collection('userprofile').where({
+          _openid: res.result.openid
+        }).get().then((res) => {
+          if(res.data.length){
+            db.collection('timeData').add({
+              data:{
+                userid:app.userInfo._id
+              }
+            }).then( (res)=>{
+              wx.showLoading({
+                title: '上传中',
+              })
+              db.collection('timeData').doc(res._id).update({
+                
+                data:{
+                  checkintime:checkintime,
+                  EndTime:EndTime,
+                  totalDutyTime:this.total_dutytime(),
+                  overTime:this.data.overTime
+                }
+              }).then((res)=>{
+                wx.hideLoading({})
+                wx.showToast({
+                  title: '成功添加记录',
+                })
+                console.log(res)
+              })
+            })
+           
+          }else{
+            wx.switchTab({
+              url: '../profile/profile',
+            })
+          }
+          
+        })
       })
-    })
+    }else{
+      wx.showToast({
+        title: '请输入有效的截止时间',
+        icon:'none'
+      })
+    }
+    
   },
-
-  onLoad() {
-    // var time = this.data.time;
-    // var DaTe=this.data.date;
-    // var fullTime=DaTe+' '+time;
-    // console.log(fullTime)
-    // console.log((new Date('1970-01-01 08:01')).valueOf()) //直接计算是不会讲时差计算到其中的，加8之后得出正确的值，应该是默认为本地时间也就是计算机从网络上同步的时间
-    // console.log(new Date((('1970-01-01') + ' ' + time)).valueOf())
-
-    // console.log(DATE.formatTime(date).substring(0, 16))
-    // console.log(Date.parse(new Date(this.data.EndDate)))
-    // console.log((new Date(this.data.EndDate)).valueOf())
-    // console.log(new Date(this.data.time).getTime())
-  },
+//collection      timeData
+  
+ 
 
 
   refreshBTN: function () {
@@ -80,7 +107,9 @@ Page({
     time: DATE.formatTime(date).substring(11, 16), //签到时间
     teamSize: ['非扩编机组', '扩编机组'],
     selectedTeam: '非扩编机组', //已选机组编制
-    CheckOutTime: null, //中途退场时间
+    CheckOutDate: DATE.formatTime(date).substring(0, 10), //中途退场日期
+    CheckInDate2: DATE.formatTime(date).substring(0, 10), //中途进场日期
+    CheckOutTime:DATE.formatTime(date).substring(11, 16), //中途退场时间
     CheckInTime2: DATE.formatTime(date).substring(11, 16), //中途进场时间
     EndDate: DATE.formatTime(date).substring(0, 10), //关车日期
     EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
@@ -92,6 +121,9 @@ Page({
     crewNumbers: '3', //机组人数
 
     //结果参数
+    dutyTimeRemainForShow:'',
+    totalDutyTimeForShow:'',
+    overTime:false,
     maxFlightTime: '',
     maxDutyTime: '',
     dutyEndTime: '',
@@ -103,29 +135,7 @@ Page({
 
     })
   },
-  //tips
-//   checkinTips:function(){
-// wx.showToast({
-//   title: '请在右侧选择时间',
-//   icon: 'none',  
-//   duration: 2000
-// })
-//   },
-//   choseTeamTips:function(){
-//     wx.showToast({
-//       title: '请在右侧选择编制',
-//       icon: 'none',  
-//       duration: 2000
-//     })
-//       },
-//       quickTRTips:function(){
-//         wx.showToast({
-//           title: '填入计算剩余执勤期。',
-//           icon: 'none',  
-//           duration: 6000
-//         })
-//           },
-  //
+ 
   selectCheckInTime: function (e) { //选择签到时间
     this.setData({
       time: e.detail.value
@@ -143,9 +153,19 @@ Page({
     })
     console.log(this.data.selectedTeam)
   },
-  //
+  //中途离场
 
+  selectCheckOutDate: function (e) { //中途退场日期
+    this.setData({
+      CheckOutDate: e.detail.value
+    })
+  },
+  selectCheckInDate2: function (e) { //中途进场时间
 
+    this.setData({
+      CheckInDate2: e.detail.value
+    })
+  },
   selectCheckOutTime: function (e) { //中途退场时间
     this.setData({
       CheckOutTime: e.detail.value
@@ -156,8 +176,8 @@ Page({
     this.setData({
       CheckInTime2: e.detail.value
     })
-    console.log(this.data.CheckInTime2)
   },
+  
 
   //
   selectEndTime: function (e) { //选择结束时间
@@ -203,65 +223,72 @@ Page({
     }
     console.log(this.data.rstFaciliyLevel)
   },
-  addRestTime: function () {
-    var CheckOutTime = this.timeTomilliSec(this.data.CheckOutTime);
-    var CheckInTime2 = this.timeTomilliSec(this.data.CheckInTime2);
-    var wholeDaymilSec = 24 * 3600 * 1000;
-    // var resttime=''
-    var pauseTime = this.data.pauseTime;
-    var timediff = CheckInTime2 - CheckOutTime;
-    if (timediff <= 0) {
-      timediff = (wholeDaymilSec - CheckOutTime) + CheckInTime2;
-      //  resttime=this.formatHour(timediff);
-      this.data.pauseTime.push(timediff);
+  addRestTime: function () {//optimized
+    var checkintime=DATE.timeToStamp(this.data.date,this.data.time);
+    var CheckOutTime = DATE.timeToStamp(this.data.CheckOutDate,this.data.CheckOutTime);
+    var CheckInTime2 = DATE.timeToStamp(this.data.CheckInDate2,this.data.CheckInTime2);
+    var pauseTime = this.data.pauseTime;//中间休息时间组成的数组
+    var timediff = CheckInTime2 - CheckOutTime;//number
+
+    if (checkintime>CheckOutTime) {
+      wx.showToast({
+        title: '短停关车（退场）时间需晚于签到时间',
+        icon:'none'
+      })
+      return
     } else {
-      // resttime=this.formatHour(timediff);
-      this.data.pauseTime.push(timediff);
+      if (timediff < 0) {
+        wx.showToast({
+          title: '中途进场时间需晚于中途退场时间',
+          icon:'none'
+        })
+        return
+      } else if(timediff > 0) {
+        this.data.pauseTime.push(timediff);
+      } else{
+        wx.showToast({
+          title: '未输入有效时间',
+          icon:'none'
+        })
+        return 
+      }
     }
+    
     var totalRestTime = 0;
     for (let i = 0; i < this.data.pauseTime.length; i++) {
       totalRestTime = totalRestTime + pauseTime[i]
     }
-
-    console.log(timediff, this.data.pauseTime, totalRestTime)
-
     this.setData({
       totalRestTime: totalRestTime,
-      totalRestTimeInhours: this.formatHour(totalRestTime)
+      totalRestTimeInhours: DATE.formatHour(totalRestTime)
     })
 
   },
 
-  resultBTN: function () { //显示计算结果组件
+  timeToFormate:function(res){
+    res=new Date(res)
+    res=DATE.formatTime(res)
+    return
+  },
+
+  resultBTN: function () { //显示计算结果组件改进后需要区分展示数据和上传数据
     var totalDutyTime = this.total_dutytime();
     var maxFlightTime = this.maxFlightTime();
     var maxDutyTime = this.maxDutyTime();
     var dutyTimeRemain = this.dutyTimeRemain();
     var dutyEndTime = this.dutyEndTime();
     
-
-    if(this.timeTomilliSec (totalDutyTime)>this.timeTomilliSec (maxDutyTime)){
-      wx.showToast({
-        title: '超时了呦',
-        icon:'none'
-      })
-
-    }
+    
 
     this.setData({
       dutyEndTime: dutyEndTime,
       dutyTimeRemain: dutyTimeRemain,
+      dutyTimeRemainForShow:DATE.formatHour(dutyTimeRemain),
       maxDutyTime: maxDutyTime,
       maxFlightTime: maxFlightTime,
       totalDutyTime: totalDutyTime,
-      show_result: false
-    })
-  },
-  tipsBTN:function(){
-    wx.showToast({
-      title: '点击添加按钮使退场休息时间参与到计算中，可多次添加。修改点击重置',
-      icon:'none',
-      duration:4000
+      totalDutyTimeForShow: DATE.formatHour(totalDutyTime),
+      show_result: false// control element hidde
     })
   },
   cancleUpload: function () { //隐藏计算结果组件
@@ -270,6 +297,16 @@ Page({
       
     })
   },
+  tipsBTN:function(){
+    
+   
+    wx.showToast({
+      title: '点击添加按钮使退场休息时间参与到计算中，可多次添加。修改点击重置',
+      icon:'none',
+      duration:4000
+    })
+  },
+ 
 
 
 
@@ -289,33 +326,39 @@ Page({
       return time
     }
   },
-  timeTomilliSec: function (res) {
-    var time = new Date((('1970-01-01') + ' ' + res)).valueOf() + 28800000;
-    return time
-  },
-  formatHour: function (res) {
-    var hours = Math.floor(res / (3600 * 1000));
-    var restMilSec = res % (3600 * 1000);
-    var minutes = Math.floor(restMilSec / (60 * 1000));
-    var time = hours + ':' + minutes;
-    if (minutes < 10) {
-      var time = hours + ':' + '0'+minutes ;
-    } else {
-      var time = hours + ':' + minutes;
-    }
-    return time
-  },
+ 
 
-  total_dutytime: function () { //计算实际执勤时间供调用
-    var date = this.data.date;
-    var time = this.data.time;
-    var EndDate = this.data.EndDate;
-    var EndTime = this.data.EndTime;
+  total_dutytime: function () { //计算实际执勤时间供调用返回值为timestamp Optimized
+    var checkintime=DATE.timeToStamp(this.data.date,this.data.time);
+    var EndTime = DATE.timeToStamp(this.data.EndDate,this.data.EndTime);
+  if(EndTime<checkintime){
+    wx.showToast({
+      title: '截止时间需晚于签到时间',
+      icon:'none'
+    })
+    return
+  }else if(EndTime==checkintime){//watch out the using of'='
+    wx.showToast({
+      title: '输入截止时间无效',
+      icon:'none'
+    })
+    return
+  }else if(EndTime>checkintime){
+    var totalDutyTime = EndTime-checkintime
+  };
 
-    var startTime = date + ' ' + time;
-    var finalTime = EndDate + ' ' + EndTime;
-    var totalDutyTime = this.timeDifferent(startTime, finalTime)
+  if (totalDutyTime>DATE.timeToStamp('1970-01-01',this.maxDutyTime())) {
+    wx.showToast({
+      title: '超时了呦',
+    });
+    this.setData({
+      overTime:true
+    })
+  }
+  
+    console.log(totalDutyTime)
     return totalDutyTime
+
   },
 
   maxFlightTime: function () { //根据机组编制分为两组两个条件，条件一根据签到时间输出结果，条件二根据机组人数输出结果
@@ -353,8 +396,7 @@ Page({
     var checkintime = new Date((('1970-01-01') + ' ' + this.data.time)).valueOf();
     var am5 = new Date((('1970-01-01') + ' ' + '05:00')).valueOf()
     var pm8 = new Date((('1970-01-01') + ' ' + '20:00')).valueOf()
-    var am00 = new Date((('1970-01-01') + ' ' + '24:00')).valueOf()
-    var maxFlightTime = this.data.maxFlightTime;
+   
     var crewNumbers = this.data.crewNumbers;
     var flightSegment = this.data.flightSegment;
     var maxDutyTime = this.data.maxDutyTime;
@@ -447,42 +489,50 @@ Page({
 
     }
   },
-  dutyTimeRemain: function () {
+  dutyTimeRemain: function () {//optimized 返回值为timestamp
 
-    var maxDutyTime = this.timeTomilliSec(this.maxDutyTime());
-    var time = this.timeTomilliSec(this.data.time);
-    var CheckOutTime = this.timeTomilliSec(this.data.CheckOutTime);
-    var timepassed = CheckOutTime-time;
+    var maxDutyTime = DATE.timeToStamp('1970-01-01',this.maxDutyTime());
+    var checkintime = DATE.timeToStamp(this.data.date,this.data.time);
+    var CheckOutTime = DATE.timeToStamp(this.data.CheckOutDate,this.data.CheckOutTime);
+    var timepassed = CheckOutTime-checkintime;
+    var totalDutyTime=this.total_dutytime()
     var dutyTimeRemain;
-    if (timepassed < 0) {
-      var dutyTimeRemain =maxDutyTime- ((24*3600*1000 - time) + CheckOutTime)
-    } else if (timepassed >= 0) {
+    if ((timepassed <= 0)&&(totalDutyTime<=0)) {
+     wx.showToast({
+       title: '能量还未开始消耗哦',
+       icon:'none'
+     })
+    } else if (timepassed > 0) {
       dutyTimeRemain = maxDutyTime - timepassed;
     } ;
     if(dutyTimeRemain<0){
       wx.showToast({
         title: '超时了哟',
         icon:'none'
+      });
+      this.setData({
+        overTime:true
       })
+      return
     }
 
 
-    console.log('有没有到这呀', maxDutyTime, time,CheckOutTime)
-    return this.formatHour(dutyTimeRemain)
+    console.log('有没有到这呀', dutyTimeRemain,maxDutyTime ,CheckOutTime)
+    return dutyTimeRemain
 
   },
-  dutyEndTime: function () {
-    var checkintime = this.data.time;
-    var maxDutyTime = this.maxDutyTime();
+  dutyEndTime: function () {//optimized return  a timeStamp
+    var maxDutyTime = DATE.timeToStamp('1970-01-01',this.maxDutyTime());
+    var checkintime = DATE.timeToStamp(this.data.date,this.data.time);
+   
     var totalRestTime=this.data.totalRestTime;
+    
 
-    var dutyEndTimemillices = this.timeTomilliSec(checkintime) + this.timeTomilliSec(maxDutyTime)+totalRestTime;
-    var dutyEndTime = '';
-    if (dutyEndTimemillices > this.timeTomilliSec('24:00')) {
-      dutyEndTime = '明天' + this.formatHour(dutyEndTimemillices - this.timeTomilliSec('24:00'))
-    } else if (dutyEndTimemillices < this.timeTomilliSec('24:00')) {
-      dutyEndTime = this.formatHour(dutyEndTimemillices)
-    }
+    var dutyEndTime =  checkintime +maxDutyTime+totalRestTime-28800000,
+    dutyEndTime=new Date(dutyEndTime)
+    dutyEndTime=DATE.formatTime(dutyEndTime)
+    
+    
     return dutyEndTime
   },
 

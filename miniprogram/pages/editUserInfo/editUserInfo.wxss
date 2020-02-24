@@ -24,6 +24,7 @@
   background: #2A465C;
 }
 .titleWord{
+  color: rgba(240, 255, 255, 0.829);
   font-size:32rpx;
   margin-left: 20rpx;
   text-align: center;
@@ -47,7 +48,7 @@
   width:150rpx;
   border: 0.5px solid aliceblue;
   border-radius: 50%;
-  margin-right: 80rpx;
+  margin-right:199rpx;
 } 
 #headphotoID {
   height: 200rpx;
@@ -81,6 +82,10 @@ color: aliceblue;
 }
 #listInputNick{
   text-align: center;
+}
+#listInputNick1{
+  color: rgb(195, 204, 211);
+  text-align: start;
 }
 .confirmType{
   transform: scale(0.95,0.95);

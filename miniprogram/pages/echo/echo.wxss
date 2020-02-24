@@ -72,11 +72,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 75%;
+  width: 80%;
   height: 60rpx
 }
 
 .checkIn_class {
+  text-align: start;
+  width:268rpx;
   color: white;
   display: flex;
   flex-direction: row;
@@ -89,6 +91,9 @@
 .checkIn view {
   font-size: 29rpx;
   margin: 10rpx;
+}
+.checkIn_date{
+  margin-right: 15rpx;
 }
 .title{
  
@@ -121,6 +126,7 @@ background:#2A465C;
   color: white;
   margin-right: 30rpx;
 }
+
 .selected_view{
   width:95vw
 }
@@ -205,11 +211,11 @@ margin-top: 45rpx;
   background: rgb(64, 83, 97) ;
 }
 .resultText{
-  font-size: 35rpx;
+  font-size: 32rpx;
   padding-left: 40rpx;
   padding-right: 40rpx;
   margin:15rpx;
-  width:90%;
+  width:95%;
   height: 60rpx;
   display: flex;
   flex-direction: row;

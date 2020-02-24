@@ -13,6 +13,10 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+const timeToStamp=(day ,time)=> {
+  var timeStampLoc = new Date((day + ' ' + time)).valueOf() + 28800000;
+  return timeStampLoc
+}
 
 const timeDifferent= (timeStart, timeEnd)=> { //计算时间差
   const start = new Date(timeStart).valueOf();
@@ -20,7 +24,7 @@ const timeDifferent= (timeStart, timeEnd)=> { //计算时间差
 
   var timeStpDiff = end - start;
 
-  var time = this.formatHour(timeStpDiff);
+  var time = this.formatTime(timeStpDiff);
 
   if (timeStpDiff <= 0) { //判断时间输入
     time = '0:00'
@@ -29,10 +33,7 @@ const timeDifferent= (timeStart, timeEnd)=> { //计算时间差
     return time
   }
 }
-const hourTomilliSec=(res)=> {
-  var time = new Date((('1970-01-01') + ' ' + res)).valueOf() + 28800000;
-  return time
-}
+
 const formatHour= (res)=> {
   var hours = Math.floor(res / (3600 * 1000));
   var restMilSec = res % (3600 * 1000);
@@ -48,7 +49,7 @@ const formatHour= (res)=> {
 
 module.exports = {
   formatHour:formatHour,
-  hourTomilliSec:hourTomilliSec,
+  timeToStamp:timeToStamp,
   timeDifferent:timeDifferent,
   formatTime: formatTime
 }

@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/echo/echo",
     "pages/profile/profile",
+    "pages/echo/echo",
+    
     "pages/editUserInfo/editUserInfo",
     
     "pages/tools/tools",

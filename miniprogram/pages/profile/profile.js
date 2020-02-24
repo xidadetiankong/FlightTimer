@@ -56,7 +56,7 @@ Page({
       nickName: app.userInfo.nickName,})
   },
 
-  bindGetUserInfo: function (e) {
+  bindGetUserInfo: function (e) {//首次登录
     console.log(e)
     let userInfo = e.detail.userInfo;
     // let nickName=e.detail.rawData.nickName;
