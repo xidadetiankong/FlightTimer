@@ -25,8 +25,8 @@ Page({
     //扩编机组
     rstFaciliyLevel: '3', //休息设施等级
     crewNumbers: '3', //机组人数
-    actureFlightLegs:0,
-    actureLandings:0,
+    actureFlightLegs:'',
+    actureLandings:'',
     userID:'',
     remarks:'',
 
@@ -177,8 +177,8 @@ Page({
     //扩编机组
     rstFaciliyLevel: '3', //休息设施等级
     crewNumbers: '3', //机组人数
-    actureFlightLegs:0,
-    actureLandings:0,
+    actureFlightLegs:'',
+    actureLandings:'',
     remarks:'',
     
 

@@ -62,20 +62,22 @@ DATA:[]
        
        
      let EndTime= this.stamptoformatTime(element.EndTime-28800000);
-     let checkintime= this.stamptoformatTime(element.checkintime-28800000);
+     let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
      let totalDutyTime= DATE.formatHour(element.totalDutyTime);
       let overTime=element.overTime;
       let actureFlightLegs=element.actureFlightLegs;
       let actureLandings=element.actureLandings;
-      let remarks=element.remarks
-      let Eid=element._id
-      let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
+      let remarks=element.remarks;
+      let Eid=element._id;
+      let checkintime=element.checkintime;
+      let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
        this.data.DATA.push(a)
      });
     }).then((res)=>{//刷新视图层
-      this.setData({
-        DATA:this.data.DATA
-      })
+      let dataT=this.data.DATA.sort(this.compare('checkintime'))
+         this.setData({
+           DATA:dataT
+         })
       console.log(this.data.DATA)
     })
   },
@@ -146,15 +148,28 @@ this.setData({
          let Eid=element._id
          let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
           this.data.DATA.push(a)
+          
         });
        }).then((res)=>{//刷新视图层
+        let dataT=this.data.DATA.sort(this.compare('checkintime'))
          this.setData({
-           DATA:this.data.DATA
+           DATA:dataT
          })
          console.log(this.data.DATA)
        })
     })
 
+  },
+
+
+  // res.result.items.sort(that.compare("id"));
+  compare: function (property) {//比值降序函数
+    return function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value2 - value1;
+    }
+ 
   },
   onPullDownRefresh:function(){
     
