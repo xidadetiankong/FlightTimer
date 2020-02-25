@@ -180,6 +180,7 @@ Page({
     actureFlightLegs:0,
     actureLandings:0,
     remarks:'',
+    
 
     //结果参数
     dutyTimeRemainForShow:'',
@@ -327,6 +328,9 @@ Page({
         this.data.pauseTime.push(timediff)
         wx.showToast({
           title: '添加成功',
+        })
+        this.setData({
+          takerest:true
         })
       } else{
         wx.showToast({
@@ -575,7 +579,20 @@ Page({
     var totalDutyTime=this.total_dutytime();
     var resttime=this.data.totalRestTime;
     var dutyTimeRemain;
+    if(timepassed<0){
+      wx.showToast({
+        title: '短停时间错误',
+        
+      })
+      return
+    }else if(timepassed==0&&totalDutyTime==0){
+      wx.showToast({
+        title: '能量还未消耗，开始快乐的工作吧！',
+        icon:'none'
+      })
+    };
     
+    dutyTimeRemain=maxDutyTime -totalDutyTime;
     if(dutyTimeRemain<0){
       wx.showToast({
         title: '超时了哟',
@@ -584,12 +601,12 @@ Page({
       this.setData({
         overTime:true
       })
-      return
+      return 0
     }
 
 
     console.log('有没有到这呀',maxDutyTime, timepassed,totalDutyTime)
-    return maxDutyTime -totalDutyTime
+    return dutyTimeRemain
 
   },
   dutyEndTime: function () {//optimized return  a timeStamp
