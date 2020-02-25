@@ -13,6 +13,9 @@ Page({
 currentday:DATE.formatTime(date).substring(0,10),
 userID:'',
 hasaccount:false,
+hidDelview:true,
+
+temporaryID:0,
 
 
 DATA:[]
@@ -65,7 +68,8 @@ DATA:[]
       let actureFlightLegs=element.actureFlightLegs;
       let actureLandings=element.actureLandings;
       let remarks=element.remarks
-      let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks}
+      let Eid=element._id
+      let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
        this.data.DATA.push(a)
      });
     }).then((res)=>{//刷新视图层
@@ -91,6 +95,70 @@ DATA:[]
   formatNumber:function(res)  {
     res= res.toString()
     return res[1] ? res : '0' + res
+  },
+
+
+
+
+
+  deleteKid:function(e){
+    console.log(e);
+this.setData({
+  hidDelview:false,
+  temporaryID:e.currentTarget.id
+})
+
+  },
+  cancleDEL:function(){
+    
+    this.setData({
+      hidDelview:true,
+      temporaryID:0
+    })
+  },
+  confirmDEL:function(){
+    wx.showLoading({
+      title: '删除中',
+    })
+    db.collection('timeData').doc(this.data.temporaryID).remove().then((res)=>{ 
+      wx.hideLoading({});
+      wx.showToast({
+        title: '删除成功',
+      });  
+      this.setData({
+        hidDelview:true,
+        temporaryID:0,
+        DATA:[]
+      })
+
+    }).then((res)=>{
+      db.collection('timeData').where(this.data.userID).get().then((res)=>{
+        res.data.forEach(element => {
+          
+          
+        let EndTime= this.stamptoformatTime(element.EndTime-28800000);
+        let checkintime= this.stamptoformatTime(element.checkintime-28800000);
+        let totalDutyTime= DATE.formatHour(element.totalDutyTime);
+         let overTime=element.overTime;
+         let actureFlightLegs=element.actureFlightLegs;
+         let actureLandings=element.actureLandings;
+         let remarks=element.remarks
+         let Eid=element._id
+         let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
+          this.data.DATA.push(a)
+        });
+       }).then((res)=>{//刷新视图层
+         this.setData({
+           DATA:this.data.DATA
+         })
+         console.log(this.data.DATA)
+       })
+    })
+
+  },
+  onPullDownRefresh:function(){
+    
+   
   },
   /**
    * 用户点击右上角分享

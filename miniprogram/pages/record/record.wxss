@@ -75,6 +75,9 @@ height:140rpx;
   margin-bottom: 5rpx;
   
 }
+.scrollsHover{
+  transform: scale(1.02,1.02);
+}
 .child{
   width:100%;
   height:140rpx;
@@ -119,6 +122,46 @@ align-items: center;
 }
 #kid7{
   color: red;
+}
+.delete{
+  position: absolute;
+  top:30%;
+  height: 400rpx;
+  width:500rpx;
+
+  border-radius: 20rpx;
+  background:rgb(180, 180, 180) ;
+  opacity: 0.95;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.delKid1{
+  text-align: center;
+  width:100%;
+  height: 60%;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 35rpx;
+  color:#2A465C;
+  
+}
+.delKid2{
+  
+  width:100%;
+  height: 38%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.delKidBTN{
+  color:#2A465C;
+ background:rgb(212, 212, 212) ;
 }
 
 

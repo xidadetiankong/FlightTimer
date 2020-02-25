@@ -20,7 +20,7 @@
 	</view>
 	<view class="body">
 		<scroll-view class="scroer" scroll-y="true" enable-flex="true">
-			<view  wx:for="{{DATA}}"  wx:key="*this" style="display: flex " class="scroll-view-item">
+			<view  wx:for="{{DATA}}" id="{{item.Eid}}" wx:key="index" style="display: flex " class="scroll-view-item" hover-class="scrollsHover"  bindlongpress="deleteKid">
 				<view class="child">
 					<view id="kid1">{{item.checkintime}}</view>
 					<view id="kid2">{{item.EndTime}}</view>
@@ -40,6 +40,12 @@
 			</view>
 
 		</scroll-view>
+	</view>
+
+	<view class="delete"  hidden="{{hidDelview}}" >
+	<view class="delKid1" ><view>确认删除该条记录！</view></view>
+	<view  class="delKid2"> <button class="delKidBTN" size="mini" hover-class="scrollsHover" bindtap="cancleDEL">取消</button><button class="delKidBTN" size="mini" hover-class="scrollsHover" bindtap="confirmDEL" >确认</button> </view>
+	
 	</view>
 
 </view>
