@@ -57,31 +57,36 @@ DATA:[]
   },
   onReady:function(){
    
-    db.collection('timeData').where(this.data.userID).get().then((res)=>{
-     res.data.forEach(element => {
-       
-       
-     let EndTime= this.stamptoformatTime(element.EndTime-28800000);
-     let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
-     let totalDutyTime= DATE.formatHour(element.totalDutyTime);
-      let overTime=element.overTime;
-      let actureFlightLegs=element.actureFlightLegs;
-      let actureLandings=element.actureLandings;
-      let remarks=element.remarks;
-      let Eid=element._id;
-      let checkintime=element.checkintime;
-      let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
-       this.data.DATA.push(a)
-     });
-    }).then((res)=>{//刷新视图层
-      let dataT=this.data.DATA.sort(this.compare('checkintime'))
-         this.setData({
-           DATA:dataT
-         })
-      console.log(this.data.DATA)
-    })
+    this.initPAGE()
   },
 
+
+  initPAGE:function(){
+
+    db.collection('timeData').where(this.data.userID).get().then((res)=>{
+      res.data.forEach(element => {
+        
+        
+      let EndTime= this.stamptoformatTime(element.EndTime-28800000);
+      let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
+      let totalDutyTime= DATE.formatHour(element.totalDutyTime);
+       let overTime=element.overTime;
+       let actureFlightLegs=element.actureFlightLegs;
+       let actureLandings=element.actureLandings;
+       let remarks=element.remarks;
+       let Eid=element._id;
+       let checkintime=element.checkintime;
+       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
+        this.data.DATA.push(a)
+      });
+     }).then((res)=>{//刷新视图层
+       let dataT=this.data.DATA.sort(this.compare('checkintime'))
+          this.setData({
+            DATA:dataT
+          })
+       console.log(this.data.DATA)
+     })
+  },
   stamptoformatTime:function(res){
     var date = new Date(res);
     let year = date.getFullYear().toString()
@@ -134,29 +139,7 @@ this.setData({
       })
 
     }).then((res)=>{
-      db.collection('timeData').where(this.data.userID).get().then((res)=>{
-        res.data.forEach(element => {
-          
-          
-        let EndTime= this.stamptoformatTime(element.EndTime-28800000);
-        let checkintime= this.stamptoformatTime(element.checkintime-28800000);
-        let totalDutyTime= DATE.formatHour(element.totalDutyTime);
-         let overTime=element.overTime;
-         let actureFlightLegs=element.actureFlightLegs;
-         let actureLandings=element.actureLandings;
-         let remarks=element.remarks
-         let Eid=element._id
-         let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
-          this.data.DATA.push(a)
-          
-        });
-       }).then((res)=>{//刷新视图层
-        let dataT=this.data.DATA.sort(this.compare('checkintime'))
-         this.setData({
-           DATA:dataT
-         })
-         console.log(this.data.DATA)
-       })
+      this.initPAGE()
     })
 
   },
@@ -172,7 +155,15 @@ this.setData({
  
   },
   onPullDownRefresh:function(){
+   
+      wx.stopPullDownRefresh({
+        complete: (res) => {
+          this.initPAGE();
+        },
+      })
     
+      
+      
    
   },
   /**
