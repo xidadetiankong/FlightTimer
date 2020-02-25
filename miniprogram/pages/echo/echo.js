@@ -381,6 +381,7 @@ Page({
   cancleUpload: function () { //隐藏计算结果组件
     this.setData({
       show_result: true,
+      overTime:false
       
     })
   },
