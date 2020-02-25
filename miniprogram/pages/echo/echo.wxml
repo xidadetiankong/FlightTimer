@@ -186,7 +186,7 @@
 			</view>
 			<view class="TOInput">
 				<view class="TOInputElement">
-					<view>备注：</view><input class="ToInputInput1" type="text" maxlength="50" value="{{remarks}}" bindinput="remarks"></input>
+					<view>备注：</view><input class="ToInputInput1" type="text" maxlength="20" placeholder="最多输入20个字" value="{{remarks}}" bindinput="remarks"></input>
 				</view>
 				
 			</view>

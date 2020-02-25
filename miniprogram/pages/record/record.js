@@ -9,16 +9,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-ind:[1,2,34,4,5],
+
 currentday:DATE.formatTime(date).substring(0,10),
 userID:'',
-checkindate:'2020-02-25 10:20',
-checkoutdate:'2020-02-25  10:20',
-dutytime:'10:22',
-flightlegs:0,
-landings:0
+hasaccount:false,
 
 
+DATA:[]
 
   },
 
@@ -28,7 +25,11 @@ landings:0
       currentday:e.detail.value
     })
   },
-  onShow: function () {
+ 
+ 
+  
+
+ onReady:function(){
     wx.cloud.callFunction({
       name: 'login',
       data: {}
@@ -42,14 +43,55 @@ landings:0
           this.setData({
             
             userID: app.userInfo._id,
+            hasaccount:true
             
           })
         }
         
       })
     })
+
+  },
+  onReady:function(){
+   
+    db.collection('timeData').where(this.data.userID).get().then((res)=>{
+     res.data.forEach(element => {
+       
+       
+     let EndTime= this.stamptoformatTime(element.EndTime-28800000);
+     let checkintime= this.stamptoformatTime(element.checkintime-28800000);
+     let totalDutyTime= DATE.formatHour(element.totalDutyTime);
+      let overTime=element.overTime;
+      let actureFlightLegs=element.actureFlightLegs;
+      let actureLandings=element.actureLandings;
+      let remarks=element.remarks
+      let a={EndTime,checkintime,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks}
+       this.data.DATA.push(a)
+     });
+    }).then((res)=>{//刷新视图层
+      this.setData({
+        DATA:this.data.DATA
+      })
+      console.log(this.data.DATA)
+    })
   },
 
+  stamptoformatTime:function(res){
+    var date = new Date(res);
+    let year = date.getFullYear().toString()
+    let month = (date.getMonth() + 1).toString()
+    let day = date.getDate().toString()
+    let hour = date.getHours().toString()
+    let minute = this.formatNumber(date.getMinutes());
+    let second =  this.formatNumber(date.getSeconds());
+
+  return year+'-'+month+'-'+ day + ' ' + hour+':'+ minute+':'+ second
+    
+  },
+  formatNumber:function(res)  {
+    res= res.toString()
+    return res[1] ? res : '0' + res
+  },
   /**
    * 用户点击右上角分享
    */

@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/echo/echo",
     "pages/profile/profile",
     "pages/record/record",
+    "pages/echo/echo",
+    
+    
     "pages/summary/summary",
     "pages/editUserInfo/editUserInfo",
     "pages/tools/tools",

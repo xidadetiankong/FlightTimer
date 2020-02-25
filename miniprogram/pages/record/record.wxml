@@ -20,20 +20,20 @@
 	</view>
 	<view class="body">
 		<scroll-view class="scroer" scroll-y="true" enable-flex="true">
-			<view id="demo1" wx:for="{{ind}}" wx:key="index" style="display: flex " class="scroll-view-item">
+			<view  wx:for="{{DATA}}"  wx:key="*this" style="display: flex " class="scroll-view-item">
 				<view class="child">
-					<view id="kid1">{{checkindate}}</view>
-					<view id="kid2">{{checkoutdate}}</view>
-					<view id="kid3">{{dutytime}}</view>
+					<view id="kid1">{{item.checkintime}}</view>
+					<view id="kid2">{{item.EndTime}}</view>
+					<view id="kid3">{{item.totalDutyTime}}</view>
 
-					<view id="kid4">{{flightlegs}}</view>
-					<view id="kid5">{{landings}}</view>
+					<view id="kid4">{{item.actureFlightLegs}}</view>
+					<view id="kid5">{{item.actureLandings}}</view>
 
 
 
 				</view>
         <view class="child">
-					<view id="kid6">remarks{{remarks}}</view>
+					<view id="kid6">remarks{{item.remarks}}</view>
 
 				</view>
 			</view>

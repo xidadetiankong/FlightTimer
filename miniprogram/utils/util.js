@@ -13,6 +13,8 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+
+
 const timeToStamp=(day ,time)=> {
   var timeStampLoc = new Date((day + ' ' + time)).valueOf() + 28800000;
   return timeStampLoc
