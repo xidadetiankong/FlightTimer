@@ -48,11 +48,11 @@ this.setData({
 })
   },
   updateNickName:function(){
-    if(!(/^[\u4E00-\u9FA5A-Za-z0-9]{2,8}$/.test(this.data.nickName))){//终于把正则理清楚了
+    if(!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))){//终于把正则理清楚了注意正则中加号的使用
       
 
       wx.showToast({
-        title: '昵称需填写八位内汉字字母数字或组合',
+        title: '昵称需填写十位内汉字字母数字或组合',
         icon:'none'
       })
     }else{
@@ -107,11 +107,11 @@ this.setData({
     })
   },
   updateProfession:function(){
-    if(!(/^[\u4E00-\u9FA5A-Za-z0-9]{1,8}$/.test(this.data.nickName))){//终于把正则理清楚了
+    if(!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))){//终于把正则理清楚了
       
 
       wx.showToast({
-        title: '职业需填写八位内汉字字母数字或组合',
+        title: '职业需填十位内汉字字母数字或组合',
         icon:'none'
       })
     }else{wx.showLoading({

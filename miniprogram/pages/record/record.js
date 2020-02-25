@@ -1,60 +1,53 @@
 // pages/record/record.js
+const DATE = require('../../utils/util.js')
+const date=new Date()
+const db=wx.cloud.database()
+const app= getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+ind:[1,2,34,4,5],
+currentday:DATE.formatTime(date).substring(0,10),
+userID:'',
+checkindate:'2020-02-25 10:20',
+checkoutdate:'2020-02-25  10:20',
+dutytime:'10:22',
+flightlegs:0,
+landings:0
+
+
 
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  bindDateChange:function(e){
+    console.log(e)
+    this.setData({
+      currentday:e.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {}
+    }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
+      // console.log(res);
+      db.collection('userprofile').where({
+        _openid: res.result.openid
+      }).get().then((res) => {
+        if(res.data.length){
+          app.userInfo = Object.assign(app.userInfo, res.data[0]);
+          this.setData({
+            
+            userID: app.userInfo._id,
+            
+          })
+        }
+        
+      })
+    })
   },
 
   /**

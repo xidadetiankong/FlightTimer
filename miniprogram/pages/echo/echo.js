@@ -119,7 +119,7 @@ Page({
                   remarks:this.data.remarks,
                   checkintime:checkintime,
                   EndTime:EndTime,
-                  totalDutyTime:this.total_dutytime(),
+                  totalDutyTime:this.data.totalDutyTime,
                   overTime:this.data.overTime,
                   actureFlightLegs:this.data.actureFlightLegs,
                   actureLandings:this.data.actureLandings,
@@ -129,6 +129,7 @@ Page({
                 wx.showToast({
                   title: '成功添加记录',
                 })
+                this.refreshBTN()
                 this.setData({
                   show_result:true,
                 }) 
@@ -323,7 +324,10 @@ Page({
         })
         return
       } else if(timediff > 0) {
-        this.data.pauseTime.push(timediff);
+        this.data.pauseTime.push(timediff)
+        wx.showToast({
+          title: '添加成功',
+        })
       } else{
         wx.showToast({
           title: '未输入有效时间',
@@ -417,7 +421,7 @@ Page({
     })
     return
   }else if(EndTime>=checkintime){
-    var totalDutyTime = EndTime-checkintime
+    var totalDutyTime = EndTime-checkintime-this.data.totalRestTime
   };
 
   if (totalDutyTime>DATE.timeToStamp('1970-01-01',this.maxDutyTime())) {
@@ -568,16 +572,10 @@ Page({
     var checkintime = DATE.timeToStamp(this.data.date,this.data.time);
     var CheckOutTime = DATE.timeToStamp(this.data.CheckOutDate,this.data.CheckOutTime);
     var timepassed = CheckOutTime-checkintime;
-    var totalDutyTime=this.total_dutytime()
+    var totalDutyTime=this.total_dutytime();
+    var resttime=this.data.totalRestTime;
     var dutyTimeRemain;
-    if ((timepassed <= 0)||(totalDutyTime=0)) {
-     wx.showToast({
-       title: '能量还未开始消耗哦',
-       icon:'none'
-     })
-    } else if (timepassed > 0) {
-      dutyTimeRemain = maxDutyTime - timepassed;
-    } ;
+    
     if(dutyTimeRemain<0){
       wx.showToast({
         title: '超时了哟',
@@ -590,8 +588,8 @@ Page({
     }
 
 
-    console.log('有没有到这呀', dutyTimeRemain,maxDutyTime ,CheckOutTime)
-    return dutyTimeRemain
+    console.log('有没有到这呀',maxDutyTime, timepassed,totalDutyTime)
+    return maxDutyTime -totalDutyTime
 
   },
   dutyEndTime: function () {//optimized return  a timeStamp

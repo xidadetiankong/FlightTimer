@@ -1,2 +1,44 @@
 <!--pages/record/record.wxml-->
-<text>pages/record/record.wxml</text>
+<view class="container">
+	<view class="header">
+		<view>历史记录</view>
+		<view>
+			<picker mode="date" value="{{currentday}}" start="1970-01-01" end="2099-09-22" bindchange="bindDateChange">
+				<view class="picker">
+					选择日期：{{currentday}}
+				</view>
+			</picker>
+		</view>
+	</view>
+	<view class="title">
+		<view id="kid1">签到时间</view>
+		<view id="kid2">截止时间</view>
+		<view id="kid3">执勤时间</view>
+
+		<view id="kid4">航段数</view>
+		<view id="kid5">落地数</view> 
+	</view>
+	<view class="body">
+		<scroll-view class="scroer" scroll-y="true" enable-flex="true">
+			<view id="demo1" wx:for="{{ind}}" wx:key="index" style="display: flex " class="scroll-view-item">
+				<view class="child">
+					<view id="kid1">{{checkindate}}</view>
+					<view id="kid2">{{checkoutdate}}</view>
+					<view id="kid3">{{dutytime}}</view>
+
+					<view id="kid4">{{flightlegs}}</view>
+					<view id="kid5">{{landings}}</view>
+
+
+
+				</view>
+        <view class="child">
+					<view id="kid6">remarks{{remarks}}</view>
+
+				</view>
+			</view>
+
+		</scroll-view>
+	</view>
+
+</view>

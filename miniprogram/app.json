@@ -2,18 +2,13 @@
   "pages": [
     "pages/echo/echo",
     "pages/profile/profile",
-   
-    
-    "pages/editUserInfo/editUserInfo",
-    
-    "pages/tools/tools",
-    
-    "pages/calclator/calculator",
-    
-    "pages/friendList/friendList",
+    "pages/record/record",
     "pages/summary/summary",
-    "pages/record/record"
-    
+    "pages/editUserInfo/editUserInfo",
+    "pages/tools/tools",
+    "pages/calclator/calculator",
+    "pages/friendList/friendList"
+ 
   ],
   "window": {
     "backgroundColor": "#2A465C",

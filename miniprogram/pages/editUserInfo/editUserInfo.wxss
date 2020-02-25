@@ -54,7 +54,7 @@
   height: 200rpx;
 }
 .listInput{
-  width: 400rpx;
+  width:500rpx;
   border-bottom: 1px solid rgb(129, 159, 184);
   margin-right: 80rpx;
 }
