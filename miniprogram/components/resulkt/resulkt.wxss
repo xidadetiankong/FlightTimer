@@ -29,7 +29,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height:85%;
+  height:90%;
   width:95%;
   color: rgb(53, 91, 124);
 

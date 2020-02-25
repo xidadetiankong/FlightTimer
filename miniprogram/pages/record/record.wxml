@@ -32,8 +32,9 @@
 
 
 				</view>
-        <view class="child">
-					<view id="kid6">remarks{{item.remarks}}</view>
+        <view  class="child">
+					<view wx:if="{{item.overTime}}" id="kid6"><text id="kid7">超时！</text> remarks{{item.remarks}}</view>
+					<view wx:else id="kid6">备注：{{item.remarks}}</view>
 
 				</view>
 			</view>
