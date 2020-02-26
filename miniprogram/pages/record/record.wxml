@@ -19,7 +19,7 @@
 		<view id="kid5">落地数</view> 
 	</view>
 	<view class="body">
-		<scroll-view class="scroer" scroll-y="true" enable-flex="true">
+		<scroll-view class="scroer" scroll-y="true" enable-flex="true"  bindscrolltolower="addnewrecord">
 			<view  wx:for="{{DATA}}" id="{{item.Eid}}" wx:key="index" style="display: flex " class="scroll-view-item" hover-class="scrollsHover"  bindlongpress="deleteKid">
 				<view class="child">
 					<view id="kid1">{{item.checkintime1}}</view>
