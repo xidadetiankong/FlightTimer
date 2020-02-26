@@ -28,7 +28,7 @@ Page({
       name: 'login',
       data: {}
     }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
-      // console.log(res);
+       console.log(res);
       db.collection('userprofile').where({
         _openid: res.result.openid
       }).get().then((res) => {

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+DATA:[],
   },
 
   /**
@@ -19,7 +19,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    wx.cloud.callFunction({
+      name: 'count',
+      data: {}
+    }).then((res)=>{
+      console.log(res)
+      this.setData({
+        DATA:res.result.data
+      })
+    })
   },
 
   /**
