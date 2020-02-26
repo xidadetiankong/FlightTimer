@@ -23,12 +23,7 @@ DATA:[]
 
   },
 
-  bindDateChange:function(e){
-    console.log(e)
-    this.setData({
-      currentday:e.detail.value
-    })
-  },
+  
  
  
   
@@ -100,11 +95,52 @@ DATA:[]
   return year+'-'+month+'-'+ day + ' ' + hour+':'+ minute+':'+ second
     
   },
+  stamptoformatDay:function(res){
+    var date = new Date(res);
+    let year = date.getFullYear().toString()
+    let month = (date.getMonth() + 1).toString()
+    let day = date.getDate().toString()
+    
+
+  return year+'-'+month+'-'+ day 
+    
+  },
   formatNumber:function(res)  {
     res= res.toString()
     return res[1] ? res : '0' + res
   },
+  
+//   bindDateChange:function(e){
+    
+//     var DATA=this.data.DATA
+//     var c=[]
+//    DATA.forEach(element=>{
+     
+//      let checkintime=this.stamptoformatDay(element.checkintime-28800000);
+//      var value=e.detail.value
+//      var aa =DATE.timeToStamp(checkintime,'00:00');
+//      var bb=DATE.timeToStamp(value,'00:00');
+//      console.log(aa,bb)
+//  if(aa===bb){
+//    c.push(element)
+//    return
 
+//   }else{
+//     return
+//   }
+// })
+//刷新视图层
+  
+  //    this.setData({
+  //      DATA:c,
+  //      currentday:e.detail.value
+  //    })
+  // console.log(this.data.DATA)
+
+
+
+
+  // },
 
 
 
@@ -198,12 +234,9 @@ this.setData({
        console.log(this.data.DATA)
      })
   },
-  addnewrecord:function(e){
-    console.log(e)
+  addnewrecord:function(){
+    
     var max_limit=20;
-    // var countResult= await db.collection('timeData').count();
-    // var total=countResult.total;
-    // var batchTimes=Math.ceil(total/20);
     var downloadTimes=this.data.downloadTimes//默认第一次加载了20条之后每增加一次加一
     db.collection('timeData').where(this.data.userID).skip(downloadTimes*max_limit).limit(max_limit).get().then((res)=>{
       res.data.forEach(element => {
@@ -222,6 +255,7 @@ this.setData({
         this.data.DATA.push(a)
       });
      }).then((res)=>{//刷新视图层
+      console.log(res)
        let dataT=this.data.DATA.sort(this.compare('checkintime'))
           this.setData({
             DATA:dataT,
