@@ -1,1 +1,2 @@
 <!--pages/summary/summary.wxml-->
+<button class="1" bindtap="findthespa">我是一个无聊的button</button>

@@ -48,10 +48,19 @@ const formatHour= (res)=> {
   }
   return time
 }
+const compare=(property) =>{//比值降序函数
+  return function (a, b) {
+    var value1 = a[property];
+    var value2 = b[property];
+    return value2 - value1;
+  }
+
+}
 
 module.exports = {
   formatHour:formatHour,
   timeToStamp:timeToStamp,
   timeDifferent:timeDifferent,
-  formatTime: formatTime
+  formatTime: formatTime,
+  compare:compare
 }
