@@ -204,7 +204,7 @@ this.setData({
    
   },
 
-  addnewrecord:function(){
+  addnewrecord:function(){//scroll view 中一定要设置style 中 height 否则真机scrolltobottom不能正常触发
     
     var max_limit=20;
     var downloadTimes=this.data.downloadTimes//默认第一次加载了20条之后每增加一次加一
