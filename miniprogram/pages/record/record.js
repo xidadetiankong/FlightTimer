@@ -203,37 +203,7 @@ this.setData({
       
    
   },
-  onReachBottomDistance:function(){
-    var max_limit=20;
-    // var countResult= await db.collection('timeData').count();
-    // var total=countResult.total;
-    // var batchTimes=Math.ceil(total/20);
-    var downloadTimes=this.data.downloadTimes//默认第一次加载了20条之后每增加一次加一
-    db.collection('timeData').where(this.data.userID).skip(downloadTimes*max_limit).limit(max_limit).get().then((res)=>{
-      res.data.forEach(element => {
-        
-        
-      let EndTime= this.stamptoformatTime(element.EndTime-28800000);
-      let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
-      let totalDutyTime= DATE.formatHour(element.totalDutyTime);
-       let overTime=element.overTime;
-       let actureFlightLegs=element.actureFlightLegs;
-       let actureLandings=element.actureLandings;
-       let remarks=element.remarks;
-       let Eid=element._id;
-       let checkintime=element.checkintime;
-       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
-        this.data.DATA.push(a)
-      });
-     }).then((res)=>{//刷新视图层
-       let dataT=this.data.DATA.sort(this.compare('checkintime'))
-          this.setData({
-            DATA:dataT,
-            downloadTimes:downloadTimes+1
-          })
-       console.log(this.data.DATA)
-     })
-  },
+
   addnewrecord:function(){
     
     var max_limit=20;

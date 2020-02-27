@@ -1,10 +1,15 @@
 /* pages/record/record.wxss */
+page{
+  height:100%
+}
+
 .container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  
   background: rgb(243, 243, 243);
 
   display: flex;
@@ -65,7 +70,7 @@ border-top:  1px solid rgb(235, 235, 235);
 .scroer{
   margin-top:120rpx;
   width:100%;
-  height: 95%;
+  height: 100%;
  
 }
 .scroll-view-item{
@@ -128,7 +133,7 @@ align-items: center;
   color: red;
 }
 .delete{
-  position: absolute;
+  position: fixed;
   top:30%;
   height: 400rpx;
   width:500rpx;
