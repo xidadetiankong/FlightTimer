@@ -56,7 +56,23 @@ const compare=(property) =>{//比值降序函数
   }
 
 }
+const yearNow=res=>{
+  var date = new Date(res);
+  let year = date.getFullYear().toString()
+ 
+ 
 
+return year
+}
+const monthNow=res=>{
+  var date = new Date(res);
+  let year = date.getFullYear().toString()
+  let month = (date.getMonth() + 1).toString()
+  
+ 
+
+return year+'-'+month
+}
 const dayNow=res=>{
   var date = new Date(res);
   let year = date.getFullYear().toString()
@@ -75,13 +91,29 @@ const timeNow=res=>{
 
 return  hour+':'+ minute+':'+ second
 }
+const stamptoformatTime=(res)=>{
+  var date = new Date(res);
+  let year = date.getFullYear().toString()
+  let month = (date.getMonth() + 1).toString()
+  let day = date.getDate().toString()
+  let hour = date.getHours().toString()
+  let minute = formatNumber(date.getMinutes());
+  let second =  formatNumber(date.getSeconds());
+
+return year+'-'+month+'-'+ day + ' ' + hour+':'+ minute+':'+ second
+  
+}
+
 
 module.exports = {
+  stamptoformatTime:stamptoformatTime,
   formatHour:formatHour,
   timeToStamp:timeToStamp,
   timeDifferent:timeDifferent,
   formatTime: formatTime,
   compare:compare,
+  yearNow:yearNow,
+  monthNow:monthNow,
   dayNow:dayNow,
   timeNow:timeNow
 }

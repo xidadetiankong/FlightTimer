@@ -109,45 +109,14 @@ DATA:[]
     res= res.toString()
     return res[1] ? res : '0' + res
   },
-  
-//   bindDateChange:function(e){
-    
-//     var DATA=this.data.DATA
-//     var c=[]
-//    DATA.forEach(element=>{
-     
-//      let checkintime=this.stamptoformatDay(element.checkintime-28800000);
-//      var value=e.detail.value
-//      var aa =DATE.timeToStamp(checkintime,'00:00');
-//      var bb=DATE.timeToStamp(value,'00:00');
-//      console.log(aa,bb)
-//  if(aa===bb){
-//    c.push(element)
-//    return
 
-//   }else{
-//     return
-//   }
-// })
-//刷新视图层
-  
-  //    this.setData({
-  //      DATA:c,
-  //      currentday:e.detail.value
-  //    })
-  // console.log(this.data.DATA)
-
-
-
-
-  // },
 
 
 
 
   deleteKid:function(e){
     console.log(e);
-this.setData({
+this.setData({//下载过程中将记录id赋值给view对象并通过事件引入逻辑层
   hidDelview:false,
   temporaryID:e.currentTarget.id
 })
