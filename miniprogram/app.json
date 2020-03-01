@@ -2,6 +2,7 @@
   "pages": [
     "pages/echo/echo",
     "pages/summary/summary",
+   
     "pages/record/record",
     "pages/profile/profile",
     

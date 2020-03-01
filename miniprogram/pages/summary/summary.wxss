@@ -1,14 +1,67 @@
 /* pages/summary/summary.wxss */
+
 .container {
-  height: 100vh;
+  margin-left: 5vw;
+  margin-top:10vh;
+  position: absolute;
+  height: 80vh;
+  width: 90vw;
   display: flex;
   flex-direction: column;
-  
+ font-size: 30rpx;
+  color: #6D869A;
   align-items: center;
   box-sizing: border-box;
 
 }
+
+.background{
+width: 100vw;
+height: 100vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.95;
+ 
+}
+.nums{
+  font-size: 35rpx;
+}
+.text1{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.statas{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.tenrest{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.tenrest input{
+  font-size: 40rpx;
+  color: rgb(255, 255, 255);
+  background: rgb(17, 16, 16);
+  text-align: center;
+  opacity: 0.9;
+}
+.policy{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
 .detailData{
+  position: fixed;
+  top: 41vh;
   display: flex;
   flex-direction:column;
  text-align: center;
@@ -25,7 +78,7 @@
 .title view{
   height:40rpx;
   width:120rpx;
-  border:1px solid black
+  border:1px solid rgb(141, 173, 199)
 }
 
 .historyData{
@@ -45,7 +98,7 @@
 .historyKid view{
   height:40rpx;
   width:120rpx;
-  border:1px solid black
+  border:1px solid rgb(141, 173, 199)
 }
 
 
@@ -56,7 +109,20 @@
 
 
 .BTNgp{
+  position: fixed;
+  bottom:90rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+.BTNgp view{
+  margin-top: 5rpx;
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+  color: aliceblue;
+  text-align: center;
+}
+.b1{
+  color: rgb(53, 66, 77);
+opacity: 0.75;
 }

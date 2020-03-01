@@ -36,6 +36,8 @@ Page({
 
     yearnow: parseInt(DATE.yearNow(date)),
 
+    correction10REST:0,
+
   },
 
   /**
@@ -60,7 +62,11 @@ Page({
         DATA: dataT
       })
       this.findthespa()
-      this.findjack()     
+      this.findjack()   
+      this.setData({
+        predresttime:DATE.stamptoformatTime(that.data.predresttime),
+        nextciclestart:DATE.stamptoformatTime(that.data.nextciclestart)
+      })
     })
 
     
@@ -80,8 +86,23 @@ Page({
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi
+    let currentREST=DATE.formatHour(presentTime - lastcheckout-28800000)
+    this.setData({
+      currentREST:currentREST
+    })
 
+    if ((presentTime - lastcheckout) < (36000000+this.data.correction10REST)) {
+      wx.showToast({
+        title: '最小航后休息未满足要求哦',
+        icon: 'none'
+      })
+     
+      this.setData({
+        
+        tenhourrest: false
+      })
 
+    }
 
 
     console.log('开始今日休息期判断', presentTime, lastcheckout, lastyaosisi)
@@ -223,16 +244,8 @@ Page({
 
     };
 
-    if ((presentTime - lastcheckout) < 36000000) {
-      wx.showToast({
-        title: '最少10小时休息未满足要求哦',
-        icon: 'none'
-      })
-      this.setData({
-        tenhourrest: false
-      })
-
-    }
+    
+    
     console.log('ff', this.data.predresttime)
 
   },
@@ -334,9 +347,12 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
 
 
     this.setData({
+
+      
       totaldutytimeof12:totaldutytimeof12,
       totalFlightlegsof12:totalFlightlegsof12,
       totalLandings12:totalLandings12,
+      selectyear:yearnow,
 
       YEARtotaldutytime: this.collectitem(valueofselectyear).restotaldutytime,//年度数据合集
       YEARtotalFlightlegs: this.collectitem(valueofselectyear).restotalFlightlegs,
@@ -358,6 +374,8 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
       restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
       restotalLandings = restotalLandings + res[i].actureFlightLegs;
     }
+    restotaldutytime=DATE.formatHour(restotaldutytime)
+
     return {restotaldutytime,restotalFlightlegs,restotalLandings}
   },
 
@@ -376,6 +394,11 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
     this.setData({
       yearnow :this.data.yearnow + 1
     })
+  },
+  restcorrec:function(ev){
+    let value=ev.detail.value;
+    this.data.correction10REST=parseInt(value)*3600000
+    
   },
 
 
