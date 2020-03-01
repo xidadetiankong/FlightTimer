@@ -28,29 +28,6 @@ DATA:[]
  
   
 
- onReady:function(){
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {}
-    }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
-      // console.log(res);
-      db.collection('userprofile').where({
-        _openid: res.result.openid
-      }).get().then((res) => {
-        if(res.data.length){
-          app.userInfo = Object.assign(app.userInfo, res.data[0]);
-          this.setData({
-            
-            userID: app.userInfo._id,
-            hasaccount:true
-            
-          })
-        }
-        
-      })
-    })
-
-  },
   onReady:function(){
    
     this.initPAGE()

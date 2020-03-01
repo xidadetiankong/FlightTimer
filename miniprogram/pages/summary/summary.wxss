@@ -1,14 +1,62 @@
 /* pages/summary/summary.wxss */
 .container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #2A465C;
-
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  
+  align-items: center;
+  box-sizing: border-box;
+
+}
+.detailData{
+  display: flex;
+  flex-direction:column;
+ text-align: center;
   justify-content: flex-start;
   align-items: center;
+}
+.title{
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  
+}
+.title view{
+  height:40rpx;
+  width:120rpx;
+  border:1px solid black
+}
+
+.historyData{
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+
+}
+.historyKid{
+  display: flex;
+  flex-direction:column;
+ 
+  justify-content: flex-start;
+  align-items: center;
+}
+.historyKid view{
+  height:40rpx;
+  width:120rpx;
+  border:1px solid black
+}
+
+
+
+
+
+
+
+
+.BTNgp{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

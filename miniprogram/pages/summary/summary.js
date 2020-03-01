@@ -1,14 +1,17 @@
 // pages/summary/summary.js
+
 const DATE = require('../../utils/util.js')
 const date = new Date()
 const db = wx.cloud.database()
 const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    chartTitle: '月度时间汇总',
     predresttime: 0, //下一个48的开始时间
     DATA: [],
     tenhourrest: true, //上一个任务结束到现在是否满足10小时
@@ -24,7 +27,12 @@ Page({
     YEARtotalLandings: 0,
 
 
+    totaldutytimeof12:0,//月度合集
+      totalFlightlegsof12:0,
+      totalLandings12:0,
 
+
+    twelveMonth:['1月份','2月份','3月份','4月份','5月份','6月份','7月份','7月份','8月份','10月份','11月份','12月份'],
 
     yearnow: parseInt(DATE.yearNow(date)),
 
@@ -41,6 +49,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    var that=this
     wx.cloud.callFunction({ //只能在此功能中嵌入函数防止不同步的问题
       name: 'count',
       data: {}
@@ -51,7 +60,10 @@ Page({
         DATA: dataT
       })
       this.findthespa()
+      this.findjack()     
     })
+
+    
   },
 
   findthespa: function () { //计算四十八小时休息期返回预测的下一个48开始时间同时判断航后10小时休息是否满足
@@ -302,19 +314,19 @@ Page({
       month31select.splice(10,0,month30select[3])//数据集合
       var totaldutytimeof12 =[]
        var totalFlightlegsof12=[]
-      var totalLandings=[]
+      var totalLandings12=[]
 
       console.log(month31select)
       month31select.forEach(element=>{
         totaldutytimeof12.push(this.collectitem(element).restotaldutytime);
         totalFlightlegsof12.push(this.collectitem(element).restotalFlightlegs);
-        totalLandings.push(this.collectitem(element).restotalLandings)
+        totalLandings12.push(this.collectitem(element).restotalLandings)
 
 
       })
 
       
-console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings)
+console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
     console.log(yearnow, DATE.stamptoformatTime(yearstart), DATE.stamptoformatTime(yearend))
     console.log(this.collectitem(DATA).restotalFlightlegs)
 
@@ -322,6 +334,9 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings)
 
 
     this.setData({
+      totaldutytimeof12:totaldutytimeof12,
+      totalFlightlegsof12:totalFlightlegsof12,
+      totalLandings12:totalLandings12,
 
       YEARtotaldutytime: this.collectitem(valueofselectyear).restotaldutytime,//年度数据合集
       YEARtotalFlightlegs: this.collectitem(valueofselectyear).restotalFlightlegs,
@@ -348,13 +363,19 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings)
 
   lastyear: function () {
 
-    this.data.yearnow = this.data.yearnow - 1
+  
     this.findjack()
+    this.setData({
+      yearnow :this.data.yearnow - 1
+    })
 
   },
   nextyear: function () {
-    this.data.yearnow = this.data.yearnow + 1
+    
     this.findjack()
+    this.setData({
+      yearnow :this.data.yearnow + 1
+    })
   },
 
 

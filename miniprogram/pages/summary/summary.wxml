@@ -5,11 +5,60 @@
     tenhourrest: true,//上一个任务结束到现在是否满足10小时
     foureighthourrest: true,
     nextciclestart: '',  -->
+<view class="container">
+	<view class="statas">
+    <view>从我们相识到现在您已经工作了：{{totaldutytime}}小时</view><view>{{totalFlightlegs}}个航段</view><view>{{totalLandings}}个落地</view>
+    <view>今年您已经工作了{{YEARtotaldutytime}}小时</view><view>{{YEARtotalFlightlegs}}个航段</view><view>{{YEARtotalLandings}}个落地</view>
+		<view>预计下次48开始是时间{{predresttime}}</view>
+		<view>航后10小时休息{{tenhourrest}}</view>
+		<view>48小时休息期{{foureighthourrest}}</view>
+		<view>下一个工作开始时{{nextciclestart}}</view>
+	</view>
 
-<view>预计下次48开始是时间{{predresttime}}</view>
-<view>航后10小时休息{{tenhourrest}}</view>
-<view>48小时休息期{{foureighthourrest}}</view>
-<view>下一个工作开始时{{nextciclestart}}</view>
-<button class="1" bindtap="findjack">我是一个无聊的button</button>
-<button class="1" bindtap="lastyear">我是一个蛋疼的button</button>
-<button class="1" bindtap="nextyear">我是一个蛋疼又无聊的button</button>
+	<view class="detailData">
+		<view class="title">
+			<view>月份</view>
+			<view>执勤时间</view>
+			<view>段数</view>
+			<view>起落数</view>
+		</view>
+		<view class="historyData">
+			<view class="historyKid">
+				<view wx:for="{{twelveMonth}}" wx:key="index">
+					{{item}}
+				</view>
+			</view>
+
+			<view class="historyKid">
+				<view wx:for="{{totaldutytimeof12}}" wx:key="index">
+					{{item}}
+				</view>
+			</view>
+			<view class="historyKid">
+				<view wx:for="{{totalFlightlegsof12}}" wx:key="index">
+					{{item}}
+				</view>
+			</view>
+			<view class="historyKid">
+				<view wx:for="{{totalLandings12}}" wx:key="index">
+					{{item}}
+				</view>
+			</view>
+
+
+
+		</view>
+
+	</view>
+
+
+	<view class="BTNgp">
+		<button class="1" bindtap="lastyear">我是一个蛋疼的button</button>
+        <view>当前{{yearnow}}年</view>
+		<button class="1" bindtap="nextyear">我是一个蛋疼又无聊的button</button>
+	</view>
+
+
+
+
+</view>
