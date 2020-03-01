@@ -61,7 +61,7 @@ height: 100vh;
 
 .detailData{
   position: fixed;
-  top: 41vh;
+  top: 44vh;
   display: flex;
   flex-direction:column;
  text-align: center;
@@ -76,7 +76,7 @@ height: 100vh;
   
 }
 .title view{
-  height:40rpx;
+  height:35rpx;
   width:120rpx;
   border:1px solid rgb(141, 173, 199)
 }
@@ -96,7 +96,7 @@ height: 100vh;
   align-items: center;
 }
 .historyKid view{
-  height:40rpx;
+  height:35rpx;
   width:120rpx;
   border:1px solid rgb(141, 173, 199)
 }
@@ -125,4 +125,13 @@ height: 100vh;
 .b1{
   color: rgb(53, 66, 77);
 opacity: 0.75;
+}
+.warning{
+  position: fixed;
+  font-size: 20rpx;
+  color: rgb(50, 62, 71);
+  bottom:40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

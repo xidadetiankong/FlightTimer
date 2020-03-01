@@ -12,11 +12,11 @@
 
 		<view class="text1">
 			<view class="statas">
-				<view>您总共工作了{{totaldutytime}},包含{{totalFlightlegs}}个航段和{{totalLandings}}个落地。</view>
+				<view>您的总工作时间为{{totaldutytime}},包含{{totalFlightlegs}}个航段、{{totalLandings}}个落地。</view>
 
 			</view>
 			<view class="statas">
-				<view>今年工作了{{YEARtotaldutytime}}小时,包含{{YEARtotalFlightlegs}}个航段和{{YEARtotalLandings}}个落地。</view>
+				<view>{{selectyear}}年您工作了{{YEARtotaldutytime}}小时,包含{{YEARtotalFlightlegs}}个航段、{{YEARtotalLandings}}个落地。</view>
 
 			</view>
 
@@ -25,7 +25,7 @@
 
 			<view class="tenrest">
 				<view> 距离上次工作结束到现在您休息了{{currentREST}}。</view>
-				<view>根据公司要求，航后要休息1</view><input type="number" style="width:40rpx" maxlength="2" placeholder="0" bindinput="restcorrec"></input>小时
+				<view>根据公司要求，航后要休息10+</view><input type="number" style="width:40rpx" maxlength="2" value="{{correction10REST}}" bindinput="restcorrec"></input>小时
 				<view>（此处自行填写）</view>
 				<view wx:if="{{tenhourrest}}">满足航后休息要求。</view>
 				<view wx:else>,目前还不满足航后休息要求，请合理安排工作。</view>
@@ -91,7 +91,7 @@
 		</view>
 
 
-
+		<view class="warning">以上数据仅供参考，请以公司规定或相关法律法规为准</view>
 
 	</view>
 </view>

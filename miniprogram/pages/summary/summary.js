@@ -90,8 +90,8 @@ Page({
     this.setData({
       currentREST:currentREST
     })
-
-    if ((presentTime - lastcheckout) < (36000000+this.data.correction10REST)) {
+console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction10REST))
+    if (((presentTime - lastcheckout-28800000) - (36000000+this.data.correction10REST))<0) {
       wx.showToast({
         title: '最小航后休息未满足要求哦',
         icon: 'none'
@@ -398,6 +398,11 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
   restcorrec:function(ev){
     let value=ev.detail.value;
     this.data.correction10REST=parseInt(value)*3600000
+    this.findthespa()
+    this.setData({
+      predresttime:DATE.stamptoformatTime(this.data.predresttime),
+      nextciclestart:DATE.stamptoformatTime(this.data.nextciclestart)
+    })
     
   },
 
