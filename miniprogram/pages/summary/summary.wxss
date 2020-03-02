@@ -47,7 +47,7 @@ height: 100vh;
   flex-wrap: wrap;
 }
 .tenrest input{
-  font-size: 40rpx;
+ 
   color: rgb(255, 255, 255);
   background: rgb(17, 16, 16);
   text-align: center;

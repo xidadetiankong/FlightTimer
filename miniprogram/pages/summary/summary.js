@@ -102,6 +102,11 @@ console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction
         tenhourrest: false
       })
 
+    }else  if (((presentTime - lastcheckout-28800000) - (36000000+this.data.correction10REST))>=0){
+      this.setData({
+        
+        tenhourrest: true
+      })
     }
 
 
@@ -399,6 +404,7 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
     let value=ev.detail.value;
     this.data.correction10REST=parseInt(value)*3600000
     this.findthespa()
+    this.findjack()
     this.setData({
       predresttime:DATE.stamptoformatTime(this.data.predresttime),
       nextciclestart:DATE.stamptoformatTime(this.data.nextciclestart)

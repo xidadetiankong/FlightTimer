@@ -25,7 +25,7 @@
 
 			<view class="tenrest">
 				<view> 距离上次工作结束到现在您休息了{{currentREST}}。</view>
-				<view>根据公司要求，航后要休息10+</view><input type="number" style="width:40rpx" maxlength="2" value="{{correction10REST}}" bindinput="restcorrec"></input>小时
+				<view>根据公司要求，航后要休息10+</view><input type="number" style="width:40rpx" maxlength="3" value="{{correction10REST}}" bindinput="restcorrec"></input>小时
 				<view>（此处自行填写）</view>
 				<view wx:if="{{tenhourrest}}">满足航后休息要求。</view>
 				<view wx:else>,目前还不满足航后休息要求，请合理安排工作。</view>
