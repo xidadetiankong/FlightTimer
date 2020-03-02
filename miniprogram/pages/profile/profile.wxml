@@ -22,7 +22,7 @@
 	
 		<navigator url="../editUserInfo/editUserInfo" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
-				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
+				<image class="titleimg" src="../../img/editProf.png" mode="aspectFit"></image>
 				<view class="titleWord">编辑个人信息</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>

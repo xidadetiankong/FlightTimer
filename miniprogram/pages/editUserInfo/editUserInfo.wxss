@@ -48,7 +48,7 @@
   width:150rpx;
   border: 0.5px solid aliceblue;
   border-radius: 50%;
-  margin-right:199rpx;
+  margin-right:240rpx;
 } 
 #headphotoID {
   height: 200rpx;

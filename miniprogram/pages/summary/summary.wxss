@@ -30,6 +30,7 @@ height: 100vh;
   font-size: 35rpx;
 }
 .text1{
+  color:white;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

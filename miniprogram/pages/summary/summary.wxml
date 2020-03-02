@@ -32,12 +32,10 @@
 			</view>
 
 			<view class="policy">
-				<view>
-					预计下次48开始是时间{{predresttime}}
-				</view>
+		
 				<block>
-					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，工作重要身体更重要记得锻炼身体哟！</view>
-					<view wx:else>当前周期不满足48小时休息期，请合理安排工作<view>下一个工作开始时{{nextciclestart}}</view>
+					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您可以继续工作到{{predresttime}}。工作重要身体更重要记得锻炼身体哟！</view>
+					<view wx:else>当前周期不满足48小时休息期，请合理安排工作<view>下一个工作周期开始时间为{{nextciclestart}}</view>
 					</view>
 				</block>
 
