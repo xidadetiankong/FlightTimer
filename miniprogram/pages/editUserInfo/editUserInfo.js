@@ -33,13 +33,18 @@ Page({
     })
     console.log(app.userInfo)
   },
-
+  choosePROF:function(){
+    wx.navigateTo({
+      url: '../professionSelect/professionSelect',
+    })
+  },
 
 
   confirmCHG:function(){
     this.updateSignature();
-    this.updateProfession();
-    this.updateNickName()
+    this.updateNickName();
+    this.updateProfession()
+    
   },
   inputnickName:function(ev){
 let value=ev.detail.value;
@@ -69,6 +74,9 @@ this.setData({
           title: '更新成功',
         })
         app.userInfo.nickName=this.data.nickName
+        wx.switchTab({
+          url: '../profile/profile',
+        })
       }) 
     }
     
@@ -98,15 +106,8 @@ this.setData({
       app.userInfo.signature=this.data.signature
     })
   },
-  inputprofession:function(ev){
-    
-   let value=ev.detail.value
-   
-    this.setData({
-      profession:value
-    })
-  },
-  updateProfession:function(){
+  
+  updateProfession:function(){//正则留着用吧
     if(!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))){//终于把正则理清楚了
       
 
@@ -119,7 +120,7 @@ this.setData({
     })
     db.collection('userprofile').doc(app.userInfo._id).update({
       data:{
-        profession:this.data.profession
+        work:this.data.profession
       }
     }).then((res)=>{
       wx.hideLoading({});

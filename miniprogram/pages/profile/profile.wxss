@@ -12,6 +12,39 @@
   justify-content: flex-start;
   align-items: center;
 }
+.acover{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #2A465C;
+  opacity: 0.8;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+}
+.abutton{
+  width: 200rpx;
+  height: 80rpx;
+  color: aliceblue;
+  background: lightslategrey;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+
+}
+.tapAbutton{
+  transform: scale(0.95,0.95);
+}
 
 .myAcount {
   position: fixed;

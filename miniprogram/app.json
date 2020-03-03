@@ -2,14 +2,12 @@
   "pages": [
     "pages/echo/echo",
     "pages/summary/summary",
-   
     "pages/record/record",
     "pages/profile/profile",
-    
-    
     "pages/editUserInfo/editUserInfo",
     "pages/tools/tools",
-    "pages/calclator/calculator"
+    "pages/calclator/calculator",
+    "pages/professionSelect/professionSelect"
   ],
   "window": {
     "backgroundColor": "#2A465C",

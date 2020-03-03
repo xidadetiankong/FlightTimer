@@ -1,6 +1,8 @@
 <!--pages/profile/profile.wxml-->
-
+	
 <view class="container">
+
+
 	<view class="myAcount">
 
 		<image class="avater" src="{{avatarUrl}}"></image>
@@ -77,3 +79,4 @@
 
 	
 </view>
+<view class="acover" hidden="{{hasProfession}}" ><view class="abutton" hover-class="tapAbutton" bindtap="tapAbutton"><view> 点击选择职业</view></view> </view>

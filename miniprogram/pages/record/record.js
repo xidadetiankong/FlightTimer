@@ -19,7 +19,8 @@ downloadTimes:1,
 temporaryID:0,
 
 
-DATA:[]
+DATA:[],
+profession:''
 
   },
 
@@ -29,6 +30,9 @@ DATA:[]
   
 
   onReady:function(){
+    this.setData({
+      profession:app.userInfo.profession
+    })
    
     this.initPAGE()
   },

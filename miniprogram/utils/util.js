@@ -104,8 +104,18 @@ return year+'-'+month+'-'+ day + ' ' + hour+':'+ minute+':'+ second
   
 }
 
+const arrySum=res=>{
+var sumValue=0
+  res.forEach(element=>{
+sumValue=sumValue+element
+  })
+
+  return sumValue
+}
+
 
 module.exports = {
+  arrySum:arrySum,
   stamptoformatTime:stamptoformatTime,
   formatHour:formatHour,
   timeToStamp:timeToStamp,

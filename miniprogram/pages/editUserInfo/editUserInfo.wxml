@@ -6,14 +6,17 @@
 		<view class="titleWord">头像</view>
 		<image class="avatar" src="{{avatarUrl}}" mode="aspectFit"></image>
 	</view>
-  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
-		<view class="titleWord">昵称:</view><input id="listInputNick" class="listInput" value="{{nickName}}" maxlength="10" bindinput="inputnickName" ></input>
+  <view url="../avatar/avatar" class="list" id="headphotoID1" open-type="navigate" hover-class="tapList">
+		<view class="titleWord">昵称:</view><input id="listInputNick2" class="listInput" value="{{nickName}}" maxlength="10" bindinput="inputnickName" ></input>
 	</view>
   <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
 		<view class="titleWord">个性签名:</view><input id="listInputNick1" class="listInput" value="{{signature}}" maxlength="80" bindinput="inputsignature"></input>
 	</view>
-  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
-		<view class="titleWord">职业：</view><input id="listInputNick" class="listInput" value="{{profession}}" maxlength="10" bindinput="inputprofession" ></input>
+	<view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
+		<view class="titleWord">工作:</view><input id="listInputNick1" class="listInput" value="{{work}}" maxlength="10" bindinput="updateProfession"></input>
+	</view>
+  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList" bindtap="choosePROF">
+		<view class="titleWord">系统职业选择：</view><view id="listInputNick"   >{{profession}}</view>
 	</view>
  
 </view>

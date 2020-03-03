@@ -1,0 +1,10 @@
+<!--miniprogram/pages/professionSelect/professionSelect.wxml-->
+<view class="container">
+<view id="pilot" class="pro" hover-class="tapPro" bindtap="pilot" >飞行员</view>
+<view id="attendant" class="pro" hover-class="tapPro" bindtap="attendant" >乘务员</view>
+<view id="security" class="pro" hover-class="tapPro" bindtap="security">空保</view>
+<view id="others" class="pro" hover-class="tapPro" bindtap="others">地面保障人员和其他职业</view>
+
+
+
+</view>

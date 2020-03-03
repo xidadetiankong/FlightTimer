@@ -13,26 +13,58 @@
 	<view class="title">
 		<view id="kid1">签到时间</view>
 		<view id="kid2">截止时间</view>
-		<view id="kid3">执勤时间</view>
+		<view id="kid3">搬砖时间</view>
+		<block>
+		<block wx:if="{{profession==='pilot'?true:false}}">
+			<view id="kid4">航段数</view>
+			<view id="kid5">落地数</view>
+		</block>
+		<block wx:elif="{{profession==='attendant'?true:false}}">
+			<view id="kid4">航段数</view>
+		</block>
+		<block wx:elif="{{profession==='security'?true:false}}">
+			<view id="kid4">航段数</view>
+		</block>
+		<block wx:elif="{{profession==='others'?true:false}}">
+		</block>
+		
+		
+		
+		</block>
+		
 
-		<view id="kid4">航段数</view>
-		<view id="kid5">落地数</view> 
 	</view>
 	<view class="body">
-		<scroll-view class="scroer" scroll-y="true" enable-flex="true"  style="height:100vh" lower-threshold="50" bindscrolltolower="addnewrecord">
-			<view  wx:for="{{DATA}}" id="{{item.Eid}}" wx:key="index" style="display: flex " class="scroll-view-item" hover-class="scrollsHover"  bindlongpress="deleteKid">
+		<scroll-view class="scroer" scroll-y="true" enable-flex="true" style="height:100vh" lower-threshold="50" bindscrolltolower="addnewrecord">
+			<view wx:for="{{DATA}}" id="{{item.Eid}}" wx:key="index" style="display: flex " class="scroll-view-item" hover-class="scrollsHover" bindlongpress="deleteKid">
 				<view class="child">
 					<view id="kid1">{{item.checkintime1}}</view>
 					<view id="kid2">{{item.EndTime}}</view>
 					<view id="kid3">{{item.totalDutyTime}}</view>
-
-					<view id="kid4">{{item.actureFlightLegs}}</view>
+					<block>
+		<block wx:if="{{profession==='pilot'?true:false}}">
+				<view id="kid4">{{item.actureFlightLegs}}</view>
 					<view id="kid5">{{item.actureLandings}}</view>
+		</block>
+		<block wx:elif="{{profession==='attendant'?true:false}}">
+		<view id="kid4">{{item.actureFlightLegs}}</view>
+		</block>
+		<block wx:elif="{{profession==='security'?true:false}}">
+			<view id="kid4">{{item.actureFlightLegs}}</view>
+		</block>
+		<block wx:elif="{{profession==='others'?true:false}}">
+		</block>
+		
+		
+		
+		</block>
+
+				
 
 
 
 				</view>
-        <view  class="child">
+				<view class="child">
 					<view wx:if="{{item.overTime}}" id="kid6"><text id="kid7">超时！</text> {{item.remarks}}</view>
 					<view wx:else id="kid6">备注：{{item.remarks}}</view>
 
@@ -42,10 +74,12 @@
 		</scroll-view>
 	</view>
 
-	<view class="delete"  hidden="{{hidDelview}}" >
-	<view class="delKid1" ><view>确认删除该条记录！</view></view>
-	<view  class="delKid2"> <button class="delKidBTN" size="mini" hover-class="scrollsHover" bindtap="cancleDEL">取消</button><button class="delKidBTN" size="mini" hover-class="scrollsHover" bindtap="confirmDEL" >确认</button> </view>
-	
+	<view class="delete" hidden="{{hidDelview}}">
+		<view class="delKid1">
+			<view>确认删除该条记录！</view>
+		</view>
+		<view class="delKid2"> <button class="delKidBTN" size="mini" hover-class="scrollsHover" bindtap="cancleDEL">取消</button><button class="delKidBTN" size="mini" hover-class="scrollsHover" bindtap="confirmDEL">确认</button> </view>
+
 	</view>
 
 </view>

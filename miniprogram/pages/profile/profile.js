@@ -16,14 +16,16 @@ Page({
   data: {
     avatarUrl: '../../img/profileS.png',
     hasCount: false,
-    disabled:true
+    disabled:true,
+    hasProfession:false
+
   },
   onLoad: function () {
-
-
+    
 
   },
   onReady: function () {
+   
     wx.cloud.callFunction({
       name: 'login',
       data: {}
@@ -34,10 +36,13 @@ Page({
       }).get().then((res) => {
         if(res.data.length){
           app.userInfo = Object.assign(app.userInfo, res.data[0]);
+          app.profession=Object.assign(app.userInfo, res.data[0].profession);
+          
           this.setData({
             avatarUrl: app.userInfo.avatarUrl,
             nickName: app.userInfo.nickName,
-            hasCount: true
+            hasCount: true,
+            hasProfession:true
           })
         }else{
           this.setData({
@@ -47,13 +52,19 @@ Page({
         
       })
     })
-
+    
 
   },
   onShow: function () {
     this.setData({
       avatarUrl: app.userInfo.avatarUrl,
-      nickName: app.userInfo.nickName,})
+      nickName: app.userInfo.nickName,
+      hasProfession:app.hasProfession})
+  },
+  tapAbutton:function(){
+    wx.navigateTo({
+      url: '../professionSelect/professionSelect',
+    })
   },
 
   bindGetUserInfo: function (e) {//首次登录
@@ -68,11 +79,10 @@ Page({
         data: {
           avatarUrl: userInfo.avatarUrl,
           nickName: userInfo.nickName,
-          profession: '',
-          sex: '',
+          profession:app.profession,
           signature: '',
-          phoneNumber: '',
           links: '',
+          work:'',
           time: new Date(),
         }
       }).then((res) => {

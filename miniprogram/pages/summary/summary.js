@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    profession:'',
     chartTitle: '月度时间汇总',
     predresttime: 0, //下一个48的开始时间
     DATA: [],
@@ -21,22 +22,24 @@ Page({
     totalFlightlegs: 0,
     totalLandings: 0,
 
-    
-    YEARtotaldutytime: 0,//年度数据合集
+
+    YEARtotaldutytime: 0, //年度数据合集
     YEARtotalFlightlegs: 0,
     YEARtotalLandings: 0,
 
 
-    totaldutytimeof12:0,//月度合集
-      totalFlightlegsof12:0,
-      totalLandings12:0,
+    totaldutytimeof12: 0, //月度合集
+    totalFlightlegsof12: 0,
+    totalLandings12: 0,
 
 
-    twelveMonth:['1月份','2月份','3月份','4月份','5月份','6月份','7月份','7月份','8月份','10月份','11月份','12月份'],
+    twelveMonth: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份', '7月份', '7月份', '8月份', '10月份', '11月份', '12月份'],
 
     yearnow: parseInt(DATE.yearNow(date)),
 
-    correction10REST:0,
+    correction10REST: 0,
+    showDetail:true,
+   
 
   },
 
@@ -45,13 +48,18 @@ Page({
    */
   onLoad: function (options) {
 
+    this.setData({
+      profession:app.userInfo.profession
+    })
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var that=this
+    
+    var that = this
     wx.cloud.callFunction({ //只能在此功能中嵌入函数防止不同步的问题
       name: 'count',
       data: {}
@@ -62,14 +70,14 @@ Page({
         DATA: dataT
       })
       this.findthespa()
-      this.findjack()   
+      this.findjack()
       this.setData({
-        predresttime:DATE.stamptoformatTime(that.data.predresttime),
-        nextciclestart:DATE.stamptoformatTime(that.data.nextciclestart)
+        predresttime: DATE.stamptoformatTime(that.data.predresttime),
+        nextciclestart: DATE.stamptoformatTime(that.data.nextciclestart)
       })
     })
 
-    
+
   },
 
   findthespa: function () { //计算四十八小时休息期返回预测的下一个48开始时间同时判断航后10小时休息是否满足
@@ -86,25 +94,25 @@ Page({
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi
-    let currentREST=DATE.formatHour(presentTime - lastcheckout-28800000)
+    let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000)
     this.setData({
-      currentREST:currentREST
+      currentREST: currentREST
     })
-console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction10REST))
-    if (((presentTime - lastcheckout-28800000) - (36000000+this.data.correction10REST))<0) {
+    console.log((presentTime - lastcheckout - 28800000), (36000000 + this.data.correction10REST))
+    if (((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0) {
       wx.showToast({
         title: '最小航后休息未满足要求哦',
         icon: 'none'
       })
-     
+
       this.setData({
-        
+
         tenhourrest: false
       })
 
-    }else  if (((presentTime - lastcheckout-28800000) - (36000000+this.data.correction10REST))>=0){
+    } else if (((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0) {
       this.setData({
-        
+
         tenhourrest: true
       })
     }
@@ -249,37 +257,98 @@ console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction
 
     };
 
-    
-    
+
+
     console.log('ff', this.data.predresttime)
 
   },
   findjack: function () {
     var DATA = this.data.DATA;
-   
+    var day = DATE.dayNow(date);//包含年月日
+    var sevenDay=604800000
+
+    var sevenDayStart=DATE.timeToStamp(day,'23:59')+ 60000 - 28800000-sevenDay;
+    var sevenDayEnd=DATE.timeToStamp(day,'23:59')+ 60000 - 28800000;
+    var sevenDaywork=[];
+    var sixtyHour=216000000
+
+
+    var ATTsevenDaywork=[];
+    var seventyHour=252000000
+
     var yearnow = this.data.yearnow;
     var yearstart = DATE.timeToStamp(yearnow + '-01-01', '00:00') - 28800000;
     var yearend = DATE.timeToStamp(yearnow + '-12-31', '23:59') + 60000 - 28800000;
-    var month31=[1,3,5,7,8,10,12];
-    var month30=[4,6,9,11]
-   
-    var runnian=yearnow%4
-    var valueofselectyear = [];
-    var month31select=[];
-    var month30select=[];
-    var month02select=[];
+    var month31 = [1, 3, 5, 7, 8, 10, 12];
+    var month30 = [4, 6, 9, 11]
 
-    DATA.forEach(element => {
+    var runnian = yearnow % 4
+    var valueofselectyear = [];
+    var month31select = [];
+    var month30select = [];
+    var month02select = [];
+    DATA.forEach(element=>{//七天工作时间由于单独提取出去来了执勤时间放入数组所以需要单独进行数组求和
+      if((element.EndTime-28800000)>sevenDayStart&&(element.checkintime-28800000)<sevenDayStart){
+        ATTsevenDaywork.push((element.EndTime-28800000)-sevenDayStart)
+      }else if((element.EndTime-28800000)<sevenDayEnd&&(element.checkintime-28800000)>sevenDayStart){
+        ATTsevenDaywork.push(element.totalDutyTime)
+      }else if((element.EndTime-28800000)>sevenDayEnd&&(element.checkintime-28800000)<sevenDayEnd){
+        ATTsevenDaywork.push(sevenDayEnd-(element.checkintime-28800000))
+      }
+
+      if(DATE.arrySum(ATTsevenDaywork)>seventyHour){
+        this.setData({
+          ATTsevenDaywork:DATE.formatHour(DATE.arrySum(ATTsevenDaywork)),
+          ATTsevenDayworkOvr:false
+        })
+        return
+      }else if(DATE.arrySum(ATTsevenDaywork)<=seventyHour){
+        this.setData({
+          ATTsevenDaywork:DATE.formatHour(DATE.arrySum(ATTsevenDaywork)),
+          ATTsevenDayworkOvr:true
+        })
+        return
+      }
+
+    })
+
+    DATA.forEach(element=>{//七天工作时间由于单独提取出去来了执勤时间放入数组所以需要单独进行数组求和
+      if((element.EndTime-28800000)>sevenDayStart&&(element.checkintime-28800000)<sevenDayStart){
+        sevenDaywork.push((element.EndTime-28800000)-sevenDayStart)
+      }else if((element.EndTime-28800000)<sevenDayEnd&&(element.checkintime-28800000)>sevenDayStart){
+        sevenDaywork.push(element.totalDutyTime)
+      }else if((element.EndTime-28800000)>sevenDayEnd&&(element.checkintime-28800000)<sevenDayEnd){
+        sevenDaywork.push(sevenDayEnd-(element.checkintime-28800000))
+      }
+
+      if(DATE.arrySum(sevenDaywork)>sixtyHour){
+        this.setData({
+          sevenDaywork:DATE.formatHour(DATE.arrySum(sevenDaywork)),
+          sevenDayworkOvr:false
+        })
+        return
+      }else if(DATE.arrySum(sevenDaywork)<=sixtyHour){
+        this.setData({
+          sevenDaywork:DATE.formatHour(DATE.arrySum(sevenDaywork)),
+          sevenDayworkOvr:true
+        })
+        return
+      }
+
+    })
+    console.log('七天工作时间',this.data.sevenDaywork)
+
+    DATA.forEach(element => {//取出年度数据
       if ((element.checkintime - 28800000) > yearstart && (element.checkintime - 28800000) < yearend) {
         valueofselectyear.push(element)
       }
     })
 
 
-    month31.forEach(element=>{//取出月份为31天数据
-      let i =[]
-      let monthstart=DATE.timeToStamp(yearnow + '-'+element+'-01', '00:00') - 28800000;
-      let monthend= DATE.timeToStamp(yearnow + '-'+element+'-31', '23:59') + 60000 - 28800000;
+    month31.forEach(element => { //取出月份为31天数据
+      let i = []
+      let monthstart = DATE.timeToStamp(yearnow + '-' + element + '-01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '-' + element + '-31', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           i.push(element)
@@ -289,10 +358,10 @@ console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction
       month31select.push(i)
 
     })
-    month30.forEach(element=>{//30天月份数据
-      let i =[]
-      let monthstart=DATE.timeToStamp(yearnow + '-'+element+'-01', '00:00') - 28800000;
-      let monthend= DATE.timeToStamp(yearnow + '-'+element+'-30', '23:59') + 60000 - 28800000;
+    month30.forEach(element => { //30天月份数据
+      let i = []
+      let monthstart = DATE.timeToStamp(yearnow + '-' + element + '-01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '-' + element + '-30', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           i.push(element)
@@ -300,17 +369,17 @@ console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction
       })
       month30select.push(i)
     })
-    if(runnian===0){//二月份数据
-      let monthstart=DATE.timeToStamp(yearnow + '-02-01', '00:00') - 28800000;
-      let monthend= DATE.timeToStamp(yearnow + '-02-29', '23:59') + 60000 - 28800000;
+    if (runnian === 0) { //二月份数据
+      let monthstart = DATE.timeToStamp(yearnow + '-02-01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '-02-29', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           month02select.push(element)
         }
       })
-    }else if(runnian!=0){
-      let monthstart=DATE.timeToStamp(yearnow + '-02-01', '00:00') - 28800000;
-      let monthend= DATE.timeToStamp(yearnow + '-02-28', '23:59') + 60000 - 28800000;
+    } else if (runnian != 0) {
+      let monthstart = DATE.timeToStamp(yearnow + '-02-01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '-02-28', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           month02select.push(element)
@@ -320,31 +389,31 @@ console.log((presentTime - lastcheckout-28800000),(36000000+this.data.correction
 
 
 
-    console.log(valueofselectyear  , month31select,
+    console.log(valueofselectyear, month31select,
       month30select,
       month02select);
-      month31select.splice(1,0,month02select)
-     
-      month31select.splice(3,0,month30select[0])
-    
-      month31select.splice(5,0,month30select[1])
-      month31select.splice(8,0,month30select[2])
-      month31select.splice(10,0,month30select[3])//数据集合
-      var totaldutytimeof12 =[]
-       var totalFlightlegsof12=[]
-      var totalLandings12=[]
+    month31select.splice(1, 0, month02select)
 
-      console.log(month31select)
-      month31select.forEach(element=>{
-        totaldutytimeof12.push(this.collectitem(element).restotaldutytime);
-        totalFlightlegsof12.push(this.collectitem(element).restotalFlightlegs);
-        totalLandings12.push(this.collectitem(element).restotalLandings)
+    month31select.splice(3, 0, month30select[0])
+
+    month31select.splice(5, 0, month30select[1])
+    month31select.splice(8, 0, month30select[2])
+    month31select.splice(10, 0, month30select[3]) //数据集合
+    var totaldutytimeof12 = []
+    var totalFlightlegsof12 = []
+    var totalLandings12 = []
+
+    console.log(month31select)
+    month31select.forEach(element => {
+      totaldutytimeof12.push(this.collectitem(element).restotaldutytime);
+      totalFlightlegsof12.push(this.collectitem(element).restotalFlightlegs);
+      totalLandings12.push(this.collectitem(element).restotalLandings)
 
 
-      })
+    })
 
-      
-console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
+
+    console.log(totaldutytimeof12, totalFlightlegsof12, totalLandings12)
     console.log(yearnow, DATE.stamptoformatTime(yearstart), DATE.stamptoformatTime(yearend))
     console.log(this.collectitem(DATA).restotalFlightlegs)
 
@@ -353,16 +422,16 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
 
     this.setData({
 
-      
-      totaldutytimeof12:totaldutytimeof12,
-      totalFlightlegsof12:totalFlightlegsof12,
-      totalLandings12:totalLandings12,
-      selectyear:yearnow,
 
-      YEARtotaldutytime: this.collectitem(valueofselectyear).restotaldutytime,//年度数据合集
+      totaldutytimeof12: totaldutytimeof12,
+      totalFlightlegsof12: totalFlightlegsof12,
+      totalLandings12: totalLandings12,
+      selectyear: yearnow,
+
+      YEARtotaldutytime: this.collectitem(valueofselectyear).restotaldutytime, //年度数据合集
       YEARtotalFlightlegs: this.collectitem(valueofselectyear).restotalFlightlegs,
       YEARtotalLandings: this.collectitem(valueofselectyear).restotalLandings,
-      totaldutytime: this.collectitem(DATA).restotaldutytime,//历史数据合集
+      totaldutytime: this.collectitem(DATA).restotaldutytime, //历史数据合集
       totalFlightlegs: this.collectitem(DATA).restotalFlightlegs,
       totalLandings: this.collectitem(DATA).restotalLandings
     })
@@ -371,48 +440,61 @@ console.log(totaldutytimeof12,totalFlightlegsof12,totalLandings12)
 
   collectitem: function (res) {
 
-    var restotaldutytime=0;
-    var restotalFlightlegs=0;
-    var restotalLandings=0;
+    var restotaldutytime = 0;
+    var restotalFlightlegs = 0;
+    var restotalLandings = 0;
     for (let i = 0; i < res.length; i++) { //运算历史总值勤时间
       restotaldutytime = restotaldutytime + res[i].totalDutyTime;
       restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
-      restotalLandings = restotalLandings + res[i].actureFlightLegs;
+      restotalLandings = restotalLandings + res[i].actureLandings;
     }
-    restotaldutytime=DATE.formatHour(restotaldutytime)
+    restotaldutytime = DATE.formatHour(restotaldutytime)
 
-    return {restotaldutytime,restotalFlightlegs,restotalLandings}
+    return {
+      restotaldutytime,
+      restotalFlightlegs,
+      restotalLandings
+    }
   },
 
   lastyear: function () {
 
-  
+
     this.findjack()
     this.setData({
-      yearnow :this.data.yearnow - 1
+      yearnow: this.data.yearnow - 1
     })
 
   },
   nextyear: function () {
-    
+
     this.findjack()
     this.setData({
-      yearnow :this.data.yearnow + 1
+      yearnow: this.data.yearnow + 1
     })
   },
-  restcorrec:function(ev){
-    let value=ev.detail.value;
-    this.data.correction10REST=parseInt(value)*3600000
+  restcorrec: function (ev) {
+    let value = ev.detail.value;
+    this.data.correction10REST = parseInt(value) * 3600000
     this.findthespa()
     this.findjack()
     this.setData({
-      predresttime:DATE.stamptoformatTime(this.data.predresttime),
-      nextciclestart:DATE.stamptoformatTime(this.data.nextciclestart)
+      predresttime: DATE.stamptoformatTime(this.data.predresttime),
+      nextciclestart: DATE.stamptoformatTime(this.data.nextciclestart)
     })
-    
+
+  },
+  showDetai:function(){
+    this.setData({
+      showDetail:false
+    })
   },
 
-
+  returnTT:function(){
+    this.setData({
+      showDetail:true
+    })
+  },
 
 
 
