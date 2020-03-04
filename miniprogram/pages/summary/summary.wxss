@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
  font-size: 30rpx;
-  color: #6D869A;
+  color: rgb(146, 181, 209);
   align-items: center;
   box-sizing: border-box;
 
@@ -33,18 +33,22 @@ height: 100vh;
   color:white;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 .statas{
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+ 
+  margin-top: 30rpx;
 
 }
 .tenrest{
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  margin-top: 30rpx;
 }
 .tenrest input{
  
@@ -56,7 +60,9 @@ height: 100vh;
 .policy{
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  margin-top: 30rpx;
 }
 
 
@@ -123,6 +129,7 @@ height: 100vh;
   text-align: center;
 }
 .b1{
+  margin-top: 20rpx;
   color: rgb(53, 66, 77);
 opacity: 0.75;
 }
@@ -142,7 +149,7 @@ opacity: 0.75;
   width: 80vw;
   left: 10vw;
   right: 0;
-  background: white;
+  background:#2A465C;
   opacity: 0.98;
   display: flex;
   flex-direction: column;

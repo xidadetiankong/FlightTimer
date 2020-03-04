@@ -61,6 +61,11 @@ Page({
   },
   
   onShow: function () {
+
+    this.refreshBTN()
+            this.setData({
+              show_result: true
+            })
     
     wx.cloud.callFunction({
       name: 'login',
@@ -190,6 +195,7 @@ Page({
             })
 
           } else {
+            
             wx.switchTab({
               url: '../profile/profile',
             })

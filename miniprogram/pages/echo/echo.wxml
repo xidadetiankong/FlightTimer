@@ -207,7 +207,8 @@
 		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >查询</view>
 		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >查询</view>
 		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >查询</view>
-		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >查询</view>
+		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >查询</view>
+		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >查询</view>
 
 		
 		
@@ -228,24 +229,83 @@
 				<view>最大飞行时间：</view>
 				<view>{{maxFlightTime}}</view>
 			</view>
-			<view class="resultText" hidden="{{!security}}"  hidden="{{!others}}" >
+
+
+<block>
+<block wx:if="{{profession===''?true:false}}"   >
+       <view class="resultText"  >
 				<view>最大执勤时间：</view>
 				<view>{{maxDutyTime}}</view>
 			</view>
-			<view class="resultText" hidden="{{!security}}"  hidden="{{!others}}" >
+			<view class="resultText"  >
 				<view>执勤期截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
+			<view class="resultText"  >
+				<view>剩余执勤时间：</view>
+				<view>{{dutyTimeRemainForShow}}</view>
+			</view>
+
+ </block>
+
+
+<block wx:elif="{{profession==='pilot'?true:false}}" >
+<view class="resultText"  >
+				<view>最大执勤时间：</view>
+				<view>{{maxDutyTime}}</view>
+			</view>
+			<view class="resultText"  >
+				<view>执勤期截止：</view>
+				<view>{{dutyEndTime}}</view>
+			</view>
+			<view class="resultText"  >
+				<view>剩余执勤时间：</view>
+				<view>{{dutyTimeRemainForShow}}</view>
+			</view>
+
+
+</block>
+<block wx:elif="{{profession==='attendant'?true:false}}">
+<view class="resultText"  >
+				<view>最大执勤时间：</view>
+				<view>{{maxDutyTime}}</view>
+			</view>
+			<view class="resultText"  >
+				<view>执勤期截止：</view>
+				<view>{{dutyEndTime}}</view>
+			</view>
+			<view class="resultText"  >
+				<view>剩余执勤时间：</view>
+				<view>{{dutyTimeRemainForShow}}</view>
+			</view>
+
+</block>
+<block wx:elif="{{profession==='security'?true:false}}"></block>
+<block wx:elif="{{profession==='others'?true:false}}"></block>
+
+
+
+
+
+
+
+
+</block>
+
+			
+
+
+
+
+
+
 
 
 			<view class="resultText" >
 				<view>中间休息时间：</view>
 				<view>{{totalRestTimeInhours}}</view>
 			</view>
-			<view class="resultText" hidden="{{!security}}"  hidden="{{!others}}" >
-				<view>剩余执勤时间：</view>
-				<view>{{dutyTimeRemainForShow}}</view>
-			</view>
+			
 			<view class="resultText">
 				<view>今日搬砖时间：</view>
 				<view>{{totalDutyTimeForShow}}</view>

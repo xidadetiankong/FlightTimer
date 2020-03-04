@@ -95,9 +95,14 @@ Page({
     var presentTime = DATE.timeToStamp(day, time)
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi
     let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000)
+    let profession=this.data.profession
     this.setData({
       currentREST: currentREST
     })
+    if(profession==='others'){
+      return
+    }
+    
     console.log((presentTime - lastcheckout - 28800000), (36000000 + this.data.correction10REST))
     if (((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0) {
       wx.showToast({

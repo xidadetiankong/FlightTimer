@@ -7,11 +7,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #2A465C;
 }
 .pro{
   width:50%;
   height: 15vh;
-  background: gray;
+  background: #6D869A;
   opacity: 0.9;
-  margin: 5rpx;
+  margin: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  font-size: 50rpx;
+  font-weight: bolder;
+  color: aliceblue;
+  border-radius: 10rpx;
+}
+#tips{
+position: fixed;
+top: 80rpx;
+color: rgb(202, 210, 218);
+font-size: 25rpx;
 }
