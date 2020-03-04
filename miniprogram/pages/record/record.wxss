@@ -77,7 +77,7 @@ border-top:  1px solid rgb(235, 235, 235);
   
   color:#2A465C;
   text-align: center;
-height:150rpx;
+height:155rpx;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -64,6 +64,11 @@ Page({
       nickName: app.userInfo.nickName,
       hasProfession:app.hasProfession})
   },
+  cancleRgd:function(){
+    wx.switchTab({
+      url: '../echo/echo',
+    })
+  },
   tapAbutton:function(){
     wx.navigateTo({
       url: '../professionSelect/professionSelect',

@@ -1,5 +1,5 @@
 <!--pages/profile/profile.wxml-->
-	
+
 <view class="container">
 
 
@@ -10,25 +10,40 @@
 			<view><text >{{nickName}}</text></view>
 			<view>
 				<open-data class="sex" type='userGender' lang="zh_CN"></open-data>
-			<open-data class="city" type='userCity' lang="zh_CN"></open-data>
-			</view>
-		
-			<view>
-			<text class="signature" >{{signature}}</text>
+				<open-data class="city" type='userCity' lang="zh_CN"></open-data>
 			</view>
 
-			
+			<view>
+				<text class="signature" >{{signature}}</text>
+			</view>
+
+
 
 		</view>
 
-		<button wx:else disabled="{{disabled}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">点击开启记录</button>
+		<view class="regditview" hidden="{{hasCount}}">
+		<view class="regditview1" >
 		
+		<view>注册开启执勤期记录和超时计算功能！</view>
+			<view class="rgdBTNN">
+				<button id="qqq" size="mini" bindtap="cancleRgd">取消</button>
+				<button id="qqq" size="mini" disabled="{{disabled}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确认</button>
+
+			</view>
+		</view>
+			
+
+
+		</view>
+
+
+
 
 	</view>
 	<view class="listParent" hidden="{{!hasCount}}">
 
 
-	
+
 		<navigator url="../editUserInfo/editUserInfo" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/editProf.png" mode="aspectFit"></image>
@@ -45,7 +60,7 @@
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator> -->
-<navigator url="../summary/summary" class="list" open-type="navigate" hover-class="tapList">
+		<navigator url="../summary/summary" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
 				<view class="titleWord">值勤时间汇总</view>
@@ -53,15 +68,15 @@
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator>
 
-<navigator url="../record/record" class="list" open-type="navigate" hover-class="tapList">
+		<navigator url="../record/record" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/search.png" mode="aspectFit"></image>
 				<view class="titleWord">值勤期记录本</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator>
-		
-		
+
+
 		<view class="list" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/share.png"></image> <button class="titleBTN" open-type="share">分享给好友</button>
@@ -84,6 +99,10 @@
 
 
 
-	
+
 </view>
-<view class="acover" hidden="{{hasProfession}}" ><view class="abutton" hover-class="tapAbutton" bindtap="tapAbutton"><view> 点击选择职业</view></view> </view>
+<view class="acover" hidden="{{hasProfession}}">
+	<view class="abutton" hover-class="tapAbutton" bindtap="tapAbutton">
+		<view> 前去选择职业</view>
+	</view>
+</view>
