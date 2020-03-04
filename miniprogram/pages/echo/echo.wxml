@@ -332,7 +332,10 @@
 			</block>
 
 			
-			<text>结果仅供参考请以实际规定为准!</text>
+			<text wx:if="{{profession===''?true:false}}"  >结果仅供参考请以实际规定为准!</text>
+			<text wx:elif="{{profession==='pilot'?true:false}}" >结果仅供参考请以实际规定为准!</text>
+			<text wx:elif="{{profession==='attendant'?true:false}}">结果仅供参考请以实际规定为准!</text>
+			<text wx:elif="{{profession==='security'?true:false}}" >结果仅供参考请以实际规定为准!</text>
 
 
 		</view>
