@@ -72,14 +72,7 @@ margin-top: 0;
   margin-right: 30rpx;
   opacity: 0.6;
 }
-.confirmBTN{
-  color: aliceblue;
-  position: absolute;
-  background:#6D869A ;
-  bottom: 198.38rpx;
-  left: 0;
-  right: 0;
-}
+
 .listInput{
   font-size: 30rpx;
 color: aliceblue;
@@ -101,4 +94,25 @@ color: aliceblue;
 }
 .placeholderF{
   color:aliceblue
+}
+
+
+.ButtonArea{
+  position: absolute;
+  bottom: 180rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+.confirmBTN{
+  margin-top: 20rpx;
+  color: aliceblue;
+ 
+  background:#6D869A ;
+  
 }

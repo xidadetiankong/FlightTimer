@@ -1,16 +1,16 @@
 // pages/editUserInfo/editUserInfo.js
-const app=getApp()
-const db=wx.cloud.database()
+const app = getApp()
+const db = wx.cloud.database()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    avatarUrl:'',
-    nickName:'',
-    signature:'',
-    profession:''
+    avatarUrl: '',
+    nickName: '',
+    signature: '',
+    profession: ''
   },
 
   /**
@@ -26,115 +26,216 @@ Page({
   onReady: function () {
 
     this.setData({
-      avatarUrl:app.userInfo.avatarUrl,
-    nickName:app.userInfo.nickName,
-    signature:app.userInfo.signature,
-    profession:app.userInfo.profession
+      avatarUrl: app.userInfo.avatarUrl,
+      nickName: app.userInfo.nickName,
+      signature: app.userInfo.signature,
+      profession: app.userInfo.profession
     })
     console.log(app.userInfo)
   },
-  choosePROF:function(){
+  choosePROF: function () {
     wx.navigateTo({
       url: '../professionSelect/professionSelect',
     })
   },
 
 
-  confirmCHG:function(){
+  confirmCHG: function () {
     this.updateSignature();
     this.updateNickName();
     this.updateProfession()
-    
+
   },
-  inputnickName:function(ev){
-let value=ev.detail.value;
-this.setData({
-  nickName:value
-})
+  updateAvatar: function () {
+
+    var that = this
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        console.log(res)
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths[0];
+        that.setData({
+          avatarUrl: tempFilePaths
+        })
+        that.uploadAvatar()
+
+      }
+    })
+
   },
-  updateNickName:function(){
-    if(!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))){//终于把正则理清楚了注意正则中加号的使用
+
+  uploadAvatar: function () {
+
+    wx.showLoading({
+      title: '上传中',
+    })
+    let cloudPath = "userAvatar/" + app.userInfo._openid + Date.now() + '.jpg';
+    db.collection('userprofile').doc(app.userInfo._id).get().then((res)=>{
+
+console.log(res)
+
+let oldfile=res.data.avatarUrl
+if(oldfile===this.data.avatarUrl){
+  
+
+}else if(oldfile!=this.data.avatarUrl){
+  wx.cloud.deleteFile({
+    fileList: [oldfile]
+  }).then(res => {
+
+
+    wx.cloud.uploadFile({
+      cloudPath,
+      filePath: this.data.avatarUrl, // 文件路径
+    }).then(res => {
+
+
       
+
+      let fileID=res.fileID
+
+      if(fileID){
+        db.collection('userprofile').doc(app.userInfo._id).update({
+          data:{
+            avatarUrl:fileID
+          }
+        }).then((res)=>{
+          wx.hideLoading({})
+          wx.showToast({
+            title: '更新成功',
+          })
+          app.userInfo.avatarUrl=fileID;
+
+
+
+        })
+      }
+
+
+      // get resource ID
+      console.log(res.fileID)
+    }).catch(error => {
+
+      wx.showToast({
+        title: '上传失败请稍后再试',
+      })
+
+      // handle error
+    })
+
+    // handle success
+    console.log(res)
+  }).catch(error => {
+    // handle error
+  })
+
+
+
+
+}
+
+
+      
+    })
+
+    
+
+  },
+
+
+  inputnickName: function (ev) {
+    let value = ev.detail.value;
+    this.setData({
+      nickName: value
+    })
+  },
+  updateNickName: function () {
+    if (!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))) { //终于把正则理清楚了注意正则中加号的使用
+
 
       wx.showToast({
         title: '昵称需填写十位内汉字字母数字或组合',
-        icon:'none'
+        icon: 'none'
       })
-    }else{
+    } else {
       wx.showLoading({
         title: '上传中',
       })
       db.collection('userprofile').doc(app.userInfo._id).update({
-        data:{
-          nickName:this.data.nickName
+        data: {
+          nickName: this.data.nickName
         }
-      }).then((res)=>{
+      }).then((res) => {
         wx.hideLoading({});
         wx.showToast({
           title: '更新成功',
         })
-        app.userInfo.nickName=this.data.nickName
+        app.userInfo.nickName = this.data.nickName
         wx.switchTab({
           url: '../profile/profile',
         })
-      }) 
+      })
     }
-    
-  },
-  
-  inputsignature:function(ev){
-    let value=ev.detail.value
-    
-    this.setData({
-      signature:value
-    })
-      },
 
-  updateSignature:function(){
+  },
+
+  inputsignature: function (ev) {
+    let value = ev.detail.value
+
+    this.setData({
+      signature: value
+    })
+  },
+
+  updateSignature: function () {
     wx.showLoading({
       title: '上传中',
     })
     db.collection('userprofile').doc(app.userInfo._id).update({
-      data:{
-        signature:this.data.signature
+      data: {
+        signature: this.data.signature
       }
-    }).then((res)=>{
+    }).then((res) => {
       wx.hideLoading({});
       wx.showToast({
         title: '更新成功',
       })
-      app.userInfo.signature=this.data.signature
+      app.userInfo.signature = this.data.signature
     })
   },
-  
-  updateProfession:function(){//正则留着用吧
-    if(!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))){//终于把正则理清楚了
-      
+
+  updateProfession: function () { //正则留着用吧
+    if (!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))) { //终于把正则理清楚了
+
 
       wx.showToast({
         title: '职业需填十位内汉字字母数字或组合',
-        icon:'none'
+        icon: 'none'
       })
-    }else{wx.showLoading({
-      title: '上传中',
-    })
-    db.collection('userprofile').doc(app.userInfo._id).update({
-      data:{
-        work:this.data.profession
-      }
-    }).then((res)=>{
-      wx.hideLoading({});
-      wx.showToast({
-        title: '更新成功',
+    } else {
+      wx.showLoading({
+        title: '上传中',
       })
-      app.userInfo.profession=this.data.profession
-    }).then((res)=>{
-      wx.switchTab({
-        url: '../profile/profile',
+      db.collection('userprofile').doc(app.userInfo._id).update({
+        data: {
+          work: this.data.profession
+        }
+      }).then((res) => {
+        wx.hideLoading({});
+        wx.showToast({
+          title: '更新成功',
+        })
+        app.userInfo.profession = this.data.profession
+      }).then((res) => {
+        wx.switchTab({
+          url: '../profile/profile',
+        })
       })
-    })
+    }
+
   }
-    
-  }
- 
+
 })
