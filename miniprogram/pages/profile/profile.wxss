@@ -28,6 +28,7 @@
 
 
 }
+
 .abutton{
   width: 200rpx;
   height: 80rpx;
@@ -67,6 +68,13 @@
   margin-left: 40rpx;
   width: 450rpx;
   height: 200rpx;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+}
+.signature{
+color: #6D869A;
+
 
 }
 

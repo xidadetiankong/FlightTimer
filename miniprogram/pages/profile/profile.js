@@ -17,7 +17,8 @@ Page({
     avatarUrl: '../../img/profileS.png',
     hasCount: false,
     disabled:true,
-    hasProfession:false
+    hasProfession:false,
+    signature:''
 
   },
   onLoad: function () {
@@ -42,7 +43,8 @@ Page({
             avatarUrl: app.userInfo.avatarUrl,
             nickName: app.userInfo.nickName,
             hasCount: true,
-            hasProfession:true
+            hasProfession:true,
+            signature:app.userInfo.signature
           })
         }else{
           this.setData({
@@ -57,6 +59,7 @@ Page({
   },
   onShow: function () {
     this.setData({
+      signature:app.userInfo.signature,
       avatarUrl: app.userInfo.avatarUrl,
       nickName: app.userInfo.nickName,
       hasProfession:app.hasProfession})
@@ -92,6 +95,7 @@ Page({
           this.setData({
             avatarUrl: app.userInfo.avatarUrl,
             nickName: app.userInfo.nickName,
+            signature: app.userInfo.signature,
             hasCount: true
           })
         })).then((res)=>{

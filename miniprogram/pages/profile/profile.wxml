@@ -7,10 +7,17 @@
 
 		<image class="avater" src="{{avatarUrl}}"></image>
 		<view class="myAcountChild" wx:if="{{hasCount}}">
-			<view><text >Hello~!{{nickName}}</text></view>
-
-			<open-data class="sex" type='userGender' lang="zh_CN"></open-data>
+			<view><text >{{nickName}}</text></view>
+			<view>
+				<open-data class="sex" type='userGender' lang="zh_CN"></open-data>
 			<open-data class="city" type='userCity' lang="zh_CN"></open-data>
+			</view>
+		
+			<view>
+			<text class="signature" >{{signature}}</text>
+			</view>
+
+			
 
 		</view>
 

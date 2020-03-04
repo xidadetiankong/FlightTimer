@@ -12,9 +12,9 @@
   <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
 		<view class="titleWord">个性签名:</view><input id="listInputNick1" class="listInput" value="{{signature}}" maxlength="80" bindinput="inputsignature"></input>
 	</view>
-	<view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
+	<!-- <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
 		<view class="titleWord">工作:</view><input id="listInputNick1" class="listInput" value="{{work}}" maxlength="10" bindinput="updateProfession"></input>
-	</view>
+	</view> -->
   <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList" >
 		<view class="titleWord">职业选择：</view><view id="listInputNick"   >暂不支持自定义修改请联系客服</view>
 	</view>
