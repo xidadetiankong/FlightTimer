@@ -2,8 +2,8 @@
 <view class="container">
 <view id="pilot" class="pro" hover-class="tapPro" bindtap="pilot" ><text>飞行员</text> </view>
 <view id="attendant" class="pro" hover-class="tapPro" bindtap="attendant" > <text> 乘务员</text> </view>
-<view id="security" class="pro" hover-class="tapPro" bindtap="security"> <text>空保</text> </view>
-<view id="others" class="pro" hover-class="tapPro" bindtap="others"> <text>其他</text> </view>
+<view id="security" class="pro" hover-class="tapPro" bindtap="security"> <text>安全员</text> </view>
+<view id="others" class="pro" hover-class="tapPro" bindtap="others"> <text>其他人员</text> </view>
 
 <view id="tips"><text>Tips:职业一经选择不可修改，请谨慎选择!</text></view>
 
