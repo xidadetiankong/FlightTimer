@@ -51,9 +51,9 @@ height: 100vh;
   margin-top: 30rpx;
 }
 .tenrest input{
- 
+ font-size: 40rpx;
   color: rgb(255, 255, 255);
-  background: rgb(17, 16, 16);
+  background: rgb(134, 134, 134);
   text-align: center;
   opacity: 0.9;
 }
@@ -161,4 +161,10 @@ opacity: 0.75;
 #btnDDD{
   position: fixed;
   bottom:25vh;
+}
+#datas{
+  font-size: larger;
+  font-weight: bolder;
+  color:#0099ff;
+  text-align: center;
 }

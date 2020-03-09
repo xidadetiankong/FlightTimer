@@ -12,19 +12,19 @@
 
 		<view class="text1">
 			<view class="statas">
-				<view>辛苦了！相识以来您的总工作时间为<text> {{totaldutytime}}</text>
+				<view>辛苦了！相识以来您的总工作时间为<text id="datas"> {{totaldutytime}}</text>
 
 
 					<block>
 						<block wx:if="{{profession==='pilot'?true:false}}">
-							<text> ,包含{{totalFlightlegs}}个航段</text> <text>、 {{totalLandings}}个落地</text>
+							<text> ,包含 <text id="datas">{{totalFlightlegs}}</text>个航段</text> <text>、 <text id="datas">{{totalLandings}}</text>个落地</text>
 						</block>
 
 						<block wx:elif="{{profession==='attendant'?true:false}}">
-							<text> ,包含{{totalFlightlegs}}个航段</text>
+							<text> ,包含<text id="datas">{{totalFlightlegs}}</text>个航段</text>
 						</block>
 						<block wx:elif="{{profession==='security'?true:false}}">
-							<text> ,包含{{totalFlightlegs}}个航段</text>
+							<text> ,包含<text id="datas">{{totalFlightlegs}}</text>个航段</text>
 						</block>
 						<block wx:elif="{{profession==='others'?true:false}}">
 
@@ -44,18 +44,18 @@
 			
 
 
-				<view> <text>{{selectyear}}年您工作了{{YEARtotaldutytime}}小时</text>
+				<view> <text><text id="datas">{{selectyear}}</text>年您工作了<text id="datas">{{YEARtotaldutytime}}</text>小时</text>
 				
 					<block>
 					<block wx:if="{{profession==='pilot'?true:false}}">
-					 <text> ,包含{{YEARtotalFlightlegs}}个航段</text> <text>、{{YEARtotalLandings}}个落地</text> 
+					 <text> ,包含<text id="datas">{{YEARtotalFlightlegs}}</text>个航段</text> <text>、<text id="datas">{{YEARtotalLandings}}</text>个落地</text> 
 					</block>
 
 					<block wx:elif="{{profession==='attendant'?true:false}}">
-					 <text> ,包含{{YEARtotalFlightlegs}}个航段</text>
+					 <text> ,包含<text id="datas">{{YEARtotalFlightlegs}}</text>个航段</text>
 					</block>
 					<block wx:elif="{{profession==='security'?true:false}}">
-					 <text> ,包含{{YEARtotalFlightlegs}}个航段</text>
+					 <text> ,包含<text id="datas">{{YEARtotalFlightlegs}}</text>个航段</text>
 					</block>
 					<block wx:elif="{{profession==='others'?true:false}}">
 
@@ -80,7 +80,7 @@
 
 
 			<view class="tenrest"    >
-				<view> 距离上次工作结束到现在您休息了{{currentREST}}。</view>
+				<view> 距离上次工作结束到现在您休息了<text id="datas">{{currentREST}}</text>。</view>
 
 				<block  wx:if="{{profession==='others'?false:true}}"  >
 				<view>根据公司要求，航后要休息10+</view><input type="number" style="width:40rpx" maxlength="3" value="{{correction10REST}}" bindinput="restcorrec"></input>（自定义）小时
@@ -94,7 +94,7 @@
 			<view class="policy">
 				<block>
 					<block wx:if="{{profession==='pilot'?true:false}}">
-						<view>最近七个工作日您的工作时间为{{sevenDaywork}}
+						<view>最近七个工作日您的工作时间为<text id="datas">{{sevenDaywork}}</text>
 						<view wx:if="{{sevenDayworkOvr}}">没有超过60小时的限制！</view>
 						<view wx:else>超过了60小时的限制</view>
 						</view>
@@ -102,7 +102,7 @@
 					</block>
 
 					<block wx:elif="{{profession==='attendant'?true:false}}">
-						<view>最近七个工作日您的工作时间为{{ATTsevenDaywork}}  <view wx:if="{{ATTsevenDayworkOvr}}">没有超过70小时的限制！</view>
+						<view>最近七个工作日您的工作时间为<text id="datas">{{ATTsevenDaywork}}</text>  <view wx:if="{{ATTsevenDayworkOvr}}">没有超过70小时的限制！</view>
 						<view wx:else>超过了70小时的限制</view></view>
 						
 					</block>
@@ -111,8 +111,8 @@
 
 
 				<block wx:if="{{profession==='others'?false:true}}" >
-					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您可以继续工作到{{predresttime}}。工作重要身体更重要记得锻炼身体哟！</view>
-					<view wx:else>当前周期不满足48小时休息期，请合理安排工作<view>下一个工作周期开始时间为{{nextciclestart}}</view>
+					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您可以继续工作到<text id="datas">{{predresttime}}</text>。工作重要身体更重要记得锻炼身体哟！</view>
+					<view wx:else>当前周期不满足48小时休息期，请合理安排工作<view>下一个工作周期开始时间为<text id="datas">{{nextciclestart}}</text></view>
 					</view>
 				</block>
 				<block >
