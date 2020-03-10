@@ -93,7 +93,7 @@ Page({
     var day = DATE.dayNow(date);
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
-    var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi
+    var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi-28800000
     let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000)
     let profession=this.data.profession
     this.setData({
@@ -123,8 +123,8 @@ Page({
     }
 
 
-    console.log('开始今日休息期判断', presentTime, lastcheckout, lastyaosisi)
-    if ((presentTime - lastcheckout) < sishiba) {
+    console.log('开始今日休息期判断')
+    if ((presentTime - lastcheckout-28800000) < sishiba) {
       var timeInlimit = [presentTime]
       DATA.forEach(element => {
         ; //检索最近144小时内所有签到截止时间放入timeinlimit
@@ -158,7 +158,7 @@ Page({
         } else if ((timeInlimit[unitslength - 1] - lastyaosisi) < sishiba) {
           console.log('此签到时间至前推144小时间隔小于48')
           var NUMgr48 = 0;
-          for (let i = 0; i < timeInlimit.length - 1; i = i + 2) {
+          for (let i = 2; i < timeInlimit.length; i = i + 2) {
             console.log('遍历所有144内的休息时间')
             let rest = timeInlimit[i] - timeInlimit[i + 1];
             if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
@@ -177,8 +177,8 @@ Page({
                 title: '继续',
                 icon: 'none'
               })
-              console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 1)
-              if (NUMgr48 === ((timeInlimit.length - 1) / 2)) {
+              console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 3)
+              if (NUMgr48 === ((timeInlimit.length - 3) / 2)) {
                 wx.showToast({
                   title: '过去144小时48小时休息未满足',
                   icon: 'none'
@@ -203,7 +203,7 @@ Page({
         console.log('判断最久一个时间节点是截止时间', unitslength, quyu, timeInlimit[unitslength - 1])
 
         var NUMgr48 = 0;
-        for (let i = 0; i < timeInlimit.length - 1; i = i + 2) {
+        for (let i = 2; i < timeInlimit.length ; i = i + 2) {
           console.log('遍历所有144内的休息时间')
           let rest = timeInlimit[i] - timeInlimit[i + 1];
           if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
@@ -223,7 +223,7 @@ Page({
               icon: 'none'
             })
             console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 1)
-            if (NUMgr48 === ((timeInlimit.length - 1) / 2)) {
+            if (NUMgr48 === ((timeInlimit.length - 2) / 2)) {
               wx.showToast({
                 title: '过去144小时48小时休息未满足',
                 icon: 'none'
@@ -255,10 +255,11 @@ Page({
     } else if ((presentTime - lastcheckout) >= sishiba) {
       console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
       //存在有大于等于四十八的休息期
-      predresttime = presentTime - sishiba + yaosisi //算出下次休息时间的开始
+      predresttime = presentTime - sishiba + yaosisi-28800000 //算出下次休息时间的开始
       this.setData({
         predresttime: predresttime
       })
+      return
 
     };
 
@@ -267,6 +268,12 @@ Page({
     console.log('ff', this.data.predresttime)
 
   },
+
+
+
+
+
+
   findjack: function () {
     var DATA = this.data.DATA;
     var day = DATE.dayNow(date);//包含年月日
