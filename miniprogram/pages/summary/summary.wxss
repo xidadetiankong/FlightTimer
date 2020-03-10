@@ -145,7 +145,7 @@ opacity: 0.75;
 
 .showDetail{
   position: fixed;
-  height:60%;
+  height:80%;
   width: 80vw;
   left: 10vw;
   right: 0;
