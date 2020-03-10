@@ -4,7 +4,7 @@
 
   <view url="../avatar/avatar" class="list" id="headphotoID" open-type="navigate" hover-class="tapList">
 		<view class="titleWord">头像</view>
-		<image class="avatar" src="{{avatarUrl}}" mode="aspectFit"  bindtap="updateAvatar"></image>
+		<image class="avatar" src="{{avatarUrl}}" mode="aspectFill"  bindtap="updateAvatar"></image>
 	</view>
   <view url="../avatar/avatar" class="list" id="headphotoID1" open-type="navigate" hover-class="tapList">
 		<view class="titleWord">昵称:</view><input id="listInputNick2" class="listInput" value="{{nickName}}" maxlength="10" bindinput="inputnickName" ></input>

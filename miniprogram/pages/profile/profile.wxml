@@ -5,7 +5,7 @@
 
 	<view class="myAcount">
 
-		<image class="avater" src="{{avatarUrl}}"></image>
+		<image class="avater" src="{{avatarUrl}}" mode="aspectFill"  ></image>
 		<view class="myAcountChild" wx:if="{{hasCount}}">
 			<view><text >{{nickName}}</text></view>
 			<view>

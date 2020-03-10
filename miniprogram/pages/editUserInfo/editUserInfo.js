@@ -60,6 +60,17 @@ Page({
         that.setData({
           avatarUrl: tempFilePaths
         })
+
+        wx.cloud.callFunction({
+          name:'imgCheck',
+          data:{
+            event:tempFilePaths
+          }
+          
+          
+        }).then((res)=>{
+          console.log('dayin',res)
+        })
         that.uploadAvatar()
 
       }
@@ -153,6 +164,9 @@ if(oldfile===this.data.avatarUrl){
     })
   },
   updateNickName: function () {
+
+
+    var that=this
     if (!(/^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(this.data.nickName))) { //终于把正则理清楚了注意正则中加号的使用
 
 
@@ -161,23 +175,41 @@ if(oldfile===this.data.avatarUrl){
         icon: 'none'
       })
     } else {
+
+
+      wx.cloud.callFunction({
+        name:'msgCheck',
+        data:{
+          text:that.data.nickName
+        }
+      }).then((res)=>{
+        console.log('测试结果',res.result)
+      })
+
       wx.showLoading({
         title: '上传中',
       })
       db.collection('userprofile').doc(app.userInfo._id).update({
         data: {
-          nickName: this.data.nickName
+          nickName: that.data.nickName
         }
       }).then((res) => {
         wx.hideLoading({});
         wx.showToast({
           title: '更新成功',
         })
-        app.userInfo.nickName = this.data.nickName
+        app.userInfo.nickName = that.data.nickName
         wx.switchTab({
           url: '../profile/profile',
         })
       })
+
+
+
+
+
+
+
     }
 
   },
