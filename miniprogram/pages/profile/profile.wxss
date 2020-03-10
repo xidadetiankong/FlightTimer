@@ -81,6 +81,7 @@ color: #6D869A;
 .myAcountChild view {
   color: aliceblue;
   margin-top: 10rpx;
+  font-size: 41rpx;
 }
 .nickname{
   font-size: 41rpx;
@@ -135,7 +136,7 @@ color: #6D869A;
 .list {
   height: 130rpx;
   width: 89%;
-
+  font-size: 28rpx;
   border-radius: 25rpx;
   margin: 10rpx;
   display: flex;
@@ -183,6 +184,7 @@ color: #6D869A;
   padding-left: 50rpx;
 }
 .titleBTN{
+  font-size: 28rpx;
   background: #6D869A;
   text-align: start;
   padding-left: 0;
