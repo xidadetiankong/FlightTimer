@@ -78,10 +78,7 @@ Page({
   bindGetUserInfo: function (e) {//首次登录
     console.log(e)
     let userInfo = e.detail.userInfo;
-    // let nickName=e.detail.rawData.nickName;
-    // let gender=e.detail.rawData.gender;
-    // let city=e.detail.rawData.city;
-    // let country=e.detail.rawData.country;
+    
     if (!this.data.hasCount && userInfo) { //判断当前环境是否已经注册，是否获得用户授权
       db.collection('userprofile').add({ //上传新建账户数据
         data: {

@@ -13,9 +13,7 @@
 				<open-data class="city" type='userCity' lang="zh_CN"></open-data>
 			</view>
 
-			<view>
-				<text class="signature" >{{signature}}</text>
-			</view>
+			
 
 
 
@@ -47,19 +45,13 @@
 		<navigator url="../editUserInfo/editUserInfo" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/editProf.png" mode="aspectFit"></image>
-				<view class="titleWord">编辑个人信息</view>
+				<view class="titleWord">个人信息</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator>
 
 
-		<!-- <navigator url="../friendList/friendList" class="list" open-type="navigate" hover-class="tapList">//后期开发
-			<view class="title">
-				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
-				<view class="titleWord">我的好友列表</view>
-			</view>
-			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</navigator> -->
+		
 		<navigator url="../summary/summary" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>

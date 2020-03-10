@@ -4,26 +4,16 @@
 
   <view url="../avatar/avatar" class="list" id="headphotoID" open-type="navigate" hover-class="tapList">
 		<view class="titleWord">头像</view>
-		<image class="avatar" src="{{avatarUrl}}" mode="aspectFill"  bindtap="updateAvatar"></image>
+		<image class="avatar" src="{{avatarUrl}}" mode="aspectFill"  ></image>
 	</view>
   <view url="../avatar/avatar" class="list" id="headphotoID1" open-type="navigate" hover-class="tapList">
-		<view class="titleWord">昵称:</view><input id="listInputNick2" class="listInput" value="{{nickName}}" maxlength="10" bindinput="inputnickName" ></input>
+		<view class="titleWord">昵称:</view><view id="listInputNick2" class="listInput"   >{{nickName}}</view>
 	</view>
-  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
-		<view class="titleWord">个性签名:</view><input id="listInputNick1" class="listInput" value="{{signature}}" maxlength="80" bindinput="inputsignature"></input>
-	</view>
-	<!-- <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList">
-		<view class="titleWord">工作:</view><input id="listInputNick1" class="listInput" value="{{work}}" maxlength="10" bindinput="updateProfession"></input>
-	</view> -->
+ 
   <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList" >
 		<view class="titleWord">职业选择：</view><view id="listInputNick"   >暂不支持自定义修改请联系客服</view>
 	</view>
  
-</view>
-<view class="ButtonArea">
-
-	<button class="confirmBTN" hover-class="confirmType" bindtap="confirmCHG">确认修改</button>
-
 </view>
 
 
