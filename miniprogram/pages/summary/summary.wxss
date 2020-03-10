@@ -133,6 +133,10 @@ height: 100vh;
   color: rgb(53, 66, 77);
 opacity: 0.75;
 }
+.b2{
+  margin-top: 50rpx;
+  font-size: 28rpx;
+}
 .warning{
   position: fixed;
   font-size: 20rpx;

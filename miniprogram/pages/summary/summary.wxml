@@ -221,6 +221,13 @@
 
 			</view>
 			<button class="b1" bindtap="returnTT" size="mini">返回</button>
+			<block>
+			<block wx:if="{{profession==='pilot'?true:false}}"><view class="b2" >温馨提示每月最大值勤210小时</view></block>
+			<block wx:elif="{{profession==='attendant'?true:false}}"><view class="b2" >温馨提示每月最大值勤230小时</view></block>
+			</block>
+			
+
+
 		</view>
 
 
