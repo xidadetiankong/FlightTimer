@@ -155,7 +155,7 @@ if(resultTemp.indexOf('.')>=0 ||numberInput.indexOf('.')>=0){
     }
 
     var resultData=this.data.resultData;
-    resultData.push(equationRC+resultTemp)
+    // resultData.push(equationRC+resultTemp)
     
     if(resultData.length>3){//限制数组长度
       
