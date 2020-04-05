@@ -55,7 +55,7 @@
 		<navigator url="../summary/summary" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
-				<view class="titleWord">值勤时间汇总</view>
+				<view class="titleWord">值勤期汇总</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator>
@@ -63,7 +63,7 @@
 		<navigator url="../record/record" class="list" open-type="navigate" hover-class="tapList">
 			<view class="title">
 				<image class="titleimg" src="../../img/search.png" mode="aspectFit"></image>
-				<view class="titleWord">值勤期记录本</view>
+				<view class="titleWord">值勤期记录</view>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</navigator>
@@ -78,13 +78,13 @@
 
 		<view class="list" hover-class="tapList">
 			<view class="title">
-				<image class="titleimg" src="../../img/service.png"></image> <button class="titleBTN" open-type="contact" bindcontact="handleContact">帮助和反馈</button>
+				<image class="titleimg" src="../../img/service.png"></image> <button class="titleBTN" open-type="contact" bindcontact="handleContact">调戏下客服</button>
 			</view>
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</view>
 
 
-		<view class="versionInfo">Flight Timer Version 1.0.1</view>
+		<view class="versionInfo">Flight Timer Version 1.0.2</view>
 
 	</view>
 

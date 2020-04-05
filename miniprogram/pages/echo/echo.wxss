@@ -276,3 +276,7 @@ margin-top: 45rpx;
 
   font-size: 23rpx;
 }
+
+.wenxintishi{
+  font-size: smaller;
+}

@@ -307,16 +307,16 @@
 			</view>
 			
 			<view class="resultText">
-				<view>今日搬砖时间：</view>
+				<view>今日工作时间：</view>
 				<view>{{totalDutyTimeForShow}}</view>
 			</view>
 
 			<view class="TOInput" hidden="{{!others}}">
 				<view class="TOInputElement" >
-					<view>实际飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
+					<view class="wenxintishi">实际飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
 				</view>
 				<view class="TOInputElement" hidden="{{pilotHidde}}">
-					<view>操纵落地数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureLandings}}" bindinput="inputLandings"></input>
+					<view class="wenxintishi">操纵落地数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureLandings}}" bindinput="inputLandings"></input>
 				</view>
 			</view>
 			<view class="TOInput">
@@ -327,15 +327,15 @@
 			</view>
 
 			<block>
-			<text wx:if="{{hasAccount}}">温馨提示！请确认数据准确后再上传。</text>
-			<text wx:else>温馨提示！登录后可以体验完整功能。</text>
+			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请确认数据准确后再上传。</text>
+			<text class="wenxintishi" wx:else>温馨提示！点击记录去注册可以体验完整功能。</text>
 			</block>
 
 			
-			<text wx:if="{{profession===''?true:false}}"  >结果仅供参考请以实际规定为准!</text>
-			<text wx:elif="{{profession==='pilot'?true:false}}" >结果仅供参考请以实际规定为准!</text>
-			<text wx:elif="{{profession==='attendant'?true:false}}">结果仅供参考请以实际规定为准!</text>
-			<text wx:elif="{{profession==='security'?true:false}}" >结果仅供参考请以实际规定为准!</text>
+			<text class="wenxintishi" wx:if="{{profession===''?true:false}}"  >结果仅供参考请以实际规定为准!</text>
+			<text class="wenxintishi" wx:elif="{{profession==='pilot'?true:false}}" >结果仅供参考请以实际规定为准!</text>
+			<text class="wenxintishi" wx:elif="{{profession==='attendant'?true:false}}">结果仅供参考请以实际规定为准!</text>
+			<text class="wenxintishi" wx:elif="{{profession==='security'?true:false}}" >结果仅供参考请以实际规定为准!</text>
 
 
 		</view>
