@@ -73,7 +73,7 @@ profession:''
     let minute = this.formatNumber(date.getMinutes());
     let second =  this.formatNumber(date.getSeconds());
 
-  return year+'-'+month+'-'+ day + ' ' + hour+':'+ minute+':'+ second
+  return year+'/'+month+'/'+ day + ' ' + hour+':'+ minute+':'+ second
     
   },
   stamptoformatDay:function(res){
@@ -83,7 +83,7 @@ profession:''
     let day = date.getDate().toString()
     
 
-  return year+'-'+month+'-'+ day 
+  return year+'/'+month+'/'+ day 
     
   },
   formatNumber:function(res)  {

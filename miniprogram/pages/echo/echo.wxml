@@ -341,12 +341,12 @@
 		</view>
 		<view class="confirm_button">
 		<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>
-			<view hover-class="pressBTN1" class="button1" hidden="{{hasAccount}}" bindtap="gotoredg">去注册</view>
+			<view hover-class="pressBTN1" class="button1" hidden="{{hasAccount}}" bindtap="gotoredg">记录</view>
 			<block hidden="{{!hasAccount}}"> 
-			<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="uploadBTN">上传</view>
-			<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="attUploadBTN">上传</view>
-			<view  wx:elif="{{profession==='security'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="seUploadBTN">上传</view>
-			<view  wx:elif="{{profession==='others'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="otherUploadBTN">上传</view>
+			<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="uploadBTN">记录</view>
+			<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="attUploadBTN">记录</view>
+			<view  wx:elif="{{profession==='security'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="seUploadBTN">记录</view>
+			<view  wx:elif="{{profession==='others'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="otherUploadBTN">记录</view>
 			</block>
 			
 			

@@ -58,7 +58,7 @@ if(resultTemp.indexOf('.')>=0 ||numberInput.indexOf('.')>=0){
       }
     }
 
-    resultData.push(equationRC)
+    resultData.push(equationRC+resultTemp)
     if(resultData.length>3){//限制数组长度
       
       resultData.shift()
@@ -155,7 +155,7 @@ if(resultTemp.indexOf('.')>=0 ||numberInput.indexOf('.')>=0){
     }
 
     var resultData=this.data.resultData;
-    resultData.push(equationRC)
+    resultData.push(equationRC+resultTemp)
     
     if(resultData.length>3){//限制数组长度
       

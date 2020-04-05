@@ -6,7 +6,7 @@ const formatTime = date => {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 const formatNumber = n => {
@@ -71,7 +71,7 @@ const monthNow=res=>{
   
  
 
-return year+'-'+month
+return year+'/'+month
 }
 const dayNow=res=>{
   var date = new Date(res);
@@ -80,7 +80,7 @@ const dayNow=res=>{
   let day = date.getDate().toString()
  
 
-return year+'-'+month+'-'+ day 
+return year+'/'+month+'/'+ day 
 }
 const timeNow=res=>{
   var date = new Date(res);
@@ -100,7 +100,7 @@ const stamptoformatTime=(res)=>{
   let minute = formatNumber(date.getMinutes());
   let second =  formatNumber(date.getSeconds());
 
-return year+'-'+month+'-'+ day + ' ' + hour+':'+ minute+':'+ second
+return year+'/'+month+'/'+ day + ' ' + hour+':'+ minute+':'+ second
   
 }
 
@@ -111,6 +111,11 @@ sumValue=sumValue+element
   })
 
   return sumValue
+}
+
+const appleFormate=res=>{
+  res.replace(/-/g, '/');
+  return res
 }
 
 
@@ -125,5 +130,6 @@ module.exports = {
   yearNow:yearNow,
   monthNow:monthNow,
   dayNow:dayNow,
-  timeNow:timeNow
+  timeNow:timeNow,
+  appleFormate:appleFormate
 }

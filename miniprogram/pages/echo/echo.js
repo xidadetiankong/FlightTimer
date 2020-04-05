@@ -274,8 +274,10 @@ Page({
     })
   },
   selectCheckInDate: function (e) { //选择签到日期
+    let date=e.detail.value
+    date=DATE.appleFormate(date)
     this.setData({
-      date: e.detail.value
+      date:date
     })
   },
   selectTeam: function (e) { //选择机组编制
@@ -288,14 +290,17 @@ Page({
   //中途离场
 
   selectCheckOutDate: function (e) { //中途退场日期
+    let CheckOutDate=e.detail.value;
+    CheckOutDate=DATE.appleFormate(CheckOutDate)
     this.setData({
-      CheckOutDate: e.detail.value
+      CheckOutDate:CheckOutDate
     })
   },
   selectCheckInDate2: function (e) { //中途进场时间
-
+    let CheckInDate2=e.detail.value;
+    CheckInDate2=DATE.appleFormate(CheckInDate2)
     this.setData({
-      CheckInDate2: e.detail.value
+      CheckInDate2:CheckInDate2
     })
   },
   selectCheckOutTime: function (e) { //中途退场时间
@@ -319,8 +324,10 @@ Page({
   },
 
   selectEndDate: function (e) { //选择结束日期
+    let EndDate=e.detail.value
+    EndDate=DATE.appleFormate(EndDate)
     this.setData({
-      EndDate: e.detail.value
+      EndDate: EndDate
     })
   },
 
@@ -505,7 +512,7 @@ Page({
       var totalDutyTime = EndTime - checkintime - this.data.totalRestTime
     };
 
-    if (totalDutyTime > DATE.timeToStamp('1970-01-01', this.maxDutyTime())) {
+    if (totalDutyTime > DATE.timeToStamp('1970/01/01', this.maxDutyTime())) {
       wx.showToast({
         title: '超时了呦',
       });
@@ -520,10 +527,10 @@ Page({
   },
 
   maxFlightTime: function () { //根据机组编制分为两组两个条件，条件一根据签到时间输出结果，条件二根据机组人数输出结果
-    var checkintime = new Date((('1970-01-01') + ' ' + this.data.time)).valueOf();
-    var am5 = new Date((('1970-01-01') + ' ' + '05:00')).valueOf()
-    var pm8 = new Date((('1970-01-01') + ' ' + '20:00')).valueOf()
-    var am00 = new Date((('1970-01-01') + ' ' + '24:00')).valueOf()
+    var checkintime = new Date((('1970/01/01') + ' ' + this.data.time)).valueOf();
+    var am5 = new Date((('1970/01/01') + ' ' + '05:00')).valueOf()
+    var pm8 = new Date((('1970/01/01') + ' ' + '20:00')).valueOf()
+    var am00 = new Date((('1970/01/01') + ' ' + '24:00')).valueOf()
     var maxFlightTime = this.data.maxFlightTime;
     var crewNumbers = this.data.crewNumbers;
     if (this.data.selectedTeam === '非扩编机组') {
@@ -546,14 +553,14 @@ Page({
 
     }
 
-    console.log(new Date((('1970-01-01') + ' ' + time)).valueOf())
+    console.log(new Date((('1970/01/01') + ' ' + time)).valueOf())
 
   },
   //计算最大值勤期
   maxDutyTime: function () {
-    var checkintime = new Date((('1970-01-01') + ' ' + this.data.time)).valueOf();
-    var am5 = new Date((('1970-01-01') + ' ' + '05:00')).valueOf()
-    var pm8 = new Date((('1970-01-01') + ' ' + '20:00')).valueOf()
+    var checkintime = new Date((('1970/01/01') + ' ' + this.data.time)).valueOf();
+    var am5 = new Date((('1970/01/01') + ' ' + '05:00')).valueOf()
+    var pm8 = new Date((('1970/01/01') + ' ' + '20:00')).valueOf()
 
     var crewNumbers = this.data.crewNumbers;
     var flightSegment = this.data.flightSegment;
@@ -649,7 +656,7 @@ Page({
   },
   dutyTimeRemain: function () { //optimized 返回值为timestamp
 
-    var maxDutyTime = DATE.timeToStamp('1970-01-01', this.maxDutyTime());
+    var maxDutyTime = DATE.timeToStamp('1970/01/01', this.maxDutyTime());
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var CheckOutTime = DATE.timeToStamp(this.data.CheckOutDate, this.data.CheckOutTime);
     var timepassed = CheckOutTime - checkintime;
@@ -687,7 +694,7 @@ Page({
 
   },
   dutyEndTime: function () { //optimized return  a timeStamp
-    var maxDutyTime = DATE.timeToStamp('1970-01-01', this.maxDutyTime());
+    var maxDutyTime = DATE.timeToStamp('1970/01/01', this.maxDutyTime());
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
 
     var totalRestTime = this.data.totalRestTime;
@@ -780,7 +787,7 @@ Page({
 
   },
   attDutyEndTime: function () { //optimized return  a timeStamp
-    var maxDutyTime = DATE.timeToStamp('1970-01-01', this.AttMaxduty());
+    var maxDutyTime = DATE.timeToStamp('1970/01/01', this.AttMaxduty());
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
 
     var totalRestTime = this.data.totalRestTime;
@@ -795,7 +802,7 @@ Page({
   },
   attDutyTimeRemain: function () { //optimized 返回值为timestamp
 
-    var maxDutyTime = DATE.timeToStamp('1970-01-01', this.AttMaxduty());
+    var maxDutyTime = DATE.timeToStamp('1970/01/01', this.AttMaxduty());
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var CheckOutTime = DATE.timeToStamp(this.data.CheckOutDate, this.data.CheckOutTime);
     var timepassed = CheckOutTime - checkintime;

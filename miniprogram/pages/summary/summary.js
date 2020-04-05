@@ -289,8 +289,8 @@ Page({
     var seventyHour=252000000
 
     var yearnow = this.data.yearnow;
-    var yearstart = DATE.timeToStamp(yearnow + '-01-01', '00:00') - 28800000;
-    var yearend = DATE.timeToStamp(yearnow + '-12-31', '23:59') + 60000 - 28800000;
+    var yearstart = DATE.timeToStamp(yearnow + '/01/01', '00:00') - 28800000;
+    var yearend = DATE.timeToStamp(yearnow + '/12/31', '23:59') + 60000 - 28800000;
     var month31 = [1, 3, 5, 7, 8, 10, 12];
     var month30 = [4, 6, 9, 11]
 
@@ -359,8 +359,8 @@ Page({
 
     month31.forEach(element => { //取出月份为31天数据
       let i = []
-      let monthstart = DATE.timeToStamp(yearnow + '-' + element + '-01', '00:00') - 28800000;
-      let monthend = DATE.timeToStamp(yearnow + '-' + element + '-31', '23:59') + 60000 - 28800000;
+      let monthstart = DATE.timeToStamp(yearnow + '/' + element + '/01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '/' + element + '/31', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           i.push(element)
@@ -372,8 +372,8 @@ Page({
     })
     month30.forEach(element => { //30天月份数据
       let i = []
-      let monthstart = DATE.timeToStamp(yearnow + '-' + element + '-01', '00:00') - 28800000;
-      let monthend = DATE.timeToStamp(yearnow + '-' + element + '-30', '23:59') + 60000 - 28800000;
+      let monthstart = DATE.timeToStamp(yearnow + '/' + element + '/01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '/' + element + '/30', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           i.push(element)
@@ -382,16 +382,16 @@ Page({
       month30select.push(i)
     })
     if (runnian === 0) { //二月份数据
-      let monthstart = DATE.timeToStamp(yearnow + '-02-01', '00:00') - 28800000;
-      let monthend = DATE.timeToStamp(yearnow + '-02-29', '23:59') + 60000 - 28800000;
+      let monthstart = DATE.timeToStamp(yearnow + '/02/01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '/02/29', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           month02select.push(element)
         }
       })
     } else if (runnian != 0) {
-      let monthstart = DATE.timeToStamp(yearnow + '-02-01', '00:00') - 28800000;
-      let monthend = DATE.timeToStamp(yearnow + '-02-28', '23:59') + 60000 - 28800000;
+      let monthstart = DATE.timeToStamp(yearnow + '/02/01', '00:00') - 28800000;
+      let monthend = DATE.timeToStamp(yearnow + '/02/28', '23:59') + 60000 - 28800000;
       valueofselectyear.forEach(element => {
         if ((element.checkintime - 28800000) > monthstart && (element.checkintime - 28800000) < monthend) {
           month02select.push(element)
