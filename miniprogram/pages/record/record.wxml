@@ -1,7 +1,7 @@
 <!--pages/record/record.wxml-->
 <view class="container">
 	<view class="header">
-		<view>历史记录</view>
+		<view>历史记录（长按删除）</view>
 		
 	</view>
 	<view class="title">

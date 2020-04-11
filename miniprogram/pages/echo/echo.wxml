@@ -12,10 +12,10 @@
 	<view class="inputArea">
 		<view class="intiArgs">
 		<block>
-		<view wx:if="{{profession===''?true:false}}" class="head">执勤期确认器R5</view>
-		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员执勤期确认器R5</view>
-		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员执勤期确认器R5</view>
-		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员执勤期确认器R5</view>
+		<view wx:if="{{profession===''?true:false}}" class="head">执勤期查询记录器R5</view>
+		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员执勤期查询记录器R5</view>
+		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员执勤期查询记录器R5</view>
+		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员执勤期查询记录器R5</view>
 		<view wx:elif="{{profession==='others'?true:false}}" class="head">工作时间记录器</view>
 		
 		</block>
@@ -204,11 +204,11 @@
 
 		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">提示</view>
 		<block>
-		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
-		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
-		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >确认</view>
-		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
-		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
+		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >记录</view>
+		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >记录</view>
+		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >记录</view>
+		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >记录</view>
+		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >记录</view>
 
 		
 		
@@ -238,7 +238,7 @@
 				<view>{{maxDutyTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>执勤期截止：</view>
+				<view>执勤期查询截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
 			<view class="resultText"  >
@@ -255,7 +255,7 @@
 				<view>{{maxDutyTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>执勤期截止：</view>
+				<view>执勤期查询截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
 			<view class="resultText"  >
@@ -271,7 +271,7 @@
 				<view>{{maxDutyTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>执勤期截止：</view>
+				<view>执勤期查询截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
 			<view class="resultText"  >
@@ -327,7 +327,7 @@
 			</view>
 
 			<block>
-			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请确认数据准确后再上传。</text>
+			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请记录数据准确后再上传。</text>
 			<text class="wenxintishi" wx:else>温馨提示！点击记录去注册可以体验完整功能。</text>
 			</block>
 
