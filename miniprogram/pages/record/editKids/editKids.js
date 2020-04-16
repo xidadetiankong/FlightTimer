@@ -23,7 +23,8 @@ Page({
 
     console.log(this.data.checkinTime)
     this.setData({
-      id: options.id
+      id: options.id,
+      profession:app.userInfo.profession
     })
 
 

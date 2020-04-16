@@ -2,7 +2,7 @@
 <view class="pge">
 	<view class="container">
 
-    <view class="head">记录日期{{checkInDay}}</view>
+		<view class="head">记录日期{{checkInDay}}</view>
 
 
 		<view class="timeInti">
@@ -35,8 +35,10 @@
 		</view>
 
 
+    <block>
+    <block wx:if="{{profession==='others'?false:true}}" >
 
-		<view class="timeInti">
+<view class="timeInti">
 			<view class="checkIn">
 				<view class="title">值勤时间：</view>
 				<view class="checkIn_class">
@@ -46,9 +48,32 @@
 				</view>
 			</view>
 		</view>
+</block>
 
 
-		<view class="timeInti">
+<block wx:if="{{profession==='others'?true:false}}" >
+
+<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">工作时间：</view>
+				<view class="checkIn_class">
+					<view class="checkIn_time">
+						<picker mode="time" value="{{dutyTime}}" start="00:00" end="23:59" bindchange="selectDutyTime"> {{dutyTime}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+</block>
+    
+    
+    </block>
+
+
+
+		
+
+<block wx:if="{{profession==='others'?false:true}}">
+<view class="timeInti">
 			<view class="checkIn">
 				<view class="title">飞行时间：</view>
 				<view class="checkIn_class">
@@ -60,22 +85,60 @@
 		</view>
 
 
+</block>
 
-		<view class="timeInti">
-			<view class="checkIn">
-				<view class="title">飞行段数：</view>
-				<input class="numInput" type="number" maxlength="2" value="{{flightLegs}}" bindinput="inputFltLegs"></input>
+		
+
+
+		<block>
+			<block wx:if="{{profession==='pilot'?true:false}}">
+				<view class="timeInti">
+					<view class="checkIn">
+						<view class="title">飞行段数：</view>
+						<input class="numInput" type="number" maxlength="2" value="{{flightLegs}}" bindinput="inputFltLegs"></input>
+					</view>
+				</view>
+
+
+			</block>
+			<block wx:elif="{{profession==='attendant'?true:false}}">
+				<view class="timeInti">
+					<view class="checkIn">
+						<view class="title">飞行段数：</view>
+						<input class="numInput" type="number" maxlength="2" value="{{flightLegs}}" bindinput="inputFltLegs"></input>
+					</view>
+				</view>
+
+
+			</block>
+			<block wx:elif="{{profession==='security'?true:false}}">
+				<view class="timeInti">
+					<view class="checkIn">
+						<view class="title">飞行段数：</view>
+						<input class="numInput" type="number" maxlength="2" value="{{flightLegs}}" bindinput="inputFltLegs"></input>
+					</view>
+				</view>
+
+
+			</block>
+
+
+
+		</block>
+
+
+		<block wx:if="{{profession==='pilot'?true:false}}">
+			<view class="timeInti">
+				<view class="checkIn">
+					<view class="title">操纵落地：</view>
+					<input class="numInput" type="number" maxlength="2" value="{{landings}}" bindinput="inputLandings"></input>
+				</view>
 			</view>
-		</view>
 
 
+		</block>
 
-		<view class="timeInti">
-			<view class="checkIn">
-				<view class="title">操纵落地：</view>
-				<input class="numInput" type="number" maxlength="2" value="{{landings}}" bindinput="inputLandings"></input>
-			</view>
-		</view>
+
 
 
 
@@ -98,12 +161,12 @@
 
 	</view>
 
-  <view class="buttonArea">
-  <view class="button" hover-class="tapBTN" bindtap="cancleCHG" >取消</view>
-  <view class="button" hover-class="tapBTN" bindtap="confirmCHG">确认</view>
-  
-  
-  </view>
+	<view class="buttonArea">
+		<view class="button" hover-class="tapBTN" bindtap="cancleCHG">取消</view>
+		<view class="button" hover-class="tapBTN" bindtap="confirmCHG">确认</view>
+
+
+	</view>
 
 
 

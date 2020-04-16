@@ -8,9 +8,10 @@
 		<view id="kid1">签到时间</view>
 		<view id="kid2">截止时间</view>
 		<view id="kid3">搬砖时间</view>
-		<view id="kid3">飞行时间</view>
+		
 		<block>
 		<block wx:if="{{profession==='pilot'?true:false}}">
+		<view id="kid3">飞行时间</view>
 			<view id="kid4">航段数</view>
 			<view id="kid5">落地数</view>
 		</block>
