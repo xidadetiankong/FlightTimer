@@ -10,7 +10,7 @@
 				<view class="title">签到时间：</view>
 				<view class="checkIn_class">
 					<view class="checkIn_date">
-						<picker mode="date" value="{{checkInDay}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDay"> {{checkInDay}}</picker>
+						<picker mode="date" value="{{checkInDay}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDate"> {{checkInDay}}</picker>
 					</view>
 					<view class="checkIn_time">
 						<picker mode="time" value="{{checkInTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{checkInTime}}</picker>
@@ -25,10 +25,10 @@
 				<view class="title">截止时间：</view>
 				<view class="checkIn_class">
 					<view class="checkIn_date">
-						<picker mode="date" value="{{EndDay}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDay"> {{EndDay}}</picker>
+						<picker mode="date" value="{{EndDay}}" start="1900-0-01" end="2200-12-31" bindchange="selectEndDate"> {{EndDay}}</picker>
 					</view>
 					<view class="checkIn_time">
-						<picker mode="time" value="{{EndTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{EndTime}}</picker>
+						<picker mode="time" value="{{EndTime}}" start="00:00" end="23:59" bindchange="selectEndTime"> {{EndTime}}</picker>
 					</view>
 				</view>
 			</view>

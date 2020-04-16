@@ -119,9 +119,11 @@ sumValue=sumValue+element
 }
 
 const appleFormate=res=>{
-  res.replace(/-/g, '/');
+  res= res.replace(/\-/g, '/');
   return res
 }
+
+
 
 
 module.exports = {
