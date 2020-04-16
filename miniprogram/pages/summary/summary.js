@@ -414,18 +414,20 @@ Page({
     var totaldutytimeof12 = []
     var totalFlightlegsof12 = []
     var totalLandings12 = []
+    var totalflightTimes12=[]
 
     console.log(month31select)
     month31select.forEach(element => {
       totaldutytimeof12.push(this.collectitem(element).restotaldutytime);
       totalFlightlegsof12.push(this.collectitem(element).restotalFlightlegs);
-      totalLandings12.push(this.collectitem(element).restotalLandings)
+      totalLandings12.push(this.collectitem(element).restotalLandings);
+      totalflightTimes12.push(this.collectitem(element).restotalFlightTimes)
 
 
     })
 
 
-    console.log(totaldutytimeof12, totalFlightlegsof12, totalLandings12)
+    console.log(totaldutytimeof12, totalFlightlegsof12, totalLandings12,totalflightTimes12)
     console.log(yearnow, DATE.stamptoformatTime(yearstart), DATE.stamptoformatTime(yearend))
     console.log(this.collectitem(DATA).restotalFlightlegs)
 
@@ -438,12 +440,15 @@ Page({
       totaldutytimeof12: totaldutytimeof12,
       totalFlightlegsof12: totalFlightlegsof12,
       totalLandings12: totalLandings12,
+      totalflightTimes12:totalflightTimes12,
       selectyear: yearnow,
 
       YEARtotaldutytime: this.collectitem(valueofselectyear).restotaldutytime, //年度数据合集
+      YEARtotalFlightTimes: this.collectitem(valueofselectyear).restotalFlightTimes,
       YEARtotalFlightlegs: this.collectitem(valueofselectyear).restotalFlightlegs,
       YEARtotalLandings: this.collectitem(valueofselectyear).restotalLandings,
       totaldutytime: this.collectitem(DATA).restotaldutytime, //历史数据合集
+      totalFlightTimes: this.collectitem(DATA).restotalFlightTimes,
       totalFlightlegs: this.collectitem(DATA).restotalFlightlegs,
       totalLandings: this.collectitem(DATA).restotalLandings
     })
@@ -455,19 +460,26 @@ Page({
     var restotaldutytime = 0;
     var restotalFlightlegs = 0;
     var restotalLandings = 0;
+    var restotalFlightTimes=0;
     for (let i = 0; i < res.length; i++) { //运算历史总值勤时间
+      
       restotaldutytime = restotaldutytime + res[i].totalDutyTime;
       restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
       restotalLandings = restotalLandings + res[i].actureLandings;
+      restotalFlightTimes=restotalFlightTimes+res[i].flightTime
     }
+    restotalFlightTimes=DATE.formatHour(restotalFlightTimes)
     restotaldutytime = DATE.formatHour(restotaldutytime)
+    
 
     return {
       restotaldutytime,
       restotalFlightlegs,
-      restotalLandings
+      restotalLandings,
+      restotalFlightTimes
     }
   },
+  
 
   lastyear: function () {
 
