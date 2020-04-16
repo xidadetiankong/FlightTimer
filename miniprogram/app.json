@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/record/editKids/editKids",
     "pages/echo/echo",
     "pages/summary/summary",
     "pages/record/record",
@@ -8,8 +7,8 @@
     "pages/editUserInfo/editUserInfo",
     "pages/tools/tools",
     "pages/calclator/calculator",
-    "pages/professionSelect/professionSelect"
-    
+    "pages/professionSelect/professionSelect",
+    "pages/record/editKids/editKids"
   ],
   "window": {
     "backgroundColor": "#2A465C",

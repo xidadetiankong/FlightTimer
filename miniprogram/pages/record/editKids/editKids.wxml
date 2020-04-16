@@ -41,7 +41,7 @@
 				<view class="title">值勤时间：</view>
 				<view class="checkIn_class">
 					<view class="checkIn_time">
-						<picker mode="time" value="{{dutyTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{dutyTime}}</picker>
+						<picker mode="time" value="{{dutyTime}}" start="00:00" end="23:59" bindchange="selectDutyTime"> {{dutyTime}}</picker>
 					</view>
 				</view>
 			</view>
@@ -53,7 +53,7 @@
 				<view class="title">飞行时间：</view>
 				<view class="checkIn_class">
 					<view class="checkIn_time">
-						<picker mode="time" value="{{flightTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{flightTime}}</picker>
+						<picker mode="time" value="{{flightTime}}" start="00:00" end="23:59" bindchange="selectFlightTime"> {{flightTime}}</picker>
 					</view>
 				</view>
 			</view>
@@ -73,7 +73,7 @@
 		<view class="timeInti">
 			<view class="checkIn">
 				<view class="title">操纵落地：</view>
-				<input class="numInput" type="number" maxlength="2" value="{{landings}}" bindinput="inputLdgs"></input>
+				<input class="numInput" type="number" maxlength="2" value="{{landings}}" bindinput="inputLandings"></input>
 			</view>
 		</view>
 

@@ -173,6 +173,7 @@ updateManager.onUpdateFailed(function () {
 
   },
   uploadBTN: function () {
+    var that=this
     var totalDutyTime = this.total_dutytime()
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
@@ -206,7 +207,7 @@ updateManager.onUpdateFailed(function () {
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
                   actureLandings: this.data.actureLandings,
-                  flightTime:this.data.flightTime
+                  flightTime:DATE.timeToStamp('1970.01.01',that.data.flightTime)
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -359,7 +360,7 @@ updateManager.onUpdateFailed(function () {
     })
   },
 
-  selectFlightTime: function (e) { //选择签到时间
+  selectFlightTime: function (e) { //选择飞行时间
     this.setData({
       flightTime: e.detail.value
     })
@@ -895,6 +896,7 @@ updateManager.onUpdateFailed(function () {
     })
   },
   attUploadBTN: function () {
+    var that=this;
     var totalDutyTime = this.total_dutytime()
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
@@ -927,7 +929,7 @@ updateManager.onUpdateFailed(function () {
                   totalDutyTime: this.data.totalDutyTime,
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime:this.data.flightTime,
+                  flightTime:DATE.timeToStamp('1970.01.01',that.data.flightTime)
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -989,6 +991,7 @@ updateManager.onUpdateFailed(function () {
         })
   },
   seUploadBTN: function () {
+    var that=this;
     var totalDutyTime = this.total_dutytime()
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
@@ -1020,7 +1023,7 @@ updateManager.onUpdateFailed(function () {
                   EndTime: EndTime,
                   totalDutyTime: this.data.totalDutyTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime:this.data.flightTime,
+                  flightTime:DATE.timeToStamp('1970.01.01',that.data.flightTime)
                 }
               }).then((res) => {
                 wx.hideLoading({})

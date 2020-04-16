@@ -53,7 +53,7 @@ profession:''
        let remarks=element.remarks;
        let Eid=element._id;
        let checkintime=element.checkintime;
-       let flightTime=element.flightTime;
+       let flightTime=DATE.formatHour(element.flightTime);
        let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
         this.data.DATA.push(a)
       });
