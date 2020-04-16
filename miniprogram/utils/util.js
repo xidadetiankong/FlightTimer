@@ -1,4 +1,5 @@
 const formatTime = date => {
+  
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -41,10 +42,14 @@ const formatHour= (res)=> {
   var restMilSec = res % (3600 * 1000);
   var minutes = Math.floor(restMilSec / (60 * 1000));
   var time = hours + ':' + minutes;
-  if (minutes < 10) {
-    var time = hours + ':' + '0'+minutes ;
-  } else {
-    var time = hours + ':' + minutes;
+  if (hours>=10&&minutes < 10) {
+    var time = hours + ':' +'0'+ minutes ;
+  }else if(hours>=10&&minutes>=10){
+    var time = hours + ':' + minutes ;
+  }else if(hours<10&&minutes<10){
+    var time = '0'+hours + ':' + '0'+minutes ;
+  } else if(hours<10&&minutes>=10) {
+    var time = '0'+hours + ':' + minutes;
   }
   return time
 }

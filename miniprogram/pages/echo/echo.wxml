@@ -204,11 +204,11 @@
 
 		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">提示</view>
 		<block>
-		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >记录</view>
-		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >记录</view>
-		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >记录</view>
-		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >记录</view>
-		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >记录</view>
+		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
+		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
+		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >确认</view>
+		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
+		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
 
 		
 		
@@ -313,10 +313,15 @@
 
 			<view class="TOInput" hidden="{{!others}}">
 				<view class="TOInputElement" >
-					<view class="wenxintishi">实际飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
+					<view class="wenxintishi">输入飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
 				</view>
 				<view class="TOInputElement" hidden="{{pilotHidde}}">
 					<view class="wenxintishi">操纵落地数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureLandings}}" bindinput="inputLandings"></input>
+				</view>
+			</view>
+			<view class="TOInput" hidden="{{!others}}">
+				<view class="TOInputElement" >
+					<view class="wenxintishi">输入飞行时间：</view><picker id="flightTimeIput" mode="time" value="{{flightTime}}" start="00:00" end="23:59" bindchange="selectFlightTime"> {{flightTime}}</picker>
 				</view>
 			</view>
 			<view class="TOInput">

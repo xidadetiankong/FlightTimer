@@ -1,0 +1,110 @@
+<!--miniprogram/pages/record/editKids/editKids.wxml-->
+<view class="pge">
+	<view class="container">
+
+    <view class="head">记录日期{{checkInDay}}</view>
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">签到时间：</view>
+				<view class="checkIn_class">
+					<view class="checkIn_date">
+						<picker mode="date" value="{{checkInDay}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDay"> {{checkInDay}}</picker>
+					</view>
+					<view class="checkIn_time">
+						<picker mode="time" value="{{checkInTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{checkInTime}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">截止时间：</view>
+				<view class="checkIn_class">
+					<view class="checkIn_date">
+						<picker mode="date" value="{{EndDay}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDay"> {{EndDay}}</picker>
+					</view>
+					<view class="checkIn_time">
+						<picker mode="time" value="{{EndTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{EndTime}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">值勤时间：</view>
+				<view class="checkIn_class">
+					<view class="checkIn_time">
+						<picker mode="time" value="{{dutyTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{dutyTime}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">飞行时间：</view>
+				<view class="checkIn_class">
+					<view class="checkIn_time">
+						<picker mode="time" value="{{flightTime}}" start="00:00" end="23:59" bindchange="selectCheckInTime"> {{flightTime}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">飞行段数：</view>
+				<input class="numInput" type="number" maxlength="2" value="{{flightLegs}}" bindinput="inputFltLegs"></input>
+			</view>
+		</view>
+
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">操纵落地：</view>
+				<input class="numInput" type="number" maxlength="2" value="{{landings}}" bindinput="inputLdgs"></input>
+			</view>
+		</view>
+
+
+
+		<view class="timeInti">
+			<view class="checkIn">
+				<view class="title">备注：</view>
+				<input class="checkIn_class" type="text" maxlength="50" placeholder="最多输入50个字" value="{{remarks}}" bindinput="remarks"></input>
+			</view>
+		</view>
+
+
+
+
+
+
+
+
+
+
+
+	</view>
+
+  <view class="buttonArea">
+  <view class="button" hover-class="tapBTN" bindtap="cancleCHG" >取消</view>
+  <view class="button" hover-class="tapBTN" bindtap="confirmCHG">确认</view>
+  
+  
+  </view>
+
+
+
+</view>

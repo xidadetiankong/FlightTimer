@@ -18,13 +18,24 @@ Page({
     hasCount: false,
     disabled:true,
     hasProfession:false,
-    signature:''
+    signature:'',
+    links:0
 
   },
-  onLoad: function () {
+  onLoad:function(){
+    var that=this
+    wx.cloud.callFunction({
+      name: 'count',
+      data: {}
+    }).then((res)=>{
+      this.data.links=res.result.data.length
+      this.setData({
+        links:res.result.data.length
+      })
+    })
     
-
   },
+  
   onReady: function () {
    
     wx.cloud.callFunction({
@@ -62,7 +73,8 @@ Page({
       signature:app.userInfo.signature,
       avatarUrl: app.userInfo.avatarUrl,
       nickName: app.userInfo.nickName,
-      hasProfession:app.hasProfession})
+      hasProfession:app.hasProfession,
+    })
   },
   cancleRgd:function(){
     wx.switchTab({

@@ -53,7 +53,8 @@ profession:''
        let remarks=element.remarks;
        let Eid=element._id;
        let checkintime=element.checkintime;
-       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
+       let flightTime=element.flightTime;
+       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
         this.data.DATA.push(a)
       });
      }).then((res)=>{//刷新视图层
@@ -91,12 +92,22 @@ profession:''
     return res[1] ? res : '0' + res
   },
 
+  editKid:function(e){
+    console.log(e.currentTarget.id);
+    let id = e.currentTarget.id
+    
+    wx.navigateTo({
+      url: '../record/editKids/editKids?id='+id,
+    })
+
+  },
+
 
 
 
 
   deleteKid:function(e){
-    console.log(e);
+    
 this.setData({//下载过程中将记录id赋值给view对象并通过事件引入逻辑层
   hidDelview:false,
   temporaryID:e.currentTarget.id
@@ -171,7 +182,7 @@ this.setData({//下载过程中将记录id赋值给view对象并通过事件引�
        let remarks=element.remarks;
        let Eid=element._id;
        let checkintime=element.checkintime;
-       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid}
+       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
         this.data.DATA.push(a)
       });
      }).then((res)=>{//刷新视图层

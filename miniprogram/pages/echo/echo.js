@@ -48,6 +48,7 @@ Page({
     pauseTime: [],
     totalRestTime: 0, //total rest time in millisecond
     totalRestTimeInhours: '00:00',
+    flightTime:'00:00',
     //下面这一堆不用重置
 
     profession: '',
@@ -205,6 +206,7 @@ updateManager.onUpdateFailed(function () {
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
                   actureLandings: this.data.actureLandings,
+                  flightTime:this.data.flightTime
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -287,7 +289,8 @@ updateManager.onUpdateFailed(function () {
       totalDutyTime: '',
       pauseTime: [],
       totalRestTime: 0, //total rest time in millisecond
-      totalRestTimeInhours: '00:00'
+      totalRestTimeInhours: '00:00',
+      flightTime:'00:00',
 
 
     })
@@ -353,6 +356,12 @@ updateManager.onUpdateFailed(function () {
     EndDate=DATE.appleFormate(EndDate)
     this.setData({
       EndDate: EndDate
+    })
+  },
+
+  selectFlightTime: function (e) { //选择签到时间
+    this.setData({
+      flightTime: e.detail.value
     })
   },
 
@@ -918,6 +927,7 @@ updateManager.onUpdateFailed(function () {
                   totalDutyTime: this.data.totalDutyTime,
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
+                  flightTime:this.data.flightTime,
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -1010,6 +1020,7 @@ updateManager.onUpdateFailed(function () {
                   EndTime: EndTime,
                   totalDutyTime: this.data.totalDutyTime,
                   actureFlightLegs: this.data.actureFlightLegs,
+                  flightTime:this.data.flightTime,
                 }
               }).then((res) => {
                 wx.hideLoading({})

@@ -280,3 +280,7 @@ margin-top: 45rpx;
 .wenxintishi{
   font-size: smaller;
 }
+
+#flightTimeIput{
+  border-bottom: 1px solid#2A465C;
+}
