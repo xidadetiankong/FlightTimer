@@ -197,7 +197,10 @@ updateManager.onUpdateFailed(function () {
               wx.showLoading({
                 title: '上传中',
               })
+
+              
               db.collection('timeData').doc(res._id).update({
+                
 
                 data: {
                   remarks: this.data.remarks,
@@ -207,7 +210,7 @@ updateManager.onUpdateFailed(function () {
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
                   actureLandings: this.data.actureLandings,
-                  flightTime:DATE.timeToStamp('1970.01.01',that.data.flightTime)
+                  flightTime:this.data.flightTimeForUp
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -361,8 +364,12 @@ updateManager.onUpdateFailed(function () {
   },
 
   selectFlightTime: function (e) { //选择飞行时间
+
+     let a=e.detail.value
+    let flightTimeForUp=DATE.timeToStamp('1970/01/01',a);
     this.setData({
-      flightTime: e.detail.value
+      flightTime: e.detail.value,
+      flightTimeForUp:flightTimeForUp
     })
   },
 
@@ -929,7 +936,7 @@ updateManager.onUpdateFailed(function () {
                   totalDutyTime: this.data.totalDutyTime,
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime:DATE.timeToStamp('1970.01.01',that.data.flightTime)
+                  flightTime:this.data.flightTimeForUp
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -1023,7 +1030,7 @@ updateManager.onUpdateFailed(function () {
                   EndTime: EndTime,
                   totalDutyTime: this.data.totalDutyTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime:DATE.timeToStamp('1970.01.01',that.data.flightTime)
+                  flightTime:this.data.flightTimeForUp
                 }
               }).then((res) => {
                 wx.hideLoading({})

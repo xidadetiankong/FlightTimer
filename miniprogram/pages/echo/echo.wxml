@@ -321,7 +321,7 @@
 			</view>
 			<view class="TOInput" hidden="{{!others}}">
 				<view class="TOInputElement" >
-					<view class="wenxintishi">输入飞行时间：</view><picker id="flightTimeIput" mode="time" value="{{flightTime}}" start="00:00" end="23:59" bindchange="selectFlightTime"> {{flightTime}}</picker>
+					<view class="wenxintishi">输入飞行时间：</view><picker id="flightTimeIput" mode="time" value="{{flightTime}}"  bindchange="selectFlightTime"> {{flightTime}}</picker>
 				</view>
 			</view>
 			<view class="TOInput">
