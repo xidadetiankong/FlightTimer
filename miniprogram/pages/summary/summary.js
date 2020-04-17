@@ -463,10 +463,39 @@ Page({
     var restotalFlightTimes=0;
     for (let i = 0; i < res.length; i++) { //运算历史总值勤时间
       
-      restotaldutytime = restotaldutytime + res[i].totalDutyTime;
-      restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
-      restotalLandings = restotalLandings + res[i].actureLandings;
-      restotalFlightTimes=restotalFlightTimes+res[i].flightTime
+      
+      
+      
+
+      if(isNaN(res[i].actureLandings)){
+        restotalLandings = restotalLandings
+
+      }else{
+        restotalLandings = restotalLandings + res[i].actureLandings;
+      }
+
+
+      if(isNaN(res[i].actureFlightLegs)){
+        restotalFlightlegs = restotalFlightlegs
+
+      }else{
+        restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
+      }
+
+      if(isNaN(res[i].totalDutyTime)){
+        restotaldutytime = restotaldutytime
+
+      }else{
+        restotaldutytime = restotaldutytime + res[i].totalDutyTime;
+      }
+
+      if(isNaN(res[i].flightTime)){
+        restotalFlightTimes=restotalFlightTimes
+
+      }else{
+        restotalFlightTimes=restotalFlightTimes+res[i].flightTime
+      }
+      
     }
     restotalFlightTimes=DATE.formatHour(restotalFlightTimes)
     restotaldutytime = DATE.formatHour(restotaldutytime)

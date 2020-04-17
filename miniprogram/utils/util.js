@@ -38,19 +38,25 @@ const timeDifferent= (timeStart, timeEnd)=> { //计算时间差
 }
 
 const formatHour= (res)=> {
-  var hours = Math.floor(res / (3600 * 1000));
-  var restMilSec = res % (3600 * 1000);
-  var minutes = Math.floor(restMilSec / (60 * 1000));
-  var time = hours + ':' + minutes;
-  if (hours>=10&&minutes < 10) {
-    var time = hours + ':' +'0'+ minutes ;
-  }else if(hours>=10&&minutes>=10){
-    var time = hours + ':' + minutes ;
-  }else if(hours<10&&minutes<10){
-    var time = '0'+hours + ':' + '0'+minutes ;
-  } else if(hours<10&&minutes>=10) {
-    var time = '0'+hours + ':' + minutes;
+  if(isNaN(res)==true){
+    var time='00:00'
+  }else{
+    var hours = Math.floor(res / (3600 * 1000));
+    var restMilSec = res % (3600 * 1000);
+    var minutes = Math.floor(restMilSec / (60 * 1000));
+    var time = hours + ':' + minutes;
+    if (hours>=10&&minutes < 10) {
+      var time = hours + ':' +'0'+ minutes ;
+    }else if(hours>=10&&minutes>=10){
+      var time = hours + ':' + minutes ;
+    }else if(hours<10&&minutes<10){
+      var time = '0'+hours + ':' + '0'+minutes ;
+    } else if(hours<10&&minutes>=10) {
+      var time = '0'+hours + ':' + minutes;
+    }
+
   }
+  
   return time
 }
 const compare=(property) =>{//比值降序函数
@@ -97,15 +103,23 @@ const timeNow=res=>{
 return  hour+':'+ minute+':'+ second
 }
 const stamptoformatTime=(res)=>{
-  var date = new Date(res);
-  let year = date.getFullYear().toString()
-  let month = (date.getMonth() + 1).toString()
-  let day = date.getDate().toString()
-  let hour = date.getHours().toString()
-  let minute = formatNumber(date.getMinutes());
-  let second =  formatNumber(date.getSeconds());
 
-return year+'/'+month+'/'+ day + ' ' + hour+':'+ minute+':'+ second
+  if(isNaN(res)==true){
+    return '1970'+'/'+'01'+'/'+ '01' + ' ' + '00'+':'+ '00'+':'+ '00'
+  }else{
+    var date = new Date(res);
+    let year = date.getFullYear().toString()
+    let month = (date.getMonth() + 1).toString()
+    let day = date.getDate().toString()
+    let hour = date.getHours().toString()
+    let minute = formatNumber(date.getMinutes());
+    let second =  formatNumber(date.getSeconds());
+
+    return year+'/'+month+'/'+ day + ' ' + hour+':'+ minute+':'+ second
+  }
+  
+
+
   
 }
 
