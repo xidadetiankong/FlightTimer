@@ -152,18 +152,7 @@ this.setData({//下载过程中将记录id赋值给view对象并通过事件引�
     }
  
   },
-  onPullDownRefresh:function(){
-   
-      wx.stopPullDownRefresh({
-        complete: (res) => {
-          this.initPAGE();
-        },
-      })
-    
-      
-      
-   
-  },
+ 
 
   addnewrecord:function(){//scroll view 中一定要设置style 中 height 否则真机scrolltobottom不能正常触发
     
