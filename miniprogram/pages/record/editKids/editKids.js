@@ -141,8 +141,10 @@ Page({
               title: '成功',
             })
 
-            wx.redirectTo({
-              url: '../../record/record',
+            wx.navigateBack({
+              complete: (res) => {
+                console.log(res)
+              },
             })
           },
         })

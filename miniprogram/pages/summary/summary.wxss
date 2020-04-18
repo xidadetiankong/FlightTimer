@@ -151,7 +151,7 @@ opacity: 0.75;
   position: fixed;
   height:80%;
   width: 90vw;
-  left: 10vw;
+  left: 5vw;
   right: 0;
   background:#2A465C;
   opacity: 0.98;

@@ -44,8 +44,8 @@ profession:''
       res.data.forEach(element => {
         
         
-      let EndTime= this.stamptoformatTime(element.EndTime-28800000);
-      let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
+      let EndTime= DATE.stamptoformatTime(element.EndTime-28800000);
+      let checkintime1= DATE.stamptoformatTime(element.checkintime-28800000);
       let totalDutyTime= DATE.formatHour(element.totalDutyTime);
        let overTime=element.overTime;
        let actureFlightLegs=element.actureFlightLegs;
@@ -65,32 +65,32 @@ profession:''
        console.log(this.data.DATA)
      })
   },
-  stamptoformatTime:function(res){
-    var date = new Date(res);
-    let year = date.getFullYear().toString()
-    let month = (date.getMonth() + 1).toString()
-    let day = date.getDate().toString()
-    let hour = date.getHours().toString()
-    let minute = this.formatNumber(date.getMinutes());
-    let second =  this.formatNumber(date.getSeconds());
+  // stamptoformatTime:function(res){
+  //   var date = new Date(res);
+  //   let year = date.getFullYear().toString()
+  //   let month = (date.getMonth() + 1).toString()
+  //   let day = date.getDate().toString()
+  //   let hour = date.getHours().toString()
+  //   let minute = this.formatNumber(date.getMinutes());
+  //   let second =  this.formatNumber(date.getSeconds());
 
-  return year+'/'+month+'/'+ day + ' ' + hour+':'+ minute+':'+ second
+  // return year+'/'+month+'/'+ day + ' ' + hour+':'+ minute+':'+ second
     
-  },
-  stamptoformatDay:function(res){
-    var date = new Date(res);
-    let year = date.getFullYear().toString()
-    let month = (date.getMonth() + 1).toString()
-    let day = date.getDate().toString()
+  // },
+  // stamptoformatDay:function(res){
+  //   var date = new Date(res);
+  //   let year = date.getFullYear().toString()
+  //   let month = (date.getMonth() + 1).toString()
+  //   let day = date.getDate().toString()
     
 
-  return year+'/'+month+'/'+ day 
+  // return year+'/'+month+'/'+ day 
     
-  },
-  formatNumber:function(res)  {
-    res= res.toString()
-    return res[1] ? res : '0' + res
-  },
+  // },
+  // formatNumber:function(res)  {
+  //   res= res.toString()
+  //   return res[1] ? res : '0' + res
+  // },
 
   editKid:function(e){
     console.log(e.currentTarget.id);
