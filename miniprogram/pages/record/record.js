@@ -34,6 +34,15 @@ profession:''
       profession:app.userInfo.profession
     })
    
+    
+  },
+  onHide:function(){
+    this.setData({
+      DATA:[]
+    })
+  },
+  onShow:function(){
+
     this.initPAGE()
   },
 
@@ -164,36 +173,36 @@ this.setData({//下载过程中将记录id赋值给view对象并通过事件引�
   },
  
 
-  addnewrecord:function(){//scroll view 中一定要设置style 中 height 否则真机scrolltobottom不能正常触发
+  // addnewrecord:function(){//scroll view 中一定要设置style 中 height 否则真机scrolltobottom不能正常触发
     
-    var max_limit=20;
-    var downloadTimes=this.data.downloadTimes//默认第一次加载了20条之后每增加一次加一
-    db.collection('timeData').where(this.data.userID).skip(downloadTimes*max_limit).limit(max_limit).get().then((res)=>{
-      res.data.forEach(element => {
+  //   var max_limit=20;
+  //   var downloadTimes=this.data.downloadTimes//默认第一次加载了20条之后每增加一次加一
+  //   db.collection('timeData').where(this.data.userID).skip(downloadTimes*max_limit).limit(max_limit).get().then((res)=>{
+  //     res.data.forEach(element => {
         
         
-      let EndTime= this.stamptoformatTime(element.EndTime-28800000);
-      let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
-      let totalDutyTime= DATE.formatHour(element.totalDutyTime);
-       let overTime=element.overTime;
-       let actureFlightLegs=element.actureFlightLegs;
-       let actureLandings=element.actureLandings;
-       let remarks=element.remarks;
-       let Eid=element._id;
-       let checkintime=element.checkintime;
-       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
-        this.data.DATA.push(a)
-      });
-     }).then((res)=>{//刷新视图层
-      console.log(res)
-       let dataT=this.data.DATA.sort(this.compare('checkintime'))
-          this.setData({
-            DATA:dataT,
-            downloadTimes:downloadTimes+1
-          })
-       console.log(this.data.DATA)
-     })
-  },
+  //     let EndTime= this.stamptoformatTime(element.EndTime-28800000);
+  //     let checkintime1= this.stamptoformatTime(element.checkintime-28800000);
+  //     let totalDutyTime= DATE.formatHour(element.totalDutyTime);
+  //      let overTime=element.overTime;
+  //      let actureFlightLegs=element.actureFlightLegs;
+  //      let actureLandings=element.actureLandings;
+  //      let remarks=element.remarks;
+  //      let Eid=element._id;
+  //      let checkintime=element.checkintime;
+  //      let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
+  //       this.data.DATA.push(a)
+  //     });
+  //    }).then((res)=>{//刷新视图层
+  //     console.log(res)
+  //      let dataT=this.data.DATA.sort(this.compare('checkintime'))
+  //         this.setData({
+  //           DATA:dataT,
+  //           downloadTimes:downloadTimes+1
+  //         })
+  //      console.log(this.data.DATA)
+  //    })
+  // },
   /**
    * 用户点击右上角分享
    */

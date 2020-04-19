@@ -23,16 +23,8 @@ Page({
 
   },
   onLoad:function(){
-    var that=this
-    wx.cloud.callFunction({
-      name: 'count',
-      data: {}
-    }).then((res)=>{
-      this.data.links=res.result.data.length
-      this.setData({
-        links:res.result.data.length
-      })
-    })
+    this.showlinks()
+    
     
   },
   
@@ -69,11 +61,24 @@ Page({
 
   },
   onShow: function () {
+    this.showlinks()
     this.setData({
       signature:app.userInfo.signature,
       avatarUrl: app.userInfo.avatarUrl,
       nickName: app.userInfo.nickName,
       hasProfession:app.hasProfession,
+    })
+  },
+
+  showlinks:function(){
+    wx.cloud.callFunction({
+      name: 'count',
+      data: {}
+    }).then((res)=>{
+      this.data.links=res.result.data.length
+      this.setData({
+        links:res.result.data.length
+      })
     })
   },
   cancleRgd:function(){
