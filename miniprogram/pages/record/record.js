@@ -40,30 +40,40 @@ profession:''
 
   initPAGE:function(){
 
-    db.collection('timeData').where(this.data.userID).get().then((res)=>{
-      res.data.forEach(element => {
+
+    var that = this
+    wx.cloud.callFunction({ //只能在此功能中嵌入函数防止不同步的问题
+      name: 'count',
+      data: {}
+    }).then((res) => {
+      console.log(res)
+      res.result.data.forEach(element => {
         
         
-      let EndTime= DATE.stamptoformatTime(element.EndTime-28800000);
-      let checkintime1= DATE.stamptoformatTime(element.checkintime-28800000);
-      let totalDutyTime= DATE.formatHour(element.totalDutyTime);
-       let overTime=element.overTime;
-       let actureFlightLegs=element.actureFlightLegs;
-       let actureLandings=element.actureLandings;
-       let remarks=element.remarks;
-       let Eid=element._id;
-       let checkintime=element.checkintime;
-       let flightTime=DATE.formatHour(element.flightTime);
-       let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
-        this.data.DATA.push(a)
-      });
-     }).then((res)=>{//刷新视图层
-       let dataT=this.data.DATA.sort(this.compare('checkintime'))
-          this.setData({
-            DATA:dataT
-          })
-       console.log(this.data.DATA)
-     })
+        let EndTime= DATE.stamptoformatTime(element.EndTime-28800000);
+        let checkintime1= DATE.stamptoformatTime(element.checkintime-28800000);
+        let totalDutyTime= DATE.formatHour(element.totalDutyTime);
+         let overTime=element.overTime;
+         let actureFlightLegs=element.actureFlightLegs;
+         let actureLandings=element.actureLandings;
+         let remarks=element.remarks;
+         let Eid=element._id;
+         let checkintime=element.checkintime;
+         let flightTime=DATE.formatHour(element.flightTime);
+         let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
+          this.data.DATA.push(a)
+        })
+      
+      
+    }).then((res)=>{//刷新视图层
+      let dataT=this.data.DATA.sort(this.compare('checkintime'))
+         this.setData({
+           DATA:dataT
+         })
+      console.log(this.data.DATA)
+    })
+
+    
   },
   // stamptoformatTime:function(res){
   //   var date = new Date(res);
