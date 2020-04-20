@@ -1,0 +1,65 @@
+/* miniprogram/pages/timeCalc/timeCalc.wxss */
+.container {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.resultArea{
+  position: fixed;
+  width: 100%;
+  bottom: 806rpx;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.resultArea view{
+  text-align: end;
+}
+.inputArea {
+  position: fixed;
+  bottom: 752rpx;
+  height: 50rpx;
+  width: 100%;
+  font-size: 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.keyArea {
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+  height: 750rpx;
+  width: 750rpx;
+
+  z-index: 100;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.key {
+  margin: 2rpx;
+  width: 183.5rpx;
+  height: 183.5rpx;
+  background-color: rgb(166, 206, 240);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.key view {
+  font-size: x-large;
+}
+
+.tapKey {
+  background-color: rgb(144, 180, 212);
+}

@@ -1,0 +1,29 @@
+<!--miniprogram/pages/timeCalc/timeCalc.wxml-->
+<view class="container">
+	<view class="resultArea">
+		<scroll-view class="resultForShow" scroll-y="true" enable-flex="true">
+			<view wx:for="{{resultValue}}" wx:key="index">{{item}}</view>
+
+		</scroll-view>
+
+	</view>
+
+
+
+	<view class="inputArea">
+<view wx:for="{{inputValue}}" wx:key="index">{{item}}</view>
+
+
+	</view>
+
+
+	<view class="keyArea">
+		<view class="key" wx:for="{{keyValue}}" wx:key="index" id="{{item.value}}" hover-class="tapKey" bindtap="tapKey"><view>{{item.name}}</view></view>
+
+
+
+	</view>
+
+
+
+</view>

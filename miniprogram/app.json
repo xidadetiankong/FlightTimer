@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/timeCalc/timeCalc",
     "pages/echo/echo",
     "pages/summary/summary",
     "pages/record/record",
