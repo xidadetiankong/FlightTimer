@@ -1,7 +1,7 @@
 <!--miniprogram/pages/timeCalc/timeCalc.wxml-->
 <view class="container">
 	<view class="resultArea">
-		<scroll-view class="resultForShow" scroll-y="true" enable-flex="true">
+		<scroll-view class="resultForShow" scroll-y="true" style="height:400rpx;" scroll-top="{{scrolltopT}}" enable-flex="true">
 			<view wx:for="{{resultValue}}" wx:key="index">{{item}}</view>
 
 		</scroll-view>
@@ -10,11 +10,11 @@
 
 
 
-	<view class="inputArea">
+	<scroll-view scroll-x="true" enable-flex="true" class="inputArea" style="width:750rpx;" scroll-left="{{scrolltop}}">
 <view wx:for="{{inputValue}}" wx:key="index">{{item}}</view>
 
 
-	</view>
+	</scroll-view>
 
 
 	<view class="keyArea">

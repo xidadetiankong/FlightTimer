@@ -58,7 +58,8 @@ Page({
       value: '='
     }],
     inputValue: [],
-    resultValue: []
+    resultValue: [],
+    scrolltop:0
 
   },
 
@@ -124,7 +125,8 @@ Page({
 
     } else {
       inputValue.push(keyValue)
-      this, this.setData({
+       this.setData({
+        scrolltop:inputValue.length+10,
         inputValue: inputValue
       })
     }
@@ -180,6 +182,9 @@ Page({
           finalResultStamp=resultPool[0]+resultPool[a+2]
         }else if(resultPool[a+1]==='-'){
           finalResultStamp=resultPool[0]-resultPool[a+2]
+        }else if(resultPool.length==1){
+
+          finalResultStamp=resultPool[0]
         }
         
     }
@@ -203,7 +208,8 @@ Page({
 
     this.setData({
       inputValue:[],
-      resultValue:resultValue
+      resultValue:resultValue,
+      scrolltopT:resultValue.length+10
     })
 
   },
