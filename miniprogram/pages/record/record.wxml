@@ -31,7 +31,7 @@
 
 	</view>
 	<view class="body">
-		<scroll-view class="scroer" scroll-y="true" enable-flex="true" style="height:100vh" lower-threshold="50" bindscrolltolower="addnewrecord">
+		<scroll-view class="scroer" scroll-y="true" enable-flex="true" style="height:100vh" lower-threshold="50" >
 			<view wx:for="{{DATA}}" id="{{item.Eid}}" wx:key="index" style="display: flex " class="scroll-view-item" hover-class="scrollsHover" bindlongpress="deleteKid" bindtap="editKid">
 				<view class="child">
 					<view id="kid1">{{item.checkintime1}}</view>
@@ -63,7 +63,7 @@
 
 
 				</view>
-				<view class="child">
+				<view class="child1">
 					<view wx:if="{{item.overTime}}" id="kid6"><text id="kid7">超时！</text> {{item.remarks}}</view>
 					<view wx:else id="kid6">备注：{{item.remarks}}</view>
 
