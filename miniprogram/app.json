@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/timeCalc/timeCalc",
+    
     "pages/echo/echo",
     "pages/summary/summary",
     "pages/record/record",
@@ -9,7 +9,8 @@
     "pages/tools/tools",
     "pages/calclator/calculator",
     "pages/professionSelect/professionSelect",
-    "pages/record/editKids/editKids"
+    "pages/record/editKids/editKids",
+    "pages/timeCalc/timeCalc"
   ],
   "window": {
     "backgroundColor": "#2A465C",
