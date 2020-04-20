@@ -16,9 +16,11 @@
 			<view id="kid5">落地数</view>
 		</block>
 		<block wx:elif="{{profession==='attendant'?true:false}}">
+		<view id="kid3">飞行时间</view>
 			<view id="kid4">航段</view>
 		</block>
 		<block wx:elif="{{profession==='security'?true:false}}">
+		<view id="kid3">飞行时间</view>
 			<view id="kid4">航段</view>
 		</block>
 		<block wx:elif="{{profession==='others'?true:false}}">

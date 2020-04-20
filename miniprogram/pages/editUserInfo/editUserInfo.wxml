@@ -10,9 +10,9 @@
 		<view class="titleWord">昵称:</view><view id="listInputNick2" class="listInput"   >{{nickName}}</view>
 	</view>
  
-  <view url="../avatar/avatar" class="list" open-type="navigate" hover-class="tapList" >
-		<view class="titleWord">职业选择：</view><view id="listInputNick"   >暂不支持自定义修改请联系客服</view>
-	</view>
+  <navigator url="../professionSelect/professionSelect" class="list" open-type="navigate" hover-class="tapList" >
+		<view class="titleWord" >职业选择：</view><view id="listInputNick"   >{{profession}}</view>
+	</navigator>
  
 </view>
 

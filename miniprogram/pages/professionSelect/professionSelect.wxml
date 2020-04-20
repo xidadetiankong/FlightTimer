@@ -5,7 +5,7 @@
 <view id="security" class="pro" hover-class="tapPro" bindtap="security"> <text>安全员</text> </view>
 <view id="others" class="pro" hover-class="tapPro" bindtap="others"> <text>其他人员</text> </view>
 
-<view id="tips"><text>Tips:职业一经选择不可修改，请谨慎选择!</text></view>
+<!-- <view id="tips"><text>Tips:职业一经选择不可修改，请谨慎选择!</text></view> -->
 
 
 
