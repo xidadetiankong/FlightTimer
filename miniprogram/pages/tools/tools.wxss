@@ -52,7 +52,7 @@
 .toolsTitle{
   color: aliceblue;
   margin-top: 10rpx;
-  width: 150rpx;
+  width: 200rpx;
   text-align: center;
 }
 .icontap{

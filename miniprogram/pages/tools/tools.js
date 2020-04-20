@@ -14,7 +14,15 @@ toolsIcon:[
 
   },{
     name:'',
-  title:'开发中',
+  title:'时间计算器',
+  
+  url:'../../img/clock.png',
+  pageUrl:'../../pages/timeCalc/timeCalc',
+  id:1
+  },{
+    name:'',
+  title:'敬请期待',
+  
   url:'../../img/willcom.png',
   id:1
   }
