@@ -221,6 +221,23 @@ margin-top: 45rpx;
   font-size: 35rpx;
   color: rgb(89, 148, 194);
 }
+.button2{
+  height: 70rpx;
+  width: 130rpx;
+  border: 1px solid #2A465C;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
+  margin-bottom:20rpx;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  font-weight: bolder;
+  font-size: 35rpx;
+  color: rgb(89, 148, 194);
+}
 .pressBTN1{
   background: rgb(64, 83, 97) ;
 }
@@ -283,4 +300,18 @@ margin-top: 45rpx;
 
 #flightTimeIput{
   border-bottom: 1px solid#2A465C;
+}
+
+
+/* 1增加起始页面职业选择 */
+.profess{
+  width: 50%;
+  height: 50%;
+  z-index: 100;
+  background-color: rgb(209, 209, 209);
+  border-radius: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

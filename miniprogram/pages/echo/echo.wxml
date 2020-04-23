@@ -12,10 +12,10 @@
 	<view class="inputArea">
 		<view class="intiArgs">
 		<block>
-		<view wx:if="{{profession===''?true:false}}" class="head">执勤期查询记录器R5</view>
-		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员执勤期查询记录器R5</view>
-		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员执勤期查询记录器R5</view>
-		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员执勤期查询记录器R5</view>
+		<view wx:if="{{profession===''?true:false}}" class="head">值勤期查询记录器R5</view>
+		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员值勤期查询记录器R5</view>
+		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员值勤期查询记录器R5</view>
+		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员值勤期查询记录器R5</view>
 		<view wx:elif="{{profession==='others'?true:false}}" class="head">工作时间记录器</view>
 		
 		</block>
@@ -202,7 +202,7 @@
 	<view class="submit">
 		<view hover-class="reBTN" class="refreshBTN" bindtap="refreshBTN"> 重置</view>
 
-		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">提示</view>
+		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">选择职业</view>
 		<block>
 		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
 		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
@@ -234,15 +234,15 @@
 <block>
 <block wx:if="{{profession===''?true:false}}"   >
        <view class="resultText"  >
-				<view>最大执勤时间：</view>
+				<view>最大值勤时间：</view>
 				<view>{{maxDutyTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>执勤期查询截止：</view>
+				<view>值勤期查询截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>剩余执勤时间：</view>
+				<view>剩余值勤时间：</view>
 				<view>{{dutyTimeRemainForShow}}</view>
 			</view>
 
@@ -251,15 +251,15 @@
 
 <block wx:elif="{{profession==='pilot'?true:false}}" >
 <view class="resultText"  >
-				<view>最大执勤时间：</view>
+				<view>最大值勤时间：</view>
 				<view>{{maxDutyTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>执勤期查询截止：</view>
+				<view>值勤期查询截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>剩余执勤时间：</view>
+				<view>剩余值勤时间：</view>
 				<view>{{dutyTimeRemainForShow}}</view>
 			</view>
 
@@ -267,15 +267,15 @@
 </block>
 <block wx:elif="{{profession==='attendant'?true:false}}">
 <view class="resultText"  >
-				<view>最大执勤时间：</view>
+				<view>最大值勤时间：</view>
 				<view>{{maxDutyTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>执勤期查询截止：</view>
+				<view>值勤期查询截止：</view>
 				<view>{{dutyEndTime}}</view>
 			</view>
 			<view class="resultText"  >
-				<view>剩余执勤时间：</view>
+				<view>剩余值勤时间：</view>
 				<view>{{dutyTimeRemainForShow}}</view>
 			</view>
 
@@ -346,16 +346,28 @@
 		</view>
 		<view class="confirm_button">
 		<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>
-			<view hover-class="pressBTN1" class="button1" hidden="{{hasAccount}}" bindtap="gotoredg">记录</view>
+		<block>
+		<view hover-class="pressBTN1" class="button1" hidden="{{hasAccount}}" bindtap="gotoredg">记录</view>
 			<block hidden="{{!hasAccount}}"> 
-			<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="uploadBTN">记录</view>
-			<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="attUploadBTN">记录</view>
-			<view  wx:elif="{{profession==='security'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="seUploadBTN">记录</view>
-			<view  wx:elif="{{profession==='others'?true:false}}" hover-class="pressBTN1" class="button1"  bindtap="otherUploadBTN">记录</view>
+			<view  wx:if="{{profession==='pilot'?true:false}}" hidden="{{!hasAccount}}" hover-class="pressBTN1" class="button1"  bindtap="uploadBTN">记录</view>
+			<view  wx:elif="{{profession==='attendant'?true:false}}" hidden="{{!hasAccount}}"  hover-class="pressBTN1" class="button1"  bindtap="attUploadBTN">记录</view>
+			<view  wx:elif="{{profession==='security'?true:false}}" hidden="{{!hasAccount}}" hover-class="pressBTN1" class="button1"  bindtap="seUploadBTN">记录</view>
+			<view  wx:elif="{{profession==='others'?true:false}}" hidden="{{!hasAccount}}" hover-class="pressBTN1" class="button1"  bindtap="otherUploadBTN">记录</view>
 			</block>
+			
+		
+		</block>
 			
 			
 		</view>
 	</resulkt>
+<view class="profess" hidden="{{show_profess}}">
+<view hover-class="pressBTN1" class="button2" bindtap="pfToPilot">飞行员</view>
+<view hover-class="pressBTN1" class="button2" bindtap="pfToAttdent">乘务员</view>
+<view hover-class="pressBTN1" class="button2" bindtap="pfToSecurity">安全员</view>
+<view hover-class="pressBTN1" class="button2" bindtap="pfToOthers">其他</view>
+
+
+</view>
 
 </view>

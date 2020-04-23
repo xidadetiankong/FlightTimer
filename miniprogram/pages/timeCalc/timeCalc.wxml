@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="resultArea">
 		<scroll-view class="resultForShow" scroll-y="true" style="height:400rpx;" scroll-top="{{scrolltopT}}" enable-flex="true">
-			<view wx:for="{{resultValue}}" wx:key="index">{{item}}</view>
+			<view class="textR" wx:for="{{resultValue}}" wx:key="index">{{item}}</view>
 
 		</scroll-view>
 

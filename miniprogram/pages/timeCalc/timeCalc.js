@@ -196,7 +196,7 @@ Page({
     });
     let functionIp=zuhe+'='+finalResult
     var resultValue=this.data.resultValue
-    resultValue.push(functionIp)
+    
     console.log(finalResultStamp,finalResult,functionIp)
     if(isNaN(finalResultStamp)){
       wx.showToast({
@@ -205,6 +205,7 @@ Page({
       })
       return
     }
+    resultValue.push(functionIp)
 
     this.setData({
       inputValue:[],

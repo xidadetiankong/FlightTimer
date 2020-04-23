@@ -18,6 +18,13 @@
 .resultArea view{
   text-align: end;
 }
+.textR{
+ 
+
+text-overflow:ellipsis;
+
+word-wrap:break-word
+}
 .inputArea {
   position: fixed;
   bottom: 752rpx;

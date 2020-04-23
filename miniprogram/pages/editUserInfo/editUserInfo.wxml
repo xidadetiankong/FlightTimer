@@ -11,7 +11,7 @@
 	</view>
  
   <navigator url="../professionSelect/professionSelect" class="list" open-type="navigate" hover-class="tapList" >
-		<view class="titleWord" >职业选择：</view><view id="listInputNick"   >{{profession}}</view>
+		<view class="titleWord1" >职业选择：（点击更改）</view><view id="listInputNick"   >{{profession}}</view>
 	</navigator>
  
 </view>

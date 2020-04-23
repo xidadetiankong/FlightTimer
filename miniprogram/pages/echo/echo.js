@@ -10,7 +10,7 @@ Page({
   data: {
     //乘务参数
     seatRange: ['20~50', '51~100', '101~150', '151~200', '201~250', '251~300', '301~350', '351~400', '401~450', '451~500', '501~550', '551~600', '601~750', '751~800', '800~850'],
-    selecedSeats:'20~50',
+    selecedSeats: '20~50',
     attNum: '0',
 
     //初始参数
@@ -25,6 +25,8 @@ Page({
     EndDate: DATE.formatTime(date).substring(0, 10), //关车日期
     EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
     show_result: true, //是否隐藏结果弹出组件
+    show_profess: true,
+    hasAccount: false,
     //非扩编机组
     flightSegment: '4', //飞行段数
     //扩编机组
@@ -48,51 +50,51 @@ Page({
     pauseTime: [],
     totalRestTime: 0, //total rest time in millisecond
     totalRestTimeInhours: '00:00',
-    flightTime:'00:00',
+    flightTime: '00:00',
     //下面这一堆不用重置
 
     profession: '',
 
     pilotHidde: false,
     attendentHidde: true,
-    security:true,
-    others:true
+    security: true,
+    others: true
 
 
   },
-  onLoad:function(){
+  onLoad: function () {
     const updateManager = wx.getUpdateManager()
 
-updateManager.onCheckForUpdate(function (res) {
-  // 请求完新版本信息的回调
-  console.log(res.hasUpdate)
-})
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate)
+    })
 
-updateManager.onUpdateReady(function () {
-  wx.showModal({
-    title: '更新提示',
-    content: '新版本已经准备好，是否重启应用？',
-    success: function (res) {
-      if (res.confirm) {
-        // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-        updateManager.applyUpdate()
-      }
-    }
-  })
-})
+    updateManager.onUpdateReady(function () {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，是否重启应用？',
+        success: function (res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+    })
 
-updateManager.onUpdateFailed(function () {
-  // 新版本下载失败
-})
+    updateManager.onUpdateFailed(function () {
+      // 新版本下载失败
+    })
   },
-  
+
   onShow: function () {
 
     this.refreshBTN()
-            this.setData({
-              show_result: true
-            })
-    
+    this.setData({
+      show_result: true
+    })
+
     wx.cloud.callFunction({
       name: 'login',
       data: {}
@@ -110,35 +112,35 @@ updateManager.onUpdateFailed(function () {
             userID: app.userInfo._id,
 
           })
-          if(app.userInfo.profession==='pilot'){
+          if (app.userInfo.profession === 'pilot') {
             this.setData({
               pilotHidde: false,
               attendentHidde: true,
-              security:true,
-              others:true
-              
+              security: true,
+              others: true
+
             })
-          }else if(app.userInfo.profession==='attendant'){
+          } else if (app.userInfo.profession === 'attendant') {
             this.setData({
-              pilotHidde:true ,
-              attendentHidde:false ,
-              security:true,
-              others:true
+              pilotHidde: true,
+              attendentHidde: false,
+              security: true,
+              others: true
             })
 
-          }else if(app.userInfo.profession==='security'){
+          } else if (app.userInfo.profession === 'security') {
             this.setData({
-              pilotHidde:true ,
-              attendentHidde:true ,
-              security:false,
-              others:true
+              pilotHidde: true,
+              attendentHidde: true,
+              security: false,
+              others: true
             })
-          }else if(app.userInfo.profession==='others'){
+          } else if (app.userInfo.profession === 'others') {
             this.setData({
-              pilotHidde:true ,
-              attendentHidde:true ,
-              security:true,
-              others:false
+              pilotHidde: true,
+              attendentHidde: true,
+              security: true,
+              others: false
             })
           }
 
@@ -173,7 +175,7 @@ updateManager.onUpdateFailed(function () {
 
   },
   uploadBTN: function () {
-    var that=this
+    var that = this
     var totalDutyTime = this.total_dutytime()
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
@@ -198,9 +200,9 @@ updateManager.onUpdateFailed(function () {
                 title: '上传中',
               })
 
-              
+
               db.collection('timeData').doc(res._id).update({
-                
+
 
                 data: {
                   remarks: this.data.remarks,
@@ -210,7 +212,7 @@ updateManager.onUpdateFailed(function () {
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
                   actureLandings: this.data.actureLandings,
-                  flightTime:this.data.flightTimeForUp
+                  flightTime: this.data.flightTimeForUp
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -226,7 +228,7 @@ updateManager.onUpdateFailed(function () {
             })
 
           } else {
-            
+
             wx.switchTab({
               url: '../profile/profile',
             })
@@ -242,7 +244,7 @@ updateManager.onUpdateFailed(function () {
     }
 
   },
-  gotoredg:function(){
+  gotoredg: function () {
     wx.switchTab({
       url: '../profile/profile',
     })
@@ -256,11 +258,11 @@ updateManager.onUpdateFailed(function () {
 
     this.setData({
       //乘务参数
-    seatRange: ['20~50', '51~100', '101~150', '151~200', '201~250', '251~300', '301~350', '351~400', '401~450', '451~500', '501~550', '551~600', '601~750', '751~800', '800~850'],
-    selecedSeats: '151~200',
-    attNum: '0',
+      seatRange: ['20~50', '51~100', '101~150', '151~200', '201~250', '251~300', '301~350', '351~400', '401~450', '451~500', '501~550', '551~600', '601~750', '751~800', '800~850'],
+      selecedSeats: '151~200',
+      attNum: '0',
 
-    //初始参数
+      //初始参数
       date: DATE.formatTime(date).substring(0, 10), //签到日期
       time: DATE.formatTime(date).substring(11, 16), //签到时间
       teamSize: ['非扩编机组', '扩编机组'],
@@ -272,6 +274,7 @@ updateManager.onUpdateFailed(function () {
       EndDate: DATE.formatTime(date).substring(0, 10), //关车日期
       EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
       show_result: true, //是否隐藏结果弹出组件
+      show_profess: true,
       //非扩编机组
       flightSegment: '4', //飞行段数
       //扩编机组
@@ -294,10 +297,54 @@ updateManager.onUpdateFailed(function () {
       pauseTime: [],
       totalRestTime: 0, //total rest time in millisecond
       totalRestTimeInhours: '00:00',
-      flightTime:'00:00',
+      flightTime: '00:00',
 
 
     })
+  },
+  pfToPilot: function () {
+    this.setData({
+      profession: 'pilot',
+      pilotHidde: false,
+      attendentHidde: true,
+      security: true,
+      others: true,
+      show_profess: true
+    })
+
+  },
+  pfToAttdent: function () {
+    this.setData({
+      profession: 'attendant',
+      pilotHidde: true,
+      attendentHidde: false,
+      security: true,
+      others: true,
+      show_profess: true
+    })
+
+  },
+  pfToSecurity: function () {
+    this.setData({
+      profession: 'security',
+      pilotHidde: true,
+      attendentHidde: true,
+      security: false,
+      others: true,
+      show_profess: true
+    })
+
+  },
+  pfToOthers: function () {
+    this.setData({
+      profession: 'others',
+      show_profess: true,
+      pilotHidde: true,
+      attendentHidde: true,
+      security: true,
+      others: false
+    })
+
   },
 
   selectCheckInTime: function (e) { //选择签到时间
@@ -306,10 +353,10 @@ updateManager.onUpdateFailed(function () {
     })
   },
   selectCheckInDate: function (e) { //选择签到日期
-    let date=e.detail.value
-    date=DATE.appleFormate(date)
+    let date = e.detail.value
+    date = DATE.appleFormate(date)
     this.setData({
-      date:date
+      date: date
     })
   },
   selectTeam: function (e) { //选择机组编制
@@ -322,17 +369,17 @@ updateManager.onUpdateFailed(function () {
   //中途离场
 
   selectCheckOutDate: function (e) { //中途退场日期
-    let CheckOutDate=e.detail.value;
-    CheckOutDate=DATE.appleFormate(CheckOutDate)
+    let CheckOutDate = e.detail.value;
+    CheckOutDate = DATE.appleFormate(CheckOutDate)
     this.setData({
-      CheckOutDate:CheckOutDate
+      CheckOutDate: CheckOutDate
     })
   },
   selectCheckInDate2: function (e) { //中途进场时间
-    let CheckInDate2=e.detail.value;
-    CheckInDate2=DATE.appleFormate(CheckInDate2)
+    let CheckInDate2 = e.detail.value;
+    CheckInDate2 = DATE.appleFormate(CheckInDate2)
     this.setData({
-      CheckInDate2:CheckInDate2
+      CheckInDate2: CheckInDate2
     })
   },
   selectCheckOutTime: function (e) { //中途退场时间
@@ -356,8 +403,8 @@ updateManager.onUpdateFailed(function () {
   },
 
   selectEndDate: function (e) { //选择结束日期
-    let EndDate=e.detail.value
-    EndDate=DATE.appleFormate(EndDate)
+    let EndDate = e.detail.value
+    EndDate = DATE.appleFormate(EndDate)
     this.setData({
       EndDate: EndDate
     })
@@ -365,11 +412,11 @@ updateManager.onUpdateFailed(function () {
 
   selectFlightTime: function (e) { //选择飞行时间
 
-     let a=e.detail.value
-    let flightTimeForUp=DATE.timeToStamp('1970/01/01',a);
+    let a = e.detail.value
+    let flightTimeForUp = DATE.timeToStamp('1970/01/01', a);
     this.setData({
       flightTime: e.detail.value,
-      flightTimeForUp:flightTimeForUp
+      flightTimeForUp: flightTimeForUp
     })
   },
 
@@ -478,29 +525,29 @@ updateManager.onUpdateFailed(function () {
 
   resultBTN: function () {
     //显示计算结果组件改进后需要区分展示数据和上传数据
-   
-   
-     
-        let totalDutyTime = this.total_dutytime();
-        let maxFlightTime = this.maxFlightTime();
-        let maxDutyTime = this.maxDutyTime();
-        let dutyTimeRemain = this.dutyTimeRemain();
-        let dutyEndTime = this.dutyEndTime();
 
 
 
-        this.setData({
-          dutyEndTime: dutyEndTime,
-          dutyTimeRemain: dutyTimeRemain,
-          dutyTimeRemainForShow: DATE.formatHour(dutyTimeRemain),
-          maxDutyTime: maxDutyTime,
-          maxFlightTime: maxFlightTime,
-          totalDutyTime: totalDutyTime,
-          totalDutyTimeForShow: DATE.formatHour(totalDutyTime),
-          show_result: false // control element hidde
-        })
+    let totalDutyTime = this.total_dutytime();
+    let maxFlightTime = this.maxFlightTime();
+    let maxDutyTime = this.maxDutyTime();
+    let dutyTimeRemain = this.dutyTimeRemain();
+    let dutyEndTime = this.dutyEndTime();
 
-     
+
+
+    this.setData({
+      dutyEndTime: dutyEndTime,
+      dutyTimeRemain: dutyTimeRemain,
+      dutyTimeRemainForShow: DATE.formatHour(dutyTimeRemain),
+      maxDutyTime: maxDutyTime,
+      maxFlightTime: maxFlightTime,
+      totalDutyTime: totalDutyTime,
+      totalDutyTimeForShow: DATE.formatHour(totalDutyTime),
+      show_result: false // control element hidde
+    })
+
+
 
   },
   cancleUpload: function () { //隐藏计算结果组件
@@ -512,12 +559,10 @@ updateManager.onUpdateFailed(function () {
   },
   tipsBTN: function () {
 
-    
-    wx.showToast({
-      title: '点击添加按钮使休息时间参与到计算中，可多次添加，修改点击重置！',
-      icon: 'none',
-      duration: 4000
+    this.setData({
+      show_profess: false
     })
+
   },
 
 
@@ -602,7 +647,8 @@ updateManager.onUpdateFailed(function () {
   maxDutyTime: function () {
     var checkintime = new Date((('1970/01/01') + ' ' + this.data.time)).valueOf();
     var am5 = new Date((('1970/01/01') + ' ' + '05:00')).valueOf()
-    var pm8 = new Date((('1970/01/01') + ' ' + '20:00')).valueOf()
+    var am12 = new Date((('1970/01/01') + ' ' + '12:00')).valueOf()
+    var pm12 = new Date((('1970/01/01') + ' ' + '24:00')).valueOf()
 
     var crewNumbers = this.data.crewNumbers;
     var flightSegment = this.data.flightSegment;
@@ -626,7 +672,7 @@ updateManager.onUpdateFailed(function () {
 
         }
 
-      } else if ((checkintime >= am5) && (checkintime < pm8)) {
+      } else if ((checkintime >= am5) && (checkintime < am12)) {
         switch (flightSegment) {
           case '4':
             maxDutyTime = '14:00'
@@ -642,7 +688,7 @@ updateManager.onUpdateFailed(function () {
             break;
 
         }
-      } else if (checkintime >= pm8) {
+      } else if (checkintime >= am12) {
         switch (flightSegment) {
           case '4':
             maxDutyTime = '13:00'
@@ -882,17 +928,17 @@ updateManager.onUpdateFailed(function () {
 
   },
   attresultBTN: function () { //显示计算结果组件改进后需要区分展示数据和上传数据
-    
+
     let totalDutyTime1 = this.total_dutytime();
     let maxDutyTime1 = this.AttMaxduty();
     let dutyTimeRemain1 = this.attDutyTimeRemain();
     let dutyEndTime1 = this.attDutyEndTime();
-    let mincrew=this.minimumCrew()
+    let mincrew = this.minimumCrew()
 
 
 
     this.setData({
-      mincrew:mincrew,
+      mincrew: mincrew,
       dutyEndTime: dutyEndTime1,
       dutyTimeRemain: dutyTimeRemain1,
       dutyTimeRemainForShow: DATE.formatHour(dutyTimeRemain1),
@@ -903,7 +949,7 @@ updateManager.onUpdateFailed(function () {
     })
   },
   attUploadBTN: function () {
-    var that=this;
+    var that = this;
     var totalDutyTime = this.total_dutytime()
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
@@ -936,7 +982,7 @@ updateManager.onUpdateFailed(function () {
                   totalDutyTime: this.data.totalDutyTime,
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime:this.data.flightTimeForUp
+                  flightTime: this.data.flightTimeForUp
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -987,18 +1033,18 @@ updateManager.onUpdateFailed(function () {
     return totalDutyTime
 
   },
-  secResultBTN:function(){
+  secResultBTN: function () {
     let totalDutyTime = this.seTotal_dutytime();
-        
-    
-        this.setData({
-          totalDutyTime: totalDutyTime,
-          totalDutyTimeForShow: DATE.formatHour(totalDutyTime),
-          show_result: false // control element hidde
-        })
+
+
+    this.setData({
+      totalDutyTime: totalDutyTime,
+      totalDutyTimeForShow: DATE.formatHour(totalDutyTime),
+      show_result: false // control element hidde
+    })
   },
   seUploadBTN: function () {
-    var that=this;
+    var that = this;
     var totalDutyTime = this.total_dutytime()
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
@@ -1030,7 +1076,7 @@ updateManager.onUpdateFailed(function () {
                   EndTime: EndTime,
                   totalDutyTime: this.data.totalDutyTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime:this.data.flightTimeForUp
+                  flightTime: this.data.flightTimeForUp
                 }
               }).then((res) => {
                 wx.hideLoading({})

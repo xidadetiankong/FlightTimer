@@ -24,6 +24,14 @@
   background: #2A465C;
 }
 .titleWord{
+  width: auto;
+  color: rgba(240, 255, 255, 0.829);
+  font-size:32rpx;
+  margin-left: 20rpx;
+  text-align: center;
+}
+.titleWord1{
+  width: 200rpx;
   color: rgba(240, 255, 255, 0.829);
   font-size:32rpx;
   margin-left: 20rpx;
@@ -78,8 +86,8 @@ margin-top: 0;
 color: aliceblue;
 }
 #listInputNick{
-  width:900rpx;
-  text-align: center;
+  width:350rpx;
+  text-align: start;
 }
 #listInputNick1{
   color: rgb(195, 204, 211);

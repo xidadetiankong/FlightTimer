@@ -85,7 +85,7 @@
 		</view>
 
 
-		<view class="versionInfo">Flight Timer Version 1.2.0</view>
+		<view class="versionInfo">Flight Timer Version 1.2.1</view>
 
 	</view>
 
@@ -96,6 +96,6 @@
 </view>
 <view class="acover" hidden="{{hasProfession}}">
 	<view class="abutton" hover-class="tapAbutton" bindtap="tapAbutton">
-		<view> 前去选择职业</view>
+		<view> 点我继续</view>
 	</view>
 </view>
