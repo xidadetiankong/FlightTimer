@@ -58,7 +58,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    var currentTime=DATE.formatTime(date)  
     var that = this
     wx.cloud.callFunction({ //只能在此功能中嵌入函数防止不同步的问题
       name: 'count',
@@ -72,12 +72,21 @@ Page({
       this.findthespa()
       this.findjack()
       this.setData({
+        currentTime:currentTime,
         predresttime: DATE.stamptoformatTime(that.data.predresttime),
         nextciclestart: DATE.stamptoformatTime(that.data.nextciclestart)
       })
     })
 
 
+  },
+  onShow:function(){
+    this.findthespa()
+      this.findjack()
+      this.setData({
+        predresttime: DATE.stamptoformatTime(that.data.predresttime),
+        nextciclestart: DATE.stamptoformatTime(that.data.nextciclestart)
+      })
   },
 
   findthespa: function () { //计算四十八小时休息期返回预测的下一个48开始时间同时判断航后10小时休息是否满足
@@ -173,20 +182,14 @@ Page({
             } else if (rest < sishiba) {
               NUMgr48 = NUMgr48 + 1;
               console.log('没有大于48小时的休息期，继续')
-              wx.showToast({
-                title: '继续',
-                icon: 'none'
-              })
+              
               console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 3)
               if (NUMgr48 === ((timeInlimit.length - 3) / 2)) {
-                wx.showToast({
-                  title: '过去144小时48小时休息未满足',
-                  icon: 'none'
-                })
+               
 
 
                 this.setData({
-                  predresttime: '休息吧上次执勤结束到现在还没有48小时',
+                  predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
                   foureighthourrest: false,
                   nextciclestart: lastcheckout + sishiba
                 })
@@ -218,20 +221,14 @@ Page({
           } else if (rest < sishiba) {
             NUMgr48 = NUMgr48 + 1;
             console.log('没有大于48小时的休息期，继续')
-            wx.showToast({
-              title: '继续',
-              icon: 'none'
-            })
+            
             console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 1)
             if (NUMgr48 === ((timeInlimit.length - 2) / 2)) {
-              wx.showToast({
-                title: '过去144小时48小时休息未满足',
-                icon: 'none'
-              })
+              
 
 
               this.setData({
-                predresttime: '休息吧上次执勤结束到现在还没有48小时',
+                predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
                 foureighthourrest: false,
                 nextciclestart: lastcheckout + sishiba
               })

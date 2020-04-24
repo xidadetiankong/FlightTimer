@@ -111,8 +111,8 @@
 
 
 				<block wx:if="{{profession==='others'?false:true}}" >
-					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您可以继续工作到<text id="datas">{{predresttime}}</text>。工作重要身体更重要记得锻炼身体哟！</view>
-					<view wx:else>当前周期不满足48小时休息期，请合理安排工作<view>下一个工作周期开始时间为<text id="datas">{{nextciclestart}}</text></view>
+					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您在最近144小时内的最晚签到时刻为<text id="datas">{{predresttime}}</text>。工作重要身体更重要记得锻炼身体哟！</view>
+					<view wx:else>请合理安排工作,如果<text id="datas">{{currentTime}}</text>为签到时间的话您的48小时休息期将不满足。<view>如果当前您未在值勤状态，下一个工作周期开始时间为<text id="datas">{{nextciclestart}}</text></view>
 					</view>
 				</block>
 				<block >
