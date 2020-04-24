@@ -13,6 +13,10 @@
   <navigator url="../professionSelect/professionSelect" class="list" open-type="navigate" hover-class="tapList" >
 		<view class="titleWord1" >职业选择：（点击更改）</view><view id="listInputNick"   >{{profession}}</view>
 	</navigator>
+
+	<view  class="list1" id="headphotoID1"  hover-class="tapList" bindtap="closeAccount">
+		<view id="listInputNick3"   >注销账户</view>
+	</view>
  
 </view>
 

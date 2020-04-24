@@ -51,6 +51,23 @@
   align-items: center;
   background: #6D869A;
 }
+.list1 {
+ position: fixed;
+ bottom: 0;
+  color: rgba(241, 66, 66, 0.651);
+  font-size: 38rpx;
+  font-weight: bolder;
+  height: 130rpx;
+  width:99%;
+
+  border-radius: 10rpx;
+  margin:2rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #6D869A;
+}
 .avatar{
   height: 180rpx;
   width:180rpx;
@@ -95,6 +112,9 @@ color: aliceblue;
 }
 #listInputNick2{
   border: 0;
+  text-align: center;
+}
+#listInputNick3{
   text-align: center;
 }
 .confirmType{
