@@ -56,7 +56,19 @@
 			
 
 
-				<view> <text><text id="datas">{{selectyear}}</text>年您工作了<text id="datas">{{YEARtotaldutytime}}</text>小时</text>
+				<view> <text><text id="datas">{{selectyear}}</text>
+				
+				
+				<block wx:if="{{profession==='others'?true:false}}">
+				<text>年您工作了</text> 
+				</block>
+				<block wx:else>
+				<text>年您的飞行值勤期为</text> 
+				</block>
+				
+				
+				
+				<text id="datas">{{YEARtotaldutytime}}</text>小时</text>
 				
 					<block>
 					<block wx:if="{{profession==='pilot'?true:false}}">
@@ -106,7 +118,19 @@
 			<view class="policy">
 				<block>
 					<block wx:if="{{profession==='pilot'?true:false}}">
-						<view>最近七个工作日您的工作时间为<text id="datas">{{sevenDaywork}}</text>
+						<view>
+						
+						
+						
+						<block wx:if="{{profession==='others'?true:false}}">
+				<text>最近七个工作日您的工作时间为</text> 
+				</block>
+				<block wx:else>
+				<text>最近七个工作日您的飞行值勤期为</text> 
+				</block>
+						
+						
+						<text id="datas">{{sevenDaywork}}</text>
 						<view wx:if="{{sevenDayworkOvr}}">没有超过60小时的限制！</view>
 						<view wx:else>超过了60小时的限制</view>
 						</view>
