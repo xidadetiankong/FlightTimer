@@ -69,6 +69,11 @@ Page({
       hasProfession:app.hasProfession,
     })
   },
+  showDemo:function(){
+    wx.navigateTo({
+      url: '../profile/demoPage/demoPage',
+    })
+  },
 
   showlinks:function(){
     wx.cloud.callFunction({

@@ -195,6 +195,7 @@
 
 			</view>
 		</view>
+		
 	</view>
 
 
@@ -222,7 +223,7 @@
 
 		<view class="resultText"  hidden="{{attendentHidde}}">
 				<view>最低人数：</view>
-				<view>{{mincrew}}</view>
+				<view>至少{{mincrew}}人</view>
 			</view>
 
 			<view class="resultText" hidden="{{pilotHidde}}">
@@ -332,7 +333,7 @@
 			</view>
 
 			<block>
-			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请记录数据准确后再上传。</text>
+			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请确认工作已经结束后再上传。</text>
 			<text class="wenxintishi" wx:else>温馨提示！点击记录去注册可以体验完整功能。</text>
 			</block>
 

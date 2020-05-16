@@ -145,6 +145,18 @@ color: #6D869A;
   align-items: center;
   background: #6D869A;
 }
+.list1 {
+  height: 130rpx;
+  width: 89%;
+  font-size: 28rpx;
+  border-radius: 25rpx;
+  margin: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #6D869A;
+}
 
 .service{
   font-weight: bolder;
@@ -173,6 +185,18 @@ color: #6D869A;
   margin-left: 30rpx;
 
 }
+.title1 {
+  font-size: 40rpx;
+  color: aliceblue;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 120rpx;
+  width: auto;
+  margin-left: 30rpx;
+
+}
 
 .titleimg {
   
@@ -181,9 +205,10 @@ color: #6D869A;
   opacity: 0.8;
 }
 .titleWord{
-  padding-left: 50rpx;
+  padding-left: 72rpx;
 }
 .titleBTN{
+  margin-left: 0rpx;
   font-size: 28rpx;
   background: #6D869A;
   text-align: start;

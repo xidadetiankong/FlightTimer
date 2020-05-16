@@ -83,9 +83,9 @@
 				<view> 距离上次工作结束到现在您休息了<text id="datas">{{currentREST}}</text>。</view>
 
 				<block  wx:if="{{profession==='others'?false:true}}"  >
-				<view>根据公司要求，航后要休息10+</view><input type="number" style="width:40rpx" maxlength="3" value="{{correction10REST}}" bindinput="restcorrec"></input>（自定义）小时
+				<view>根据公司要求，航前要休息10+</view><input type="number" style="width:40rpx" maxlength="3" value="{{correction10REST}}" bindinput="restcorrec"></input>（自定义）小时
 				<view wx:if="{{tenhourrest}}">满足航后休息要求。</view>
-				<view wx:else>,目前还不满足航后休息要求，请合理安排工作。</view>
+				<view wx:else>,目前还不满足航前休息要求，请合理安排工作。</view>
 				</block>
 
 				

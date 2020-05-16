@@ -85,6 +85,17 @@
 		</view>
 
 
+		<view class="list1" hover-class="tapList" bindtap="showDemo">
+
+			<view class="title1">查看使用教程</view>
+			
+		</view>
+		
+		
+		
+		
+
+
 		<view class="versionInfo">Flight Timer Version 1.2.2</view>
 
 	</view>
