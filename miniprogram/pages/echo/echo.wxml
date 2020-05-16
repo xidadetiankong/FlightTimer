@@ -324,6 +324,10 @@
 				<view class="TOInputElement" >
 					<view class="wenxintishi">输入飞行时间：</view><picker id="flightTimeIput" mode="time" value="{{flightTime}}"  bindchange="selectFlightTime"> {{flightTime}}</picker>
 				</view>
+				<view class="TOInputElement" >
+						<view class="wenxintishi">是否为飞行执勤期</view> <switch type="checkbox" checked="{{isFlightDuty}}" bindchange="switchChange"/>
+				</view>
+				
 			</view>
 			<view class="TOInput">
 				<view class="TOInputElement">

@@ -27,6 +27,7 @@ Page({
     show_result: true, //是否隐藏结果弹出组件
     show_profess: true,
     hasAccount: false,
+    isFlightDuty:true,
     //非扩编机组
     flightSegment: '4', //飞行段数
     //扩编机组
@@ -212,7 +213,8 @@ Page({
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
                   actureLandings: this.data.actureLandings,
-                  flightTime: this.data.flightTimeForUp
+                  flightTime: this.data.flightTimeForUp,
+                  isFlightDuty:this.data.isFlightDuty
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -275,6 +277,7 @@ Page({
       EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
       show_result: true, //是否隐藏结果弹出组件
       show_profess: true,
+      isFlightDuty:true,
       //非扩编机组
       flightSegment: '4', //飞行段数
       //扩编机组
@@ -421,6 +424,11 @@ Page({
   },
 
   //选择其它数据
+  switchChange:function(e){
+    this.setData({
+      isFlightDuty:e.detail.value
+    })
+  },
 
   //unAugment chose segment num
 
@@ -982,7 +990,8 @@ Page({
                   totalDutyTime: this.data.totalDutyTime,
                   overTime: this.data.overTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime: this.data.flightTimeForUp
+                  flightTime: this.data.flightTimeForUp,
+                  isFlightDuty:this.data.isFlightDuty
                 }
               }).then((res) => {
                 wx.hideLoading({})
@@ -1076,7 +1085,8 @@ Page({
                   EndTime: EndTime,
                   totalDutyTime: this.data.totalDutyTime,
                   actureFlightLegs: this.data.actureFlightLegs,
-                  flightTime: this.data.flightTimeForUp
+                  flightTime: this.data.flightTimeForUp,
+                  isFlightDuty:this.data.isFlightDuty
                 }
               }).then((res) => {
                 wx.hideLoading({})

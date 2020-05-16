@@ -66,8 +66,14 @@
 
 				</view>
 				<view class="child1">
-					<view wx:if="{{item.overTime}}" id="kid6"><text id="kid7">超时！</text> {{item.remarks}}</view>
+				
+				<block>
+				<view wx:if="{{item.overTime}}" id="kid6"><text id="kid7">超时！</text> {{item.remarks}}</view>
+					
 					<view wx:else id="kid6">备注：{{item.remarks}}</view>
+					
+				</block>
+					<view wx:if="{{item.isFlightDuty==false?true:false}}" id="kid6"><text id="kid7">地面值勤期！</text> </view>
 
 				</view>
 			</view>

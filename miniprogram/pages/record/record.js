@@ -69,8 +69,11 @@ profession:''
          let Eid=element._id;
          let checkintime=element.checkintime;
          let flightTime=DATE.formatHour(element.flightTime);
-         let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime}
+         let isFlightDuty=element.isFlightDuty;
+        
+          let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime,isFlightDuty}
           this.data.DATA.push(a)
+          
         })
       
       

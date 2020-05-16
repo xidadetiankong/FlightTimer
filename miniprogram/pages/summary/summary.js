@@ -65,9 +65,24 @@ Page({
       data: {}
     }).then((res) => {
       console.log(res)
-      let dataT = res.result.data.sort(DATE.compare('checkintime'))
+      var iniData=[]
+      var unDutyData=[]
+      res.result.data.forEach(element => {
+        
+        if(element.isFlightDuty==true||element.isFlightDuty==null){
+          iniData.push(element)
+        }else if(element.isFlightDuty==false){
+          unDutyData.push(element)
+        }
+        
+      });
+      console.log('飞行执勤期',iniData)
+      console.log('地面执勤期',unDutyData)
+      let dataT = iniData.sort(DATE.compare('checkintime'))
+      let dataD = unDutyData.sort(DATE.compare('checkintime'))
       this.setData({
-        DATA: dataT
+        DATA: dataT,
+        unDutyDATA:dataD
       })
       this.findthespa()
       this.findjack()
@@ -90,8 +105,11 @@ Page({
   },
 
   findthespa: function () { //计算四十八小时休息期返回预测的下一个48开始时间同时判断航后10小时休息是否满足
+    var that=this
     var DATA = this.data.DATA;
     var lastwork = DATA[0];
+    var lastGroundWork=this.data.unDutyDATA[0];
+    var lastGroundCheckout = lastGroundWork.EndTime - 28800000;
 
     var lastcheckout = lastwork.EndTime - 28800000;
 
@@ -103,19 +121,28 @@ Page({
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi-28800000
-    let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000)
+    if(lastGroundCheckout-lastcheckout<0){
+      let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000);
+      that.setData({
+        currentREST: currentREST
+      })
+    }else{
+      let currentREST = DATE.formatHour(presentTime - lastGroundCheckout - 28800000);
+      that.setData({
+        currentREST: currentREST
+      })
+    }
+    
     let profession=this.data.profession
-    this.setData({
-      currentREST: currentREST
-    })
+    
     if(profession==='others'){
       return
     }
     
-    console.log((presentTime - lastcheckout - 28800000), (36000000 + this.data.correction10REST))
-    if (((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0) {
+    console.log('航后休息',(presentTime - lastcheckout - 28800000), (36000000 + this.data.correction10REST))
+    if ((((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0)||(((presentTime - lastGroundCheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0)) {
       wx.showToast({
-        title: '最小航后休息未满足要求哦',
+        title: '最小航前休息未满足要求哦',
         icon: 'none'
       })
 
@@ -124,7 +151,7 @@ Page({
         tenhourrest: false
       })
 
-    } else if (((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0) {
+    } else if ((((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0)||(((presentTime - lastGroundCheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0)) {
       this.setData({
 
         tenhourrest: true
