@@ -12,7 +12,19 @@
 
 		<view class="text1">
 			<view class="statas">
-				<view>辛苦了！相识以来您的总工作时间为<text id="datas"> {{totaldutytime}}</text>
+				<view>
+				
+				<block wx:if="{{profession==='others'?true:false}}">
+				<text>辛苦了！相识以来您的总工作时间为</text> 
+				</block>
+				<block wx:else>
+				<text>辛苦了！相识以来您的总飞行值勤期为</text> 
+				</block>
+				
+				
+				
+				<text id="datas"> {{totaldutytime}}</text>
+				
 
 
 					<block>
