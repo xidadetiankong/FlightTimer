@@ -90,7 +90,7 @@ Page({
 
   onShow: function () {
 
-    this.refreshBTN()
+    
     this.setData({
       show_result: true
     })
