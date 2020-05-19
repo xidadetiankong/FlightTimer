@@ -109,8 +109,13 @@ Page({
     var DATA = this.data.DATA;
     var lastwork = DATA[0];
     var lastGroundWork=this.data.unDutyDATA[0];
-    var lastGroundCheckout = lastGroundWork.EndTime - 28800000;
-
+    if(lastGroundWork=[]){
+      var lastGroundCheckout=0
+    }else{
+      var lastGroundCheckout = lastGroundWork.EndTime - 28800000;
+    }
+    
+    console.log('地面签出',lastGroundCheckout)
     var lastcheckout = lastwork.EndTime - 28800000;
 
     var sishiba = 172800000;
@@ -121,7 +126,8 @@ Page({
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi-28800000
-    if(lastGroundCheckout-lastcheckout<0){
+    
+    if(lastGroundCheckout-lastcheckout<=0){
       let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000);
       that.setData({
         currentREST: currentREST
