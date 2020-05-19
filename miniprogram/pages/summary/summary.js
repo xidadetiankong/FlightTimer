@@ -109,10 +109,11 @@ Page({
     var DATA = this.data.DATA;
     var lastwork = DATA[0];
     var lastGroundWork=this.data.unDutyDATA[0];
-    if(lastGroundWork=[]){
-      var lastGroundCheckout=0
-    }else{
-      var lastGroundCheckout = lastGroundWork.EndTime - 28800000;
+    var lastGroundCheckout=0
+    if(lastGroundWork==null){
+       lastGroundCheckout=0
+    }else if(lastGroundWork!=null){
+       lastGroundCheckout = lastGroundWork.EndTime - 28800000;
     }
     
     console.log('地面签出',lastGroundCheckout)
