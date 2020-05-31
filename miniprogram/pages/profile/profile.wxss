@@ -87,6 +87,11 @@ color: #6D869A;
   font-size: 41rpx;
   font-weight: bolder;
 }
+#jifendengji{
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+}
 
 .myAcountChild_child {
   display: flex;

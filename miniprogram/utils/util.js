@@ -59,7 +59,7 @@ const formatHour= (res)=> {
   
   return time
 }
-const compare=(property) =>{//比值降序函数
+const compare=(property) =>{//比值降序函数,看返回值如果value2-value1大于零则在arrSort（）函数下对比结果值b排序靠前
   return function (a, b) {
     var value1 = a[property];
     var value2 = b[property];
@@ -137,6 +137,60 @@ const appleFormate=res=>{
   return res
 }
 
+const collectitem=res=> {
+ 
+  var restotaldutytime = 0;
+  var restotalFlightlegs = 0;
+  var restotalLandings = 0;
+  var restotalFlightTimes=0;
+  for (let i = 0; i < res.length; i++) { //运算历史总值勤时间
+    
+    
+    
+    
+
+    if(isNaN(res[i].actureLandings)){
+      restotalLandings = restotalLandings
+
+    }else{
+      restotalLandings = restotalLandings + res[i].actureLandings;
+    }
+
+
+    if(isNaN(res[i].actureFlightLegs)){
+      restotalFlightlegs = restotalFlightlegs
+
+    }else{
+      restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
+    }
+
+    if(isNaN(res[i].totalDutyTime)){
+      restotaldutytime = restotaldutytime
+
+    }else{
+      restotaldutytime = restotaldutytime + res[i].totalDutyTime;
+    }
+
+    if(isNaN(res[i].flightTime)){
+      restotalFlightTimes=restotalFlightTimes
+
+    }else{
+      restotalFlightTimes=restotalFlightTimes+res[i].flightTime
+    }
+    
+  }
+  restotalFlightTimes= formatHour(restotalFlightTimes)
+  restotaldutytime =formatHour(restotaldutytime)
+  
+
+  return {
+    restotaldutytime,
+    restotalFlightlegs,
+    restotalLandings,
+    restotalFlightTimes
+  }
+}
+
 
 
 
@@ -152,5 +206,6 @@ module.exports = {
   monthNow:monthNow,
   dayNow:dayNow,
   timeNow:timeNow,
-  appleFormate:appleFormate
+  appleFormate:appleFormate,
+  collectitem:collectitem
 }

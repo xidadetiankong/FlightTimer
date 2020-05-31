@@ -12,7 +12,7 @@
 				<open-data class="sex" type='userGender' lang="zh_CN"></open-data>
 				<open-data class="city" type='userCity' lang="zh_CN"></open-data>
 			</view>
-			<view><text >积分{{links}}</text></view>
+			<view id="jifendengji"><text >积分：{{links}}</text><text id="level" >等级：{{level}}</text></view>
 
 			
 
