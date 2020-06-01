@@ -285,7 +285,7 @@
 		</view>
 
 
-		<button class="b1" id="btnDDD" bindtap="showDetai">点击查看详细</button>
+		<button class="b1" id="btnDDD" bindtap="showDetai">月度汇总</button>
 
 		<view class="BTNgp">
 			<button class="b1" bindtap="lastyear" size="mini">上一年</button>

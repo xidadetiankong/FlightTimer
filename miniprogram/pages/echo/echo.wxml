@@ -325,7 +325,7 @@
 					<view class="wenxintishi">输入飞行时间：</view><picker id="flightTimeIput" mode="time" value="{{flightTime}}"  bindchange="selectFlightTime"> {{flightTime}}</picker>
 				</view>
 				<view class="TOInputElement" >
-						<view class="wenxintishi">是否为飞行执勤期</view> <switch type="checkbox" checked="{{isFlightDuty}}" bindchange="switchChange"/>
+						<view class="wenxintishi">飞行执勤期</view> <switch type="checkbox" checked="{{isFlightDuty}}" bindchange="switchChange"/>
 				</view>
 				
 			</view>
@@ -338,6 +338,7 @@
 
 			<block>
 			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请确认工作已经结束后再上传。</text>
+			<text class="wenxintishi" wx:if="{{hasAccount}}">记录非飞行执勤期，取消勾选‘飞行执勤期’。</text>
 			<text class="wenxintishi" wx:else>温馨提示！点击记录去注册可以体验完整功能。</text>
 			</block>
 
