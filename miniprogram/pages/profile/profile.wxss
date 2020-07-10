@@ -51,7 +51,7 @@
   position: fixed;
   background: #2A465C;
   top: 0;
-  height: 250rpx;
+  height: 260rpx;
   width: 100%;
   z-index: 100;
   
