@@ -1,5 +1,6 @@
 {
-  "pages": [
+  "pages": [ 
+
     "pages/echo/echo",
     "pages/summary/summary",
     "pages/record/record",
@@ -11,6 +12,7 @@
     "pages/record/editKids/editKids",
     "pages/timeCalc/timeCalc",
     "pages/profile/demoPage/demoPage"
+   
   ],
   "window": {
     "backgroundColor": "#2A465C",

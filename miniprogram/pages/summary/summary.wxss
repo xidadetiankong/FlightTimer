@@ -129,7 +129,8 @@ height: 100vh;
   text-align: center;
 }
 .b1{
-  margin-top: 20rpx;
+  margin: 20rpx;
+  
   color: rgb(53, 66, 77);
 opacity: 0.75;
 }
@@ -171,4 +172,34 @@ opacity: 0.75;
   font-weight: bolder;
   color:#0099ff;
   text-align: center;
+}
+.workdaysBlock{
+  margin-top: 50rpx;
+  width: 90vw;
+  height:150rpx;
+  font-size: 50rpx;
+  font-weight: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.workdays{
+
+  width: 90vw;
+  height:100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+  align-items: center;
+  
+}
+.days{
+  width: 60rpx;
+  height: 60rpx;
+}
+.daysPic{
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
 }

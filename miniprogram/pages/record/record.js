@@ -138,7 +138,7 @@ profession:''
     let id = e.currentTarget.id
     
     wx.navigateTo({
-      url: '../record/editKids/editKids?id='+id,
+      url: '../record/editKids/editKids?id='+id,//同时将参数传入下一层
     })
 
   },

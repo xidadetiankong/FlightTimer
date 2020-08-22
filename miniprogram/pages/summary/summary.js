@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    profession:'',
+    profession: '',
     chartTitle: '月度时间汇总',
     predresttime: 0, //下一个48的开始时间
     DATA: [],
@@ -33,14 +33,20 @@ Page({
     totalLandings12: 0,
 
 
-    twelveMonth: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份',  '7月份', '8月份', '9月份', '10月份', '11月份', '12月份'],
+    twelveMonth: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份', '7月份', '8月份', '9月份', '10月份', '11月份', '12月份'],
 
     yearnow: parseInt(DATE.yearNow(date)),
 
     correction10REST: 0,
-    showDetail:true,
-   
+    showDetail: true,
 
+   oneWork : 1,
+ twoWork  :1,
+ threeWork  :1,
+   fourWork :1,
+   fiveWork  :1,
+  sixWork  :1,
+   totalWorkDay:0
   },
 
   /**
@@ -69,7 +75,7 @@ Page({
   onLoad: function (options) {
 
     this.setData({
-      profession:app.userInfo.profession
+      profession: app.userInfo.profession
     })
 
   },
@@ -78,36 +84,36 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var currentTime=DATE.formatTime(date)  
+    var currentTime = DATE.formatTime(date)
     var that = this
     wx.cloud.callFunction({ //只能在此功能中嵌入函数防止不同步的问题
       name: 'count',
       data: {}
     }).then((res) => {
       console.log(res)
-      var iniData=[]
-      var unDutyData=[]
+      var iniData = []
+      var unDutyData = []
       res.result.data.forEach(element => {
-        
-        if(element.isFlightDuty==true||element.isFlightDuty==null){
+
+        if (element.isFlightDuty == true || element.isFlightDuty == null) {
           iniData.push(element)
-        }else if(element.isFlightDuty==false){
+        } else if (element.isFlightDuty == false) {
           unDutyData.push(element)
         }
-        
+
       });
-      console.log('飞行执勤期',iniData)
-      console.log('地面执勤期',unDutyData)
+      console.log('飞行执勤期', iniData)
+      console.log('地面执勤期', unDutyData)
       let dataT = iniData.sort(DATE.compare('checkintime'))
       let dataD = unDutyData.sort(DATE.compare('checkintime'))
       this.setData({
         DATA: dataT,
-        unDutyDATA:dataD
+        unDutyDATA: dataD
       })
       this.findthespa()
       this.findjack()
       this.setData({
-        currentTime:currentTime,
+        currentTime: currentTime,
         predresttime: DATE.stamptoformatTime(that.data.predresttime),
         nextciclestart: DATE.stamptoformatTime(that.data.nextciclestart)
       })
@@ -115,28 +121,28 @@ Page({
 
 
   },
-  onShow:function(){
+  onShow: function () {
     this.findthespa()
-      this.findjack()
-      this.setData({
-        predresttime: DATE.stamptoformatTime(that.data.predresttime),
-        nextciclestart: DATE.stamptoformatTime(that.data.nextciclestart)
-      })
+    this.findjack()
+    this.setData({
+      predresttime: DATE.stamptoformatTime(that.data.predresttime),
+      nextciclestart: DATE.stamptoformatTime(that.data.nextciclestart)
+    })
   },
 
   findthespa: function () { //计算四十八小时休息期返回预测的下一个48开始时间同时判断航后10小时休息是否满足
-    var that=this
+    var that = this
     var DATA = this.data.DATA;
     var lastwork = DATA[0];
-    var lastGroundWork=this.data.unDutyDATA[0];
-    var lastGroundCheckout=0
-    if(lastGroundWork==null){
-       lastGroundCheckout=0
-    }else if(lastGroundWork!=null){
-       lastGroundCheckout = lastGroundWork.EndTime - 28800000;
+    var lastGroundWork = this.data.unDutyDATA[0];
+    var lastGroundCheckout = 0
+    if (lastGroundWork == null) {
+      lastGroundCheckout = 0
+    } else if (lastGroundWork != null) {
+      lastGroundCheckout = lastGroundWork.EndTime - 28800000;
     }
-    
-    console.log('地面签出',lastGroundCheckout)
+
+    console.log('地面签出', lastGroundCheckout)
     var lastcheckout = lastwork.EndTime - 28800000;
 
     var sishiba = 172800000;
@@ -146,28 +152,28 @@ Page({
     var day = DATE.dayNow(date);
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
-    var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi-28800000
-    
-    if(lastGroundCheckout-lastcheckout<=0){
+    var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi - 28800000
+
+    if (lastGroundCheckout - lastcheckout <= 0) {
       let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000);
       that.setData({
         currentREST: currentREST
       })
-    }else{
+    } else {
       let currentREST = DATE.formatHour(presentTime - lastGroundCheckout - 28800000);
       that.setData({
         currentREST: currentREST
       })
     }
-    
-    let profession=this.data.profession
-    
-    if(profession==='others'){
+
+    let profession = this.data.profession
+
+    if (profession === 'others') {
       return
     }
-    
-    console.log('航后休息',(presentTime - lastcheckout - 28800000), (36000000 + this.data.correction10REST))
-    if ((((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0)||(((presentTime - lastGroundCheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0)) {
+
+    console.log('航后休息', (presentTime - lastcheckout - 28800000), (36000000 + this.data.correction10REST))
+    if ((((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0) || (((presentTime - lastGroundCheckout - 28800000) - (36000000 + this.data.correction10REST)) < 0)) {
       wx.showToast({
         title: '最小航前休息未满足要求哦',
         icon: 'none'
@@ -178,7 +184,7 @@ Page({
         tenhourrest: false
       })
 
-    } else if ((((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0)||(((presentTime - lastGroundCheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0)) {
+    } else if ((((presentTime - lastcheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0) || (((presentTime - lastGroundCheckout - 28800000) - (36000000 + this.data.correction10REST)) >= 0)) {
       this.setData({
 
         tenhourrest: true
@@ -187,8 +193,9 @@ Page({
 
 
     console.log('开始今日休息期判断')
-    if ((presentTime - lastcheckout-28800000) < sishiba) {
+    if ((presentTime - lastcheckout - 28800000) < sishiba) {
       var timeInlimit = [presentTime]
+     
       DATA.forEach(element => {
         ; //检索最近144小时内所有签到截止时间放入timeinlimit
         if ((element.EndTime - 28800000) > lastyaosisi) {
@@ -203,11 +210,23 @@ Page({
         }
       });
       console.log('最后一次执勤到现在休息时间小于48小时', timeInlimit)
+      let timeOnWork=[]
+      timeInlimit.forEach(element => {
+        timeOnWork.push(element)
+      });
+     
+      timeOnWork.shift()
+      
+      timeOnWork.sort()
+      
+      var firstWorkTime=timeOnWork[0]
+      console.log("laiyifa",timeOnWork, timeOnWork,firstWorkTime)
+      that.contWorkDays(timeOnWork,firstWorkTime)
 
       var num = /[0-9]/
       var unitslength = timeInlimit.length //&&((unitslength%2)=1)
       var quyu = unitslength % 2
-
+console.log("shaqingkaung",unitslength,quyu)
       if ((quyu === 1)) { //如果集合的元素个数为奇数说明最久的时间为签到时间
         console.log('判断最久一个时间节点是签到时间', unitslength, quyu, timeInlimit[unitslength - 1])
         if ((timeInlimit[unitslength - 1] - lastyaosisi) >= sishiba) { //
@@ -236,10 +255,10 @@ Page({
             } else if (rest < sishiba) {
               NUMgr48 = NUMgr48 + 1;
               console.log('没有大于48小时的休息期，继续')
-              
+
               console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 3)
               if (NUMgr48 === ((timeInlimit.length - 3) / 2)) {
-               
+
 
 
                 this.setData({
@@ -260,7 +279,7 @@ Page({
         console.log('判断最久一个时间节点是截止时间', unitslength, quyu, timeInlimit[unitslength - 1])
 
         var NUMgr48 = 0;
-        for (let i = 2; i < timeInlimit.length ; i = i + 2) {
+        for (let i = 2; i < timeInlimit.length; i = i + 2) {
           console.log('遍历所有144内的休息时间')
           let rest = timeInlimit[i] - timeInlimit[i + 1];
           if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
@@ -275,10 +294,10 @@ Page({
           } else if (rest < sishiba) {
             NUMgr48 = NUMgr48 + 1;
             console.log('没有大于48小时的休息期，继续')
-            
+
             console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 1)
             if (NUMgr48 === ((timeInlimit.length - 2) / 2)) {
-              
+
 
 
               this.setData({
@@ -296,6 +315,7 @@ Page({
         }
 
       }
+     
 
 
 
@@ -306,7 +326,7 @@ Page({
     } else if ((presentTime - lastcheckout) >= sishiba) {
       console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
       //存在有大于等于四十八的休息期
-      predresttime = presentTime - sishiba + yaosisi-28800000 //算出下次休息时间的开始
+      predresttime = presentTime - sishiba + yaosisi - 28800000 //算出下次休息时间的开始
       this.setData({
         predresttime: predresttime
       })
@@ -327,17 +347,17 @@ Page({
 
   findjack: function () {
     var DATA = this.data.DATA;
-    var day = DATE.dayNow(date);//包含年月日
-    var sevenDay=604800000
+    var day = DATE.dayNow(date); //包含年月日
+    var sevenDay = 604800000
 
-    var sevenDayStart=DATE.timeToStamp(day,'23:59')+ 60000 - 28800000-sevenDay;
-    var sevenDayEnd=DATE.timeToStamp(day,'23:59')+ 60000 - 28800000;
-    var sevenDaywork=[];
-    var sixtyHour=216000000
+    var sevenDayStart = DATE.timeToStamp(day, '23:59') + 60000 - 28800000 - sevenDay;
+    var sevenDayEnd = DATE.timeToStamp(day, '23:59') + 60000 - 28800000;
+    var sevenDaywork = [];
+    var sixtyHour = 216000000
 
 
-    var ATTsevenDaywork=[];
-    var seventyHour=252000000
+    var ATTsevenDaywork = [];
+    var seventyHour = 252000000
 
     var yearnow = this.data.yearnow;
     var yearstart = DATE.timeToStamp(yearnow + '/01/01', '00:00') - 28800000;
@@ -350,58 +370,60 @@ Page({
     var month31select = [];
     var month30select = [];
     var month02select = [];
-    DATA.forEach(element=>{//七天工作时间由于单独提取出去来了执勤时间放入数组所以需要单独进行数组求和
-      if((element.EndTime-28800000)>sevenDayStart&&(element.checkintime-28800000)<sevenDayStart){
-        ATTsevenDaywork.push((element.EndTime-28800000)-sevenDayStart)
-      }else if((element.EndTime-28800000)<sevenDayEnd&&(element.checkintime-28800000)>sevenDayStart){
+
+
+    DATA.forEach(element => { //七天工作时间由于单独提取出去来了执勤时间放入数组所以需要单独进行数组求和
+      if ((element.EndTime - 28800000) > sevenDayStart && (element.checkintime - 28800000) < sevenDayStart) {
+        ATTsevenDaywork.push((element.EndTime - 28800000) - sevenDayStart)
+      } else if ((element.EndTime - 28800000) < sevenDayEnd && (element.checkintime - 28800000) > sevenDayStart) {
         ATTsevenDaywork.push(element.totalDutyTime)
-      }else if((element.EndTime-28800000)>sevenDayEnd&&(element.checkintime-28800000)<sevenDayEnd){
-        ATTsevenDaywork.push(sevenDayEnd-(element.checkintime-28800000))
+      } else if ((element.EndTime - 28800000) > sevenDayEnd && (element.checkintime - 28800000) < sevenDayEnd) {
+        ATTsevenDaywork.push(sevenDayEnd - (element.checkintime - 28800000))
       }
 
-      if(DATE.arrySum(ATTsevenDaywork)>seventyHour){
+      if (DATE.arrySum(ATTsevenDaywork) > seventyHour) {
         this.setData({
-          ATTsevenDaywork:DATE.formatHour(DATE.arrySum(ATTsevenDaywork)),
-          ATTsevenDayworkOvr:false
+          ATTsevenDaywork: DATE.formatHour(DATE.arrySum(ATTsevenDaywork)),
+          ATTsevenDayworkOvr: false
         })
         return
-      }else if(DATE.arrySum(ATTsevenDaywork)<=seventyHour){
+      } else if (DATE.arrySum(ATTsevenDaywork) <= seventyHour) {
         this.setData({
-          ATTsevenDaywork:DATE.formatHour(DATE.arrySum(ATTsevenDaywork)),
-          ATTsevenDayworkOvr:true
+          ATTsevenDaywork: DATE.formatHour(DATE.arrySum(ATTsevenDaywork)),
+          ATTsevenDayworkOvr: true
         })
         return
       }
 
     })
 
-    DATA.forEach(element=>{//七天工作时间由于单独提取出去来了执勤时间放入数组所以需要单独进行数组求和
-      if((element.EndTime-28800000)>sevenDayStart&&(element.checkintime-28800000)<sevenDayStart){
-        sevenDaywork.push((element.EndTime-28800000)-sevenDayStart)
-      }else if((element.EndTime-28800000)<sevenDayEnd&&(element.checkintime-28800000)>sevenDayStart){
+    DATA.forEach(element => { //七天工作时间由于单独提取出去来了执勤时间放入数组所以需要单独进行数组求和
+      if ((element.EndTime - 28800000) > sevenDayStart && (element.checkintime - 28800000) < sevenDayStart) {
+        sevenDaywork.push((element.EndTime - 28800000) - sevenDayStart)
+      } else if ((element.EndTime - 28800000) < sevenDayEnd && (element.checkintime - 28800000) > sevenDayStart) {
         sevenDaywork.push(element.totalDutyTime)
-      }else if((element.EndTime-28800000)>sevenDayEnd&&(element.checkintime-28800000)<sevenDayEnd){
-        sevenDaywork.push(sevenDayEnd-(element.checkintime-28800000))
+      } else if ((element.EndTime - 28800000) > sevenDayEnd && (element.checkintime - 28800000) < sevenDayEnd) {
+        sevenDaywork.push(sevenDayEnd - (element.checkintime - 28800000))
       }
 
-      if(DATE.arrySum(sevenDaywork)>sixtyHour){
+      if (DATE.arrySum(sevenDaywork) > sixtyHour) {
         this.setData({
-          sevenDaywork:DATE.formatHour(DATE.arrySum(sevenDaywork)),
-          sevenDayworkOvr:false
+          sevenDaywork: DATE.formatHour(DATE.arrySum(sevenDaywork)),
+          sevenDayworkOvr: false
         })
         return
-      }else if(DATE.arrySum(sevenDaywork)<=sixtyHour){
+      } else if (DATE.arrySum(sevenDaywork) <= sixtyHour) {
         this.setData({
-          sevenDaywork:DATE.formatHour(DATE.arrySum(sevenDaywork)),
-          sevenDayworkOvr:true
+          sevenDaywork: DATE.formatHour(DATE.arrySum(sevenDaywork)),
+          sevenDayworkOvr: true
         })
         return
       }
 
     })
-    console.log('七天工作时间',this.data.sevenDaywork)
+    console.log('七天工作时间', this.data.sevenDaywork)
 
-    DATA.forEach(element => {//取出年度数据
+    DATA.forEach(element => { //取出年度数据
       if ((element.checkintime - 28800000) > yearstart && (element.checkintime - 28800000) < yearend) {
         valueofselectyear.push(element)
       }
@@ -465,7 +487,7 @@ Page({
     var totaldutytimeof12 = []
     var totalFlightlegsof12 = []
     var totalLandings12 = []
-    var totalflightTimes12=[]
+    var totalflightTimes12 = []
 
     console.log(month31select)
     month31select.forEach(element => {
@@ -478,7 +500,7 @@ Page({
     })
 
 
-    console.log(totaldutytimeof12, totalFlightlegsof12, totalLandings12,totalflightTimes12)
+    console.log(totaldutytimeof12, totalFlightlegsof12, totalLandings12, totalflightTimes12)
     console.log(yearnow, DATE.stamptoformatTime(yearstart), DATE.stamptoformatTime(yearend))
     console.log(this.collectitem(DATA).restotalFlightlegs)
 
@@ -491,7 +513,7 @@ Page({
       totaldutytimeof12: totaldutytimeof12,
       totalFlightlegsof12: totalFlightlegsof12,
       totalLandings12: totalLandings12,
-      totalflightTimes12:totalflightTimes12,
+      totalflightTimes12: totalflightTimes12,
       selectyear: yearnow,
 
       YEARtotaldutytime: this.collectitem(valueofselectyear).restotaldutytime, //年度数据合集
@@ -511,46 +533,46 @@ Page({
     var restotaldutytime = 0;
     var restotalFlightlegs = 0;
     var restotalLandings = 0;
-    var restotalFlightTimes=0;
+    var restotalFlightTimes = 0;
     for (let i = 0; i < res.length; i++) { //运算历史总值勤时间
-      
-      
-      
-      
 
-      if(isNaN(res[i].actureLandings)){
+
+
+
+
+      if (isNaN(res[i].actureLandings)) {
         restotalLandings = restotalLandings
 
-      }else{
+      } else {
         restotalLandings = restotalLandings + res[i].actureLandings;
       }
 
 
-      if(isNaN(res[i].actureFlightLegs)){
+      if (isNaN(res[i].actureFlightLegs)) {
         restotalFlightlegs = restotalFlightlegs
 
-      }else{
+      } else {
         restotalFlightlegs = restotalFlightlegs + res[i].actureFlightLegs;
       }
 
-      if(isNaN(res[i].totalDutyTime)){
+      if (isNaN(res[i].totalDutyTime)) {
         restotaldutytime = restotaldutytime
 
-      }else{
+      } else {
         restotaldutytime = restotaldutytime + res[i].totalDutyTime;
       }
 
-      if(isNaN(res[i].flightTime)){
-        restotalFlightTimes=restotalFlightTimes
+      if (isNaN(res[i].flightTime)) {
+        restotalFlightTimes = restotalFlightTimes
 
-      }else{
-        restotalFlightTimes=restotalFlightTimes+res[i].flightTime
+      } else {
+        restotalFlightTimes = restotalFlightTimes + res[i].flightTime
       }
-      
+
     }
-    restotalFlightTimes=DATE.formatHour(restotalFlightTimes)
+    restotalFlightTimes = DATE.formatHour(restotalFlightTimes)
     restotaldutytime = DATE.formatHour(restotaldutytime)
-    
+
 
     return {
       restotaldutytime,
@@ -559,7 +581,7 @@ Page({
       restotalFlightTimes
     }
   },
-  
+
 
   lastyear: function () {
 
@@ -588,16 +610,71 @@ Page({
     })
 
   },
-  showDetai:function(){
+  showDetai: function () {
     this.setData({
-      showDetail:false
+      showDetail: false
     })
   },
 
-  returnTT:function(){
+  returnTT: function () {
     this.setData({
-      showDetail:true
+      showDetail: true
     })
+  },
+  contWorkDays: function (alltime, checkTime) {
+    var day = 24 * 3600 * 1000
+    var firstday = DATE.dayNow(checkTime)
+    
+    var firstdayStamp = DATE.timeToStamp(firstday, '00:00')-28800000
+    var firstdayStamp1=DATE.stamptoformatTime(firstdayStamp)
+    console.log("kaokaoako",firstday,firstdayStamp,firstdayStamp1)
+    var day1 = firstdayStamp + day
+    var day2 = firstdayStamp + day * 2
+    var day3 = firstdayStamp + day * 3
+    var day4 = firstdayStamp + day * 4
+    var day5 = firstdayStamp + day * 5
+    
+    var oneWork = 1
+    var twoWork = 1
+    var threeWork = 1
+    var fourWork = 1
+    var fiveWork = 1
+    var sixWork = 1
+    var totalWorkDay=0
+
+    alltime.forEach(element => {
+      var time1=DATE.stamptoformatTime(element)
+      console.log(time1)
+      if ((element) >= firstdayStamp && (element) < day1) {
+        oneWork = 2
+        totalWorkDay=totalWorkDay+1
+      } else if ((element) >= day1 &&(element) < day2) {
+        twoWork = 2
+        totalWorkDay=totalWorkDay+1
+      } else if ((element) >= day2 && (element) < day3) {
+        threeWork = 2
+        totalWorkDay=totalWorkDay+1
+      } else if ((element) >= day3 && (element) < day4) {
+        fourWork = 2
+        totalWorkDay=totalWorkDay+1
+      } else if ((element) >= day4 && (element) < day5) {
+        fiveWork = 2
+        totalWorkDay=totalWorkDay+1
+      }else if ((element) >= day5 ) {
+        sixWork = 2
+        totalWorkDay=totalWorkDay+1
+      }
+    });
+
+this.setData({
+  oneWork:oneWork,
+  twoWork:twoWork,
+  threeWork:threeWork,
+  fourWork:fourWork,
+  fiveWork:fiveWork,
+  sixWork:sixWork,
+  totalWorkDay:totalWorkDay
+})
   },
 
 

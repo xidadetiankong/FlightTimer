@@ -67,6 +67,14 @@ const compare=(property) =>{//比值降序函数,看返回值如果value2-value1
   }
 
 }
+const compare1=(property) =>{//比值降序函数,看返回值如果value2-value1大于零则在arrSort（）函数下对比结果值b排序靠前
+  return function (a, b) {
+    var value1 = a[property];
+    var value2 = b[property];
+    return value1 - value2;
+  }
+
+}
 const yearNow=res=>{
   var date = new Date(res);
   let year = date.getFullYear().toString()
@@ -202,6 +210,7 @@ module.exports = {
   timeDifferent:timeDifferent,
   formatTime: formatTime,
   compare:compare,
+  compare1:compare1,
   yearNow:yearNow,
   monthNow:monthNow,
   dayNow:dayNow,

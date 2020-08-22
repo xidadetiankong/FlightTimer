@@ -21,9 +21,9 @@ Page({
   onLoad: function (options) {
 
 
-    console.log(this.data.checkinTime)
+    console.log(this.data.checkinTime,options)
     this.setData({
-      id: options.id,
+      id: options.id,//来自editKid函数参数链接+id上一级的参数
       profession:app.userInfo.profession
     })
 
@@ -177,7 +177,7 @@ Page({
         })
 
 
-      }, 5000)
+      }, 1000)
 
     })
     return transT
@@ -238,7 +238,7 @@ Page({
 
 
 
-      }, 1000)
+      }, 200)
 
     })
     return hasData
