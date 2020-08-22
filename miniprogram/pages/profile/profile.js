@@ -23,6 +23,26 @@ Page({
     DataOfTotal:[]
 
   },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '最好用的R6执勤期记录APP',
+      path: '/page/user?id=123'
+    }
+  },
+  onShareTimeline: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '最好用的R6执勤期记录APP',
+      path: '/page/user?id=123'
+    }
+  },
   onLoad:function(){
    
   },
