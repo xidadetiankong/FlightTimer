@@ -51,7 +51,7 @@
   position: fixed;
   background: #2A465C;
   top: 0;
-  height: 260rpx;
+  height: 280rpx;
   width: 100%;
   z-index: 100;
   
@@ -127,7 +127,7 @@ color: #6D869A;
 }
 
 .listParent {
-  margin-top: 250rpx;
+  margin-top:280rpx;
   width: 100%;
 
   margin-bottom: 10rpx;

@@ -206,6 +206,7 @@ margin-top: 45rpx;
   
 
 }
+
 .button1{
   height: 70rpx;
   width: 130rpx;

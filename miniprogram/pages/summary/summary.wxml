@@ -110,7 +110,7 @@
 
 				<block wx:if="{{profession==='others'?false:true}}">
 					<view>根据公司要求，航前要休息10+</view><input type="number" style="width:40rpx" maxlength="3" value="{{correction10REST}}" bindinput="restcorrec"></input>（自定义）小时
-					<view wx:if="{{tenhourrest}}">满足航后休息要求。</view>
+					<view wx:if="{{tenhourrest}}">满足航前休息要求。</view>
 					<view wx:else>,目前还不满足航前休息要求，请合理安排工作。</view>
 				</block>
 
@@ -151,8 +151,8 @@
 
 
 				<block wx:if="{{profession==='others'?false:true}}">
-					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您在最近144小时内可以继续工作到<text id="datas">{{predresttime}}</text>。工作重要身体更重要记得锻炼身体哟！</view>
-					<view wx:else>请合理安排工作,如果<text id="datas">{{currentTime}}</text>为签到时间的话您的48小时休息期将不满足。<view>如果当前您未在值勤状态，下一个工作周期开始时间为<text id="datas">{{nextciclestart}}</text></view>
+					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您在最近144小时内可以继续工作到<text id="datas">{{predresttime}}</text>。根据R6要求不能连续工作超过4个日历日，注意监控。工作重要身体更重要记得锻炼身体哟！</view>
+					<view wx:else>请合理安排工作,如果<text id="datas">{{currentTime}}</text>为签到时间的话您的48小时休息期将不满足。<view>如果当前您未在值勤状态，下一个工作周期开始时间为<text id="datas">{{nextciclestart}}.根据R6要求不能连续工作超过4个日历日，注意监控。</text></view>
 					</view>
 				</block>
 				<block>
@@ -292,7 +292,7 @@
 
 		</view>
 		<view class="workdaysBlock">
-			<view> <text class="workdaystext">当前周期工作天数{{totalWorkDay}}</text></view>
+			<view> <text class="workdaystext">当前周期工作天数为{{totalWorkDay}}天</text></view>
 			<view class="workdays">
 
 				<view class="days">

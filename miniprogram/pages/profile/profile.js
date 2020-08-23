@@ -44,11 +44,6 @@ Page({
     }
   },
   onLoad:function(){
-   
-  },
-  
-  onReady: function () {
-   
     wx.cloud.callFunction({
       name: 'login',
       data: {}
@@ -82,6 +77,11 @@ Page({
         
       })
     })
+  },
+  
+  onReady: function () {
+   
+   
     
 
   },

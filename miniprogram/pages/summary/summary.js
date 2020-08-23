@@ -93,8 +93,9 @@ Page({
       console.log(res)
       var iniData = []
       var unDutyData = []
+      var totalData=[]
       res.result.data.forEach(element => {
-
+        totalData.push(element)
         if (element.isFlightDuty == true || element.isFlightDuty == null) {
           iniData.push(element)
         } else if (element.isFlightDuty == false) {
@@ -102,11 +103,14 @@ Page({
         }
 
       });
+      console.log('总执勤期', totalData)
       console.log('飞行执勤期', iniData)
       console.log('地面执勤期', unDutyData)
+      let TTData=totalData.sort(DATE.compare('checkintime'))
       let dataT = iniData.sort(DATE.compare('checkintime'))
       let dataD = unDutyData.sort(DATE.compare('checkintime'))
       this.setData({
+        TTData:TTData,
         DATA: dataT,
         unDutyDATA: dataD
       })
@@ -133,6 +137,7 @@ Page({
   findthespa: function () { //计算四十八小时休息期返回预测的下一个48开始时间同时判断航后10小时休息是否满足
     var that = this
     var DATA = this.data.DATA;
+    var TTData=this.data.TTData
     var lastwork = DATA[0];
     var lastGroundWork = this.data.unDutyDATA[0];
     var lastGroundCheckout = 0
@@ -193,59 +198,115 @@ Page({
 
 
     console.log('开始今日休息期判断')
-    if ((presentTime - lastcheckout - 28800000) < sishiba) {
-      var timeInlimit = [presentTime]
-     
-      DATA.forEach(element => {
-        ; //检索最近144小时内所有签到截止时间放入timeinlimit
-        if ((element.EndTime - 28800000) > lastyaosisi) {
-          timeInlimit.push(element.EndTime - 28800000);
+    if (lastGroundCheckout - lastcheckout <= 0) {
+   
+      if ((presentTime - lastcheckout - 28800000) < sishiba) {
+        var timeInlimit = [presentTime]
+        var  timeInlimit1= [presentTime]
+       
+        DATA.forEach(element => {
+          ; //检索最近144小时内所有签到截止时间放入timeinlimit
+          if ((element.EndTime - 28800000) > lastyaosisi) {
+            timeInlimit.push(element.EndTime - 28800000);
+  
+  
+          };
+          if ((element.checkintime - 28800000) > lastyaosisi) {
+  
+            timeInlimit.push(element.checkintime - 28800000);
+  
+          }
+        });
+        console.log('最后一次执勤到现在休息时间小于48小时', timeInlimit)
+        let timeOnWork=[]
+        timeInlimit.forEach(element => {
+          timeOnWork.push(element)
+        });
+       
+        timeOnWork.shift()
+        
+        timeOnWork.sort()
+        
+        var firstWorkTime=timeOnWork[0]
+        console.log("laiyifa",timeOnWork, timeOnWork,firstWorkTime)
+        that.contWorkDays(timeOnWork,firstWorkTime)
 
-
-        };
-        if ((element.checkintime - 28800000) > lastyaosisi) {
-
-          timeInlimit.push(element.checkintime - 28800000);
-
-        }
-      });
-      console.log('最后一次执勤到现在休息时间小于48小时', timeInlimit)
-      let timeOnWork=[]
-      timeInlimit.forEach(element => {
-        timeOnWork.push(element)
-      });
-     
-      timeOnWork.shift()
-      
-      timeOnWork.sort()
-      
-      var firstWorkTime=timeOnWork[0]
-      console.log("laiyifa",timeOnWork, timeOnWork,firstWorkTime)
-      that.contWorkDays(timeOnWork,firstWorkTime)
-
-      var num = /[0-9]/
-      var unitslength = timeInlimit.length //&&((unitslength%2)=1)
-      var quyu = unitslength % 2
-console.log("shaqingkaung",unitslength,quyu)
-      if ((quyu === 1)) { //如果集合的元素个数为奇数说明最久的时间为签到时间
-        console.log('判断最久一个时间节点是签到时间', unitslength, quyu, timeInlimit[unitslength - 1])
-        if ((timeInlimit[unitslength - 1] - lastyaosisi) >= sishiba) { //
-          calcuStart = timeInlimit[unitslength - 1];
-          predresttime = calcuStart - sishiba + yaosisi
-          console.log('此签到时间至前推144小时间隔大于48，计算下一个48开始时间返回')
-          this.setData({
-            predresttime: predresttime
-          })
-          return
-        } else if ((timeInlimit[unitslength - 1] - lastyaosisi) < sishiba) {
-          console.log('此签到时间至前推144小时间隔小于48')
+        TTData.forEach(element => {
+          ; //检索最近144小时内所有签到截止时间放入timeinlimit
+          if ((element.EndTime - 28800000) > lastyaosisi) {
+            timeInlimit1.push(element.EndTime - 28800000);
+  
+  
+          };
+          if ((element.checkintime - 28800000) > lastyaosisi) {
+  
+            timeInlimit1.push(element.checkintime - 28800000);
+  
+          }
+        });
+  
+        var num = /[0-9]/
+        var unitslength = timeInlimit1.length //&&((unitslength%2)=1)
+        var quyu = unitslength % 2
+  console.log("shaqingkaung",unitslength,quyu)
+        if ((quyu === 1)) { //如果集合的元素个数为奇数说明最久的时间为签到时间
+          console.log('判断最久一个时间节点是签到时间', unitslength, quyu, timeInlimit1[unitslength - 1])
+          if ((timeInlimit1[unitslength - 1] - lastyaosisi) >= sishiba) { //
+            calcuStart = timeInlimit1[unitslength - 1];
+            predresttime = calcuStart - sishiba + yaosisi
+            console.log('此签到时间至前推144小时间隔大于48，计算下一个48开始时间返回')
+            this.setData({
+              predresttime: predresttime
+            })
+            return
+          } else if ((timeInlimit1[unitslength - 1] - lastyaosisi) < sishiba) {
+            console.log('此签到时间至前推144小时间隔小于48')
+            var NUMgr48 = 0;
+            for (let i = 2; i < timeInlimit1.length; i = i + 2) {
+              console.log('遍历所有144内的休息时间')
+              let rest = timeInlimit1[i] - timeInlimit1[i + 1];
+              if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
+                console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
+                calcuStart = timeInlimit1[i];
+                predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
+                this.setData({
+                  predresttime: predresttime
+                })
+                console.log('dd', DATE.stamptoformatTime(predresttime))
+                return
+              } else if (rest < sishiba) {
+                NUMgr48 = NUMgr48 + 1;
+                console.log('没有大于48小时的休息期，继续')
+  
+                console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 3)
+                if (NUMgr48 === ((timeInlimit1.length - 3) / 2)) {
+  
+  
+  
+                  this.setData({
+                    predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
+                    foureighthourrest: false,
+                    nextciclestart: lastcheckout + sishiba
+                  })
+                  return
+                }
+  
+  
+                // if(num.test(rest)){resttimelist.push(rest)}//将有效的数字加入数组中
+  
+              }
+            }
+          }
+        } else if (quyu === 0) {
+          console.log('判断最久一个时间节点是截止时间', unitslength, quyu, timeInlimit1[unitslength - 1])
+  
           var NUMgr48 = 0;
-          for (let i = 2; i < timeInlimit.length; i = i + 2) {
+          for (let i = 2; i < timeInlimit1.length; i = i + 2) {
             console.log('遍历所有144内的休息时间')
-            let rest = timeInlimit[i] - timeInlimit[i + 1];
+            let rest = timeInlimit1[i] - timeInlimit1[i + 1];
             if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
               console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
-              calcuStart = timeInlimit[i];
+              calcuStart = timeInlimit1[i];
               predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
               this.setData({
                 predresttime: predresttime
@@ -255,12 +316,12 @@ console.log("shaqingkaung",unitslength,quyu)
             } else if (rest < sishiba) {
               NUMgr48 = NUMgr48 + 1;
               console.log('没有大于48小时的休息期，继续')
-
-              console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 3)
-              if (NUMgr48 === ((timeInlimit.length - 3) / 2)) {
-
-
-
+  
+              console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 1)
+              if (NUMgr48 === ((timeInlimit1.length - 2) / 2)) {
+  
+  
+  
                 this.setData({
                   predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
                   foureighthourrest: false,
@@ -268,71 +329,191 @@ console.log("shaqingkaung",unitslength,quyu)
                 })
                 return
               }
-
-
+  
+  
               // if(num.test(rest)){resttimelist.push(rest)}//将有效的数字加入数组中
-
+  
             }
           }
+  
         }
-      } else if (quyu === 0) {
-        console.log('判断最久一个时间节点是截止时间', unitslength, quyu, timeInlimit[unitslength - 1])
+       
+  
+  
+  
+  
+  
+  
+  
+      } else if ((presentTime - lastcheckout) >= sishiba) {
+        console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
+        //存在有大于等于四十八的休息期
+        predresttime = presentTime - sishiba + yaosisi - 28800000 //算出下次休息时间的开始
+        this.setData({
+          predresttime: predresttime
+        })
+        return
+  
+      };
+    } else if (lastGroundCheckout - lastcheckout > 0) {
+      if ((presentTime - lastGroundCheckout - 28800000) < sishiba) {
+        var timeInlimit = [presentTime]
+        var  timeInlimit1= [presentTime]
+       
+        DATA.forEach(element => {
+          ; //检索最近144小时内所有签到截止时间放入timeinlimit
+          if ((element.EndTime - 28800000) > lastyaosisi) {
+            timeInlimit.push(element.EndTime - 28800000);
+  
+  
+          };
+          if ((element.checkintime - 28800000) > lastyaosisi) {
+  
+            timeInlimit.push(element.checkintime - 28800000);
+  
+          }
+        });
+        console.log('最后一次执勤到现在休息时间小于48小时', timeInlimit)
+        let timeOnWork=[]
+        timeInlimit.forEach(element => {
+          timeOnWork.push(element)
+        });
+       
+        timeOnWork.shift()
+        
+        timeOnWork.sort()
+        
+        var firstWorkTime=timeOnWork[0]
+        console.log("laiyifa",timeOnWork, timeOnWork,firstWorkTime)
+        that.contWorkDays(timeOnWork,firstWorkTime)
 
-        var NUMgr48 = 0;
-        for (let i = 2; i < timeInlimit.length; i = i + 2) {
-          console.log('遍历所有144内的休息时间')
-          let rest = timeInlimit[i] - timeInlimit[i + 1];
-          if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
-            console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
-            calcuStart = timeInlimit[i];
-            predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
+        TTData.forEach(element => {
+          ; //检索最近144小时内所有签到截止时间放入timeinlimit
+          if ((element.EndTime - 28800000) > lastyaosisi) {
+            timeInlimit1.push(element.EndTime - 28800000);
+  
+  
+          };
+          if ((element.checkintime - 28800000) > lastyaosisi) {
+  
+            timeInlimit1.push(element.checkintime - 28800000);
+  
+          }
+        });
+  
+        var num = /[0-9]/
+        var unitslength = timeInlimit1.length //&&((unitslength%2)=1)
+        var quyu = unitslength % 2
+  console.log("shaqingkaung",unitslength,quyu)
+        if ((quyu === 1)) { //如果集合的元素个数为奇数说明最久的时间为签到时间
+          console.log('判断最久一个时间节点是签到时间', unitslength, quyu, timeInlimit1[unitslength - 1])
+          if ((timeInlimit1[unitslength - 1] - lastyaosisi) >= sishiba) { //
+            calcuStart = timeInlimit1[unitslength - 1];
+            predresttime = calcuStart - sishiba + yaosisi
+            console.log('此签到时间至前推144小时间隔大于48，计算下一个48开始时间返回')
             this.setData({
               predresttime: predresttime
             })
-            console.log('dd', DATE.stamptoformatTime(predresttime))
             return
-          } else if (rest < sishiba) {
-            NUMgr48 = NUMgr48 + 1;
-            console.log('没有大于48小时的休息期，继续')
-
-            console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit.length - 1)
-            if (NUMgr48 === ((timeInlimit.length - 2) / 2)) {
-
-
-
-              this.setData({
-                predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
-                foureighthourrest: false,
-                nextciclestart: lastcheckout + sishiba
-              })
-              return
+          } else if ((timeInlimit1[unitslength - 1] - lastyaosisi) < sishiba) {
+            console.log('此签到时间至前推144小时间隔小于48')
+            var NUMgr48 = 0;
+            for (let i = 2; i < timeInlimit1.length; i = i + 2) {
+              console.log('遍历所有144内的休息时间')
+              let rest = timeInlimit1[i] - timeInlimit1[i + 1];
+              if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
+                console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
+                calcuStart = timeInlimit1[i];
+                predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
+                this.setData({
+                  predresttime: predresttime
+                })
+                console.log('dd', DATE.stamptoformatTime(predresttime))
+                return
+              } else if (rest < sishiba) {
+                NUMgr48 = NUMgr48 + 1;
+                console.log('没有大于48小时的休息期，继续')
+  
+                console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 3)
+                if (NUMgr48 === ((timeInlimit1.length - 3) / 2)) {
+  
+  
+  
+                  this.setData({
+                    predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
+                    foureighthourrest: false,
+                    nextciclestart: lastGroundCheckout + sishiba
+                  })
+                  return
+                }
+  
+  
+                // if(num.test(rest)){resttimelist.push(rest)}//将有效的数字加入数组中
+  
+              }
             }
-
-
-            // if(num.test(rest)){resttimelist.push(rest)}//将有效的数字加入数组中
-
           }
+        } else if (quyu === 0) {
+          console.log('判断最久一个时间节点是截止时间', unitslength, quyu, timeInlimit1[unitslength - 1])
+  
+          var NUMgr48 = 0;
+          for (let i = 2; i < timeInlimit1.length; i = i + 2) {
+            console.log('遍历所有144内的休息时间')
+            let rest = timeInlimit1[i] - timeInlimit1[i + 1];
+            if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
+              console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
+              calcuStart = timeInlimit1[i];
+              predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
+              this.setData({
+                predresttime: predresttime
+              })
+              console.log('dd', DATE.stamptoformatTime(predresttime))
+              return
+            } else if (rest < sishiba) {
+              NUMgr48 = NUMgr48 + 1;
+              console.log('没有大于48小时的休息期，继续')
+  
+              console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 1)
+              if (NUMgr48 === ((timeInlimit1.length - 2) / 2)) {
+  
+  
+  
+                this.setData({
+                  predresttime: '请合理安排工作，如果当前时间为签到时间的您的48小时休息期将不满足。',
+                  foureighthourrest: false,
+                  nextciclestart: lastGroundCheckout + sishiba
+                })
+                return
+              }
+  
+  
+              // if(num.test(rest)){resttimelist.push(rest)}//将有效的数字加入数组中
+  
+            }
+          }
+  
         }
-
-      }
-     
-
-
-
-
-
-
-
-    } else if ((presentTime - lastcheckout) >= sishiba) {
-      console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
-      //存在有大于等于四十八的休息期
-      predresttime = presentTime - sishiba + yaosisi - 28800000 //算出下次休息时间的开始
-      this.setData({
-        predresttime: predresttime
-      })
-      return
-
-    };
+       
+  
+  
+  
+  
+  
+  
+  
+      } else if ((presentTime - lastGroundCheckout) >= sishiba) {
+        console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
+        //存在有大于等于四十八的休息期
+        predresttime = presentTime - sishiba + yaosisi - 28800000 //算出下次休息时间的开始
+        this.setData({
+          predresttime: predresttime
+        })
+        return
+  
+      };
+    
+    }
+   
 
 
 
@@ -658,11 +839,21 @@ console.log("shaqingkaung",unitslength,quyu)
         fourWork = 2
         totalWorkDay=totalWorkDay+1
       } else if ((element) >= day4 && (element) < day5) {
-        fiveWork = 2
-        totalWorkDay=totalWorkDay+1
+         totalWorkDay=totalWorkDay+1
+        if(totalWorkDay<=4){
+fiveWork = 2
+        }else if(totalWorkDay>4){
+          fiveWork = 3
+        }
+       
       }else if ((element) >= day5 ) {
-        sixWork = 2
+       
         totalWorkDay=totalWorkDay+1
+        if(totalWorkDay<=4){
+          sixWork = 2
+                  }else if(totalWorkDay>4){
+                    sixWork = 3
+                  }
       }
     });
 
@@ -673,7 +864,7 @@ this.setData({
   fourWork:fourWork,
   fiveWork:fiveWork,
   sixWork:sixWork,
-  totalWorkDay:totalWorkDay
+  totalWorkDay:totalWorkDay/2+(totalWorkDay%2)
 })
   },
 
