@@ -46,6 +46,7 @@ Page({
     fourWork: 1,
     fiveWork: 1,
     sixWork: 1,
+    sevenWork:1,
     totalWorkDay: 0
   },
 
@@ -229,9 +230,9 @@ Page({
 
         timeOnWork.sort()
 
-        
+
         console.log("laiyifa", timeOnWork, timeOnWork)
-       
+
 
 
 
@@ -260,7 +261,7 @@ Page({
             calcuStart = timeInlimit1[unitslength - 1];
             predresttime = calcuStart - sishiba + yaosisi
 
-            that.contWorkDays(timeOnWork, ( calcuStart-sishiba))
+            that.contWorkDays(timeOnWork, (calcuStart - sishiba))
 
             console.log('此签到时间至前推144小时间隔大于48，计算下一个48开始时间返回')
             this.setData({
@@ -277,7 +278,7 @@ Page({
                 console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
                 calcuStart = timeInlimit1[i];
                 predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
-                that.contWorkDays(timeOnWork,( calcuStart-sishiba))
+                that.contWorkDays(timeOnWork, (calcuStart - sishiba))
                 this.setData({
                   predresttime: predresttime
                 })
@@ -289,10 +290,10 @@ Page({
 
                 console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 3)
                 if (NUMgr48 === ((timeInlimit1.length - 3) / 2)) {
-                  let checktime=DATE.dayNow(lastcheckout)
-                  let checktime1=DATE.timeToStamp(checktime,"23:59")
-                  let startcalcu=checktime1-yaosisi
-console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(lastcheckout),DATE.stamptoformatTime(startcalcu))
+                  let checktime = DATE.dayNow(lastcheckout)
+                  let checktime1 = DATE.timeToStamp(checktime, "23:59")
+                  let startcalcu = checktime1 - yaosisi
+                  console.log('daodishenme1ingkuang', checktime, checktime1, DATE.stamptoformatTime(lastcheckout), DATE.stamptoformatTime(startcalcu))
                   that.contWorkDays(timeOnWork, startcalcu)
 
                   this.setData({
@@ -319,7 +320,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
             if (rest >= sishiba && num.test(rest)) { //判断是否有大于48小时的休息期
               console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
               calcuStart = timeInlimit1[i];
-              that.contWorkDays(timeOnWork, ( calcuStart-sishiba))
+              that.contWorkDays(timeOnWork, (calcuStart - sishiba))
               predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
               this.setData({
                 predresttime: predresttime
@@ -332,10 +333,10 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
 
               console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 1)
               if (NUMgr48 === ((timeInlimit1.length - 2) / 2)) {
-                let checktime=DATE.dayNow(lastcheckout)
-                let checktime1=DATE.timeToStamp(checktime,"23:59")
-                let startcalcu=checktime1-yaosisi
-              
+                let checktime = DATE.dayNow(lastcheckout)
+                let checktime1 = DATE.timeToStamp(checktime, "23:59")
+                let startcalcu = checktime1 - yaosisi
+
 
                 that.contWorkDays(timeOnWork, startcalcu)
 
@@ -366,7 +367,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
         console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
         //存在有大于等于四十八的休息期
         predresttime = presentTime - sishiba + yaosisi - 28800000 //算出下次休息时间的开始
-       
+
         this.setData({
           predresttime: predresttime
         })
@@ -401,9 +402,9 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
 
         timeOnWork.sort()
 
-       
+
         console.log("laiyifa", timeOnWork, timeOnWork)
-      
+
 
         TTData.forEach(element => {
           ; //检索最近144小时内所有签到截止时间放入timeinlimit
@@ -429,7 +430,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
             calcuStart = timeInlimit1[unitslength - 1];
             predresttime = calcuStart - sishiba + yaosisi
             console.log('此签到时间至前推144小时间隔大于48，计算下一个48开始时间返回')
-            that.contWorkDays(timeOnWork, ( calcuStart-sishiba))
+            that.contWorkDays(timeOnWork, (calcuStart - sishiba))
             this.setData({
               predresttime: predresttime
             })
@@ -444,7 +445,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
                 console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
                 calcuStart = timeInlimit1[i];
                 predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
-                that.contWorkDays(timeOnWork, ( calcuStart-sishiba))
+                that.contWorkDays(timeOnWork, (calcuStart - sishiba))
                 this.setData({
                   predresttime: predresttime
                 })
@@ -457,13 +458,13 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
                 console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 3)
                 if (NUMgr48 === ((timeInlimit1.length - 3) / 2)) {
 
-                 
-                  let checktime=DATE.dayNow(lastGroundCheckout)
-                  let checktime1=DATE.timeToStamp(checktime,"23:59")
-                  let startcalcu=checktime1-yaosisi
-                
-  
-                
+
+                  let checktime = DATE.dayNow(lastGroundCheckout)
+                  let checktime1 = DATE.timeToStamp(checktime, "23:59")
+                  let startcalcu = checktime1 - yaosisi
+
+
+
 
                   that.contWorkDays(timeOnWork, startcalcu)
 
@@ -492,7 +493,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
               console.log('有大于48小时的休息期，计算下一个48开始时间，返回')
               calcuStart = timeInlimit1[i];
               predresttime = calcuStart - sishiba + yaosisi //基于此次大于48小时休息期的签到时间前推48后再后推144得出下次休息时间开始
-              that.contWorkDays(timeOnWork, ( calcuStart-sishiba))
+              that.contWorkDays(timeOnWork, (calcuStart - sishiba))
               this.setData({
                 predresttime: predresttime
               })
@@ -504,12 +505,12 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
 
               console.log('循环内遍历判断，当遍历次数等于所需计算休息期个数时，计算此次48结束时间，返回', NUMgr48, timeInlimit1.length - 1)
               if (NUMgr48 === ((timeInlimit1.length - 2) / 2)) {
-                let checktime=DATE.dayNow(lastGroundCheckout)
-                let checktime1=DATE.timeToStamp(checktime,"23:59")
-                let startcalcu=checktime1-yaosisi
-              
+                let checktime = DATE.dayNow(lastGroundCheckout)
+                let checktime1 = DATE.timeToStamp(checktime, "23:59")
+                let startcalcu = checktime1 - yaosisi
 
-              
+
+
 
                 that.contWorkDays(timeOnWork, startcalcu)
 
@@ -542,7 +543,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
         console.log('最后一次执勤到现在休息时间大于48小时，算出下次48休息的开始', )
         //存在有大于等于四十八的休息期
         predresttime = presentTime - sishiba + yaosisi - 28800000 //算出下次休息时间的开始
-        
+
         this.setData({
           predresttime: predresttime
         })
@@ -841,18 +842,33 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
     })
   },
   contWorkDays: function (alltime, checkTime) {
+    var sishiba = 172800000
+    let fourtyEightHoursRest = this.data.foureighthourrest
+    if (fourtyEightHoursRest) {
+      alltime.forEach(element => {
+        console.log('来了没？',checkTime,alltime)
+        let a = alltime.indexOf(element)
+        if (element <= (checkTime+sishiba))(
+          alltime.shift()
+         
+        )
+      });
+      
+    }
+    console.log('zhene',alltime)
     var day = 24 * 3600 * 1000
     var firstday = DATE.dayNow(checkTime)
 
     var firstdayStamp = DATE.timeToStamp(firstday, '00:00') - 28800000
     var firstdayStamp1 = DATE.stamptoformatTime(firstdayStamp)
-    
+
     var day1 = firstdayStamp + day
     var day2 = firstdayStamp + day * 2
     var day3 = firstdayStamp + day * 3
     var day4 = firstdayStamp + day * 4
     var day5 = firstdayStamp + day * 5
     var day6 = firstdayStamp + day * 6
+    var day7 = firstdayStamp + day * 7
 
 
     var oneWork = 1
@@ -861,6 +877,7 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
     var fourWork = 1
     var fiveWork = 1
     var sixWork = 1
+    var sevenWork = 1
     var totalWorkDay = 0
 
     alltime.forEach(element => {
@@ -882,18 +899,25 @@ console.log('daodishenme1ingkuang',checktime,checktime1,DATE.stamptoformatTime(l
 
         fiveWork = 2
 
-      } else if ((element) >= day5&& (element) < day6) {
+      } else if ((element) >= day5 && (element) < day6) {
 
         sixWork = 2
 
+      }else if ((element) >= day6 && (element) < day7) {
+
+        sevenWork = 2
+
       }
-     
-    totalWorkDay = oneWork + twoWork + threeWork + fourWork + fiveWork + sixWork - 6
-      console.log("kaokaoako", firstday, firstdayStamp, firstdayStamp1,totalWorkDay,DATE.stamptoformatTime(day5))
-      if (totalWorkDay >4&&((oneWork + twoWork + threeWork + fourWork)>=8)) {
+
+      totalWorkDay = oneWork + twoWork + threeWork + fourWork + fiveWork + sixWork - 6
+      console.log("kaokaoako", firstday, firstdayStamp, firstdayStamp1, totalWorkDay, DATE.stamptoformatTime(day5))
+      if (totalWorkDay > 4 && ((oneWork + twoWork + threeWork + fourWork) >= 8)) {
         fiveWork = 3
       }
-      if (totalWorkDay >4&&((oneWork + twoWork + threeWork + fourWork+ fiveWork)>=9)) {
+      if (totalWorkDay > 4 && ((oneWork + twoWork + threeWork + fourWork + fiveWork) >= 9)) {
+        sixWork = 3
+      }
+      if (totalWorkDay > 4 && ((oneWork + twoWork + threeWork + fourWork + fiveWork+sixWork) >= 10)) {
         sixWork = 3
       }
 

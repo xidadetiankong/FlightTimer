@@ -313,6 +313,9 @@
 				<view class="days">
 					<image class="daysPic" src="../../img/{{sixWork}}.png"></image>
 				</view>
+				<view class="days">
+					<image class="daysPic" src="../../img/{{sevenWork}}.png"></image>
+				</view>
 
 
 
