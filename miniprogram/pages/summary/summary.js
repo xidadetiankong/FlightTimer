@@ -846,9 +846,9 @@ Page({
     let fourtyEightHoursRest = this.data.foureighthourrest
     if (fourtyEightHoursRest) {
       alltime.forEach(element => {
-        console.log('来了没？',checkTime,alltime)
+        console.log('来了没？',checkTime,alltime,DATE.stamptoformatTime(checkTime),DATE.stamptoformatTime(element))
         let a = alltime.indexOf(element)
-        if (element <= (checkTime+sishiba))(
+        if (element <= (checkTime-sishiba))(
           alltime.shift()
          
         )
@@ -882,7 +882,7 @@ Page({
 
     alltime.forEach(element => {
       var time1 = DATE.stamptoformatTime(element)
-      console.log(time1)
+      console.log(DATE.stamptoformatTime(firstdayStamp),time1)
       if ((element) >= firstdayStamp && (element) < day1) {
         oneWork = 2
 
@@ -896,7 +896,7 @@ Page({
         fourWork = 2
 
       } else if ((element) >= day4 && (element) < day5) {
-
+      
         fiveWork = 2
 
       } else if ((element) >= day5 && (element) < day6) {
