@@ -845,14 +845,23 @@ Page({
     var sishiba = 172800000
     let fourtyEightHoursRest = this.data.foureighthourrest
     if (fourtyEightHoursRest) {
-      alltime.forEach(element => {
-        console.log('来了没？',checkTime,alltime,DATE.stamptoformatTime(checkTime),DATE.stamptoformatTime(element))
-        let a = alltime.indexOf(element)
-        if (element <= (checkTime-sishiba))(
-          alltime.shift()
+      var loop = alltime.length
+      for(var i=0; i < loop; i++){
+
+           //如果找到要被删除的数字所在的数组下标
+          if (alltime[i] <= checkTime){
+            alltime.splice(i,1)
+           
          
-        )
-      });
+             //从i位置开始删除1个数字
+            
+            i = i - 1;    //改变循环变量
+            loop =alltime.length;   //改变循环次数
+            console.log('来了没？','我是i',i,checkTime,alltime,DATE.stamptoformatTime(checkTime))
+        }
+       }
+    
+    
       
     }
     console.log('zhene',alltime)
