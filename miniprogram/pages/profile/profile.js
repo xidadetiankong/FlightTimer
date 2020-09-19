@@ -130,7 +130,7 @@ Page({
     else if(links>=173000&&links<192000){level='30' }
     else if(links>=192000&&links<233000){level='31' }
     else if(links>=233000&&links<255000){level='32' }
-    else if(links>=255000){level='' }
+    else if(links>=255000){level='职场战神' }
 
 
    console.log(links,'wahaha',level)

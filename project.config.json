@@ -25,8 +25,12 @@
       "outputPath": ""
     },
     "useIsolateContext": true,
-    "useCompilerModule": false,
-    "userConfirmedUseCompilerModuleSwitch": false
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "useMultiFrameRuntime": true,
+    "useApiHook": false
   },
   "appid": "wx43f47fbdc7986d51",
   "projectname": "newbegining",
