@@ -151,7 +151,7 @@
 
 
 				<block wx:if="{{profession==='others'?false:true}}">
-					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期，您在最近144小时内可以继续工作到<text id="datas">{{predresttime}}</text>。根据R6要求正常不能连续工作超过4个日历日，注意监控。工作重要身体更重要记得锻炼身体哟！</view>
+					<view wx:if="{{foureighthourrest}}">当前周期满足48小时休息期。根据R6要求正常不能连续工作超过4个日历日，注意监控。由于备降、返航、取消原因，需要第五天从外站飞回基地时，请确保补班签到时刻早于<text id="datas">{{predresttime}}</text>。工作重要身体更重要记得锻炼身体哟！</view>
 					<view wx:else>请合理安排工作,如果<text id="datas">{{currentTime}}</text>为签到时间的话您的48小时休息期将不满足。<view>如果当前您未在值勤状态，下一个工作周期开始时间为<text id="datas">{{nextciclestart}}.</text><text>根据R6要求正常不能连续工作超过4个日历日，注意监控。</text></view>
 					</view>
 				</block>
