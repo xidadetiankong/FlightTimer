@@ -46,7 +46,7 @@ Page({
     fourWork: 1,
     fiveWork: 1,
     sixWork: 1,
-    sevenWork:1,
+    sevenWork: 1,
     totalWorkDay: 0
   },
 
@@ -74,25 +74,25 @@ Page({
     }
   },
   onLoad: function (options) {
-// 在页面中定义插屏广告
-let interstitialAd = null
+    // 在页面中定义插屏广告
+    let interstitialAd = null
 
-// 在页面onLoad回调事件中创建插屏广告实例
-if (wx.createInterstitialAd) {
-  interstitialAd = wx.createInterstitialAd({
-    adUnitId: 'adunit-ef79a9727360f28c'
-  })
-  interstitialAd.onLoad(() => {})
-  interstitialAd.onError((err) => {})
-  interstitialAd.onClose(() => {})
-}
+    // 在页面onLoad回调事件中创建插屏广告实例
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-ef79a9727360f28c'
+      })
+      interstitialAd.onLoad(() => {})
+      interstitialAd.onError((err) => {})
+      interstitialAd.onClose(() => {})
+    }
 
-// 在适合的场景显示插屏广告
-if (interstitialAd) {
-  interstitialAd.show().catch((err) => {
-    console.error(err)
-  })
-}
+    // 在适合的场景显示插屏广告
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
     this.setData({
       profession: app.userInfo.profession
     })
@@ -160,13 +160,6 @@ if (interstitialAd) {
     var lastwork = DATA[0];
     var lastGroundWork = this.data.unDutyDATA[0];
     var lastGroundCheckout = 0
-    if (lastGroundWork == null) {
-      lastGroundCheckout = 0
-    } else if (lastGroundWork != null) {
-      lastGroundCheckout = lastGroundWork.EndTime - 28800000;
-    }
-
-    console.log('地面签出', lastGroundCheckout)
     var lastcheckout = lastwork.EndTime - 28800000;
 
     var sishiba = 172800000;
@@ -177,6 +170,39 @@ if (interstitialAd) {
     var time = DATE.timeNow(date)
     var presentTime = DATE.timeToStamp(day, time)
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi - 28800000
+
+    
+    var thirtyDays = 2592000000
+   
+    var todaysStamp = DATE.timeToStamp(day, '24:00')
+    var latestThisryDays = todaysStamp - thirtyDays
+    var nightLandingTime = 0
+    console.log("走过路过不要错过",todaysStamp)
+    TTData.forEach(element => {
+     
+        if(( element.checkintime>=latestThisryDays ||element.EndTime>=latestThisryDays)&& element.nightFlight == true){
+          nightLandingTime += 1
+          
+        }
+        
+     
+    })
+    
+    this.setData({
+      nightLandingTimes:nightLandingTime
+    })
+  
+    if (lastGroundWork == null) {
+      lastGroundCheckout = 0
+    } else if (lastGroundWork != null) {
+      lastGroundCheckout = lastGroundWork.EndTime - 28800000;
+    }
+   
+
+    console.log('地面签出', lastGroundCheckout)
+   
+
+   
 
     if (lastGroundCheckout - lastcheckout <= 0) {
       let currentREST = DATE.formatHour(presentTime - lastcheckout - 28800000);
@@ -573,7 +599,6 @@ if (interstitialAd) {
 
 
 
-
     console.log('ff', this.data.predresttime)
 
   },
@@ -864,25 +889,25 @@ if (interstitialAd) {
     let fourtyEightHoursRest = this.data.foureighthourrest
     if (fourtyEightHoursRest) {
       var loop = alltime.length
-      for(var i=0; i < loop; i++){
+      for (var i = 0; i < loop; i++) {
 
-           //如果找到要被删除的数字所在的数组下标
-          if (alltime[i] <= checkTime){
-            alltime.splice(i,1)
-           
-         
-             //从i位置开始删除1个数字
-            
-            i = i - 1;    //改变循环变量
-            loop =alltime.length;   //改变循环次数
-            console.log('来了没？','我是i',i,checkTime,alltime,DATE.stamptoformatTime(checkTime))
+        //如果找到要被删除的数字所在的数组下标
+        if (alltime[i] <= checkTime) {
+          alltime.splice(i, 1)
+
+
+          //从i位置开始删除1个数字
+
+          i = i - 1; //改变循环变量
+          loop = alltime.length; //改变循环次数
+          console.log('来了没？', '我是i', i, checkTime, alltime, DATE.stamptoformatTime(checkTime))
         }
-       }
-    
-    
-      
+      }
+
+
+
     }
-    console.log('zhene',alltime)
+    console.log('zhene', alltime)
     var day = 24 * 3600 * 1000
     var firstday = DATE.dayNow(checkTime)
 
@@ -909,7 +934,7 @@ if (interstitialAd) {
 
     alltime.forEach(element => {
       var time1 = DATE.stamptoformatTime(element)
-      console.log(DATE.stamptoformatTime(firstdayStamp),time1)
+      console.log(DATE.stamptoformatTime(firstdayStamp), time1)
       if ((element) >= firstdayStamp && (element) < day1) {
         oneWork = 2
 
@@ -923,14 +948,14 @@ if (interstitialAd) {
         fourWork = 2
 
       } else if ((element) >= day4 && (element) < day5) {
-      
+
         fiveWork = 2
 
       } else if ((element) >= day5 && (element) < day6) {
 
         sixWork = 2
 
-      }else if ((element) >= day6 && (element) < day7) {
+      } else if ((element) >= day6 && (element) < day7) {
 
         sevenWork = 2
 
@@ -944,7 +969,7 @@ if (interstitialAd) {
       if (totalWorkDay > 4 && ((oneWork + twoWork + threeWork + fourWork + fiveWork) >= 9)) {
         sixWork = 3
       }
-      if (totalWorkDay > 4 && ((oneWork + twoWork + threeWork + fourWork + fiveWork+sixWork) >= 10)) {
+      if (totalWorkDay > 4 && ((oneWork + twoWork + threeWork + fourWork + fiveWork + sixWork) >= 10)) {
         sixWork = 3
       }
 
@@ -959,6 +984,11 @@ if (interstitialAd) {
       sixWork: sixWork,
       totalWorkDay: totalWorkDay
     })
+  },
+  nightLandingTimes: function (alltime, timenow) {
+    
+   
+    
   },
 
 

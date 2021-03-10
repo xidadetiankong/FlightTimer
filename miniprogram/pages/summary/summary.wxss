@@ -116,7 +116,7 @@ height: 100vh;
 
 .BTNgp{
   position: fixed;
-  bottom:90rpx;
+  bottom:50rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -142,7 +142,7 @@ opacity: 0.75;
   position: fixed;
   font-size: 20rpx;
   color: rgb(50, 62, 71);
-  bottom:40rpx;
+  bottom:30rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

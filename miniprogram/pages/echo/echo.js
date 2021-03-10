@@ -59,7 +59,9 @@ Page({
     pilotHidde: false,
     attendentHidde: true,
     security: true,
-    others: true
+    others: true,
+    //夜航判定
+    nightFlight:false
 
 
   },
@@ -108,25 +110,7 @@ Page({
       // 新版本下载失败
     })
 
-    // 在页面中定义插屏广告
-let interstitialAd = null
-
-// 在页面onLoad回调事件中创建插屏广告实例
-if (wx.createInterstitialAd) {
-  interstitialAd = wx.createInterstitialAd({
-    adUnitId: 'adunit-ef79a9727360f28c'
-  })
-  interstitialAd.onLoad(() => {})
-  interstitialAd.onError((err) => {})
-  interstitialAd.onClose(() => {})
-}
-
-// 在适合的场景显示插屏广告
-if (interstitialAd) {
-  interstitialAd.show().catch((err) => {
-    console.error(err)
-  })
-}
+    
   },
 
   onShow: function () {
@@ -215,77 +199,7 @@ if (interstitialAd) {
 
 
   },
-  uploadBTN: function () {
-    var that = this
-    var totalDutyTime = this.total_dutytime()
-    var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
-    var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
-    if (totalDutyTime > 0) {
-      wx.cloud.callFunction({ //用户鉴权确认是否已经注册
-        name: 'login',
-        data: {}
-      }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
-        // console.log(res);
-        db.collection('userprofile').where({
-          _openid: res.result.openid
-        }).get().then((res) => {
-          if (res.data.length) {
-
-            db.collection('timeData').add({
-              data: {
-                userid: this.data.userID,
-
-              }
-            }).then((res) => {
-              wx.showLoading({
-                title: '上传中',
-              })
-
-
-              db.collection('timeData').doc(res._id).update({
-
-
-                data: {
-                  remarks: this.data.remarks,
-                  checkintime: checkintime,
-                  EndTime: EndTime,
-                  totalDutyTime: this.data.totalDutyTime,
-                  overTime: this.data.overTime,
-                  actureFlightLegs: this.data.actureFlightLegs,
-                  actureLandings: this.data.actureLandings,
-                  flightTime: this.data.flightTimeForUp,
-                  isFlightDuty:this.data.isFlightDuty
-                }
-              }).then((res) => {
-                wx.hideLoading({})
-                wx.showToast({
-                  title: '成功添加记录',
-                })
-                this.refreshBTN()
-                this.setData({
-                  show_result: true,
-                })
-                console.log(res)
-              })
-            })
-
-          } else {
-
-            wx.switchTab({
-              url: '../profile/profile',
-            })
-          }
-
-        })
-      })
-    } else {
-      wx.showToast({
-        title: '请输入有效的截止时间',
-        icon: 'none'
-      })
-    }
-
-  },
+ 
   gotoredg: function () {
     wx.switchTab({
       url: '../profile/profile',
@@ -463,13 +377,18 @@ if (interstitialAd) {
     })
   },
 
-  //选择其它数据
+  //选择其它数据确认是飞行执勤期
   switchChange:function(e){
     this.setData({
       isFlightDuty:e.detail.value
     })
   },
-
+  //确认是否是夜航
+  switchChangeNight:function(e){
+    this.setData({
+      nightFlight:e.detail.value
+    })
+  },
   //unAugment chose segment num
 
   choseSegment: function (e) {
@@ -596,6 +515,78 @@ if (interstitialAd) {
     })
 
 
+
+  },
+  uploadBTN: function () {
+    var that = this
+    var totalDutyTime = this.total_dutytime()
+    var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
+    var EndTime = DATE.timeToStamp(this.data.EndDate, this.data.EndTime)
+    if (totalDutyTime > 0) {
+      wx.cloud.callFunction({ //用户鉴权确认是否已经注册
+        name: 'login',
+        data: {}
+      }).then((res) => { //使用DOC可以监听普通ID，但是唯一标识openId需要使用where
+        // console.log(res);
+        db.collection('userprofile').where({
+          _openid: res.result.openid
+        }).get().then((res) => {
+          if (res.data.length) {
+
+            db.collection('timeData').add({
+              data: {
+                userid: this.data.userID,
+
+              }
+            }).then((res) => {
+              wx.showLoading({
+                title: '上传中',
+              })
+
+
+              db.collection('timeData').doc(res._id).update({
+
+
+                data: {
+                  remarks: this.data.remarks,
+                  checkintime: checkintime,
+                  EndTime: EndTime,
+                  totalDutyTime: this.data.totalDutyTime,
+                  overTime: this.data.overTime,
+                  actureFlightLegs: this.data.actureFlightLegs,
+                  actureLandings: this.data.actureLandings,
+                  flightTime: this.data.flightTimeForUp,
+                  isFlightDuty:this.data.isFlightDuty,
+                  nightFlight:this.data.nightFlight
+                }
+              }).then((res) => {
+                wx.hideLoading({})
+                wx.showToast({
+                  title: '成功添加记录',
+                })
+                this.refreshBTN()
+                this.setData({
+                  show_result: true,
+                })
+                console.log(res)
+              })
+            })
+
+          } else {
+
+            wx.switchTab({
+              url: '../profile/profile',
+            })
+          }
+
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '请输入有效的截止时间',
+        icon: 'none'
+      })
+    }
 
   },
   cancleUpload: function () { //隐藏计算结果组件

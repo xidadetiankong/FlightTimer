@@ -327,6 +327,9 @@
 				<view class="TOInputElement" >
 						<view class="wenxintishi">飞行执勤期</view> <switch type="checkbox" checked="{{isFlightDuty}}" bindchange="switchChange"/>
 				</view>
+				<view class="TOInputElement" >
+						<view class="wenxintishi">夜航落地</view> <switch type="checkbox" checked="{{nightFlight}}" bindchange="switchChangeNight"/>
+				</view>
 				
 			</view>
 			<view class="TOInput">

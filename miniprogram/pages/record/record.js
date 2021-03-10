@@ -109,8 +109,9 @@ if (interstitialAd) {
          let checkintime=element.checkintime;
          let flightTime=DATE.formatHour(element.flightTime);
          let isFlightDuty=element.isFlightDuty;
+         let nightFlight=element.nightFlight;
         
-          let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime,isFlightDuty}
+          let a={checkintime,EndTime,checkintime1,overTime,totalDutyTime,actureFlightLegs,actureLandings,remarks,Eid,flightTime,isFlightDuty,nightFlight}
           this.data.DATA.push(a)
           
         })
