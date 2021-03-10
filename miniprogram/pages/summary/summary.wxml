@@ -125,7 +125,7 @@
 						<view>
 							<view wx:if="{{sevenDayworkOvr}}">没有超过60小时的限制！</view>
 							<view wx:else>超过了60小时的限制</view>
-							<text>最近30天您的夜航落地次数为 <text id="datas">{{nightLandingTimes}}</text>。</text>
+							<text>最近90天您的夜航落地次数为 <text id="datas">{{nightLandingTimes}}</text>。</text>
 						</view>
 
 					</block>

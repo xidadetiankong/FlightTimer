@@ -172,7 +172,7 @@ Page({
     var lastyaosisi = DATE.timeToStamp(day, time) - yaosisi - 28800000
 
     
-    var thirtyDays = 2592000000
+    var thirtyDays = 2592000000*3//应该是60天乘以三就对了
    
     var todaysStamp = DATE.timeToStamp(day, '24:00')
     var latestThisryDays = todaysStamp - thirtyDays
