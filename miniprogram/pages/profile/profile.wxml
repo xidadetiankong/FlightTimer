@@ -5,69 +5,24 @@
 
 	<view class="myAcount">
 
-		<image class="avater" src="{{avatarUrl}}" mode="aspectFill"  ></image>
-		<view class="myAcountChild" wx:if="{{hasCount}}">
-			<view><text >{{nickName}}</text></view>
-			<view>
-				<open-data class="sex" type='userGender' lang="zh_CN"></open-data>
-				<open-data class="city" type='userCity' lang="zh_CN"></open-data>
-			</view>
-			<view id="jifendengji"><text >积分：{{links}}</text><text id="level" >等级：{{level}}</text></view>
+		<image class="avater" src="../../img/toolsS.png" mode="aspectFill"  ></image>
+	
 
-			
-
-
-
-		</view>
-
-		<view class="regditview" hidden="{{hasCount}}">
-		<view class="regditview1" >
-		
-		<view>注册开启执勤期记录和超时计算功能！</view>
-			<view class="rgdBTNN">
-				<button id="qqq" size="mini" bindtap="cancleRgd">取消</button>
-				<button id="qqq" size="mini" disabled="{{disabled}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确认</button>
-
-			</view>
-		</view>
-			
-
-
-		</view>
+	
 
 
 
 
 	</view>
-	<view class="listParent" hidden="{{!hasCount}}">
+	<view class="listParent" >
 
 
 
-		<navigator url="../editUserInfo/editUserInfo" class="list" open-type="navigate" hover-class="tapList">
-			<view class="title">
-				<image class="titleimg" src="../../img/editProf.png" mode="aspectFit"></image>
-				<view class="titleWord">个人信息</view>
-			</view>
-			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</navigator>
+
 
 
 		
-		<navigator url="../summary/summary" class="list" open-type="navigate" hover-class="tapList">
-			<view class="title">
-				<image class="titleimg" src="../../img/total.png" mode="aspectFit"></image>
-				<view class="titleWord">值勤期汇总</view>
-			</view>
-			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</navigator>
 
-		<navigator url="../record/record" class="list" open-type="navigate" hover-class="tapList">
-			<view class="title">
-				<image class="titleimg" src="../../img/search.png" mode="aspectFit"></image>
-				<view class="titleWord">值勤期记录</view>
-			</view>
-			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</navigator>
 
 
 		<view class="list" hover-class="tapList">
@@ -77,26 +32,17 @@
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</view>
 
-		<view class="list" hover-class="tapList">
-			<view class="title">
-				<image class="titleimg" src="../../img/service.png"></image> <button class="titleBTN" open-type="contact" bindcontact="handleContact">调戏下客服</button>
-			</view>
-			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
-		</view>
+	
 
 
-		<view class="list1" hover-class="tapList" bindtap="showDemo">
-
-			<view class="title1">查看使用教程</view>
-			
-		</view>
+	
 		
 		
 		
 		
 
 
-		<view class="versionInfo">Flight Timer Version 1.3.9</view>
+		<view class="versionInfo">Flight Timer Version 1.4.1</view>
 
 	</view>
 
@@ -104,9 +50,4 @@
 
 
 
-</view>
-<view class="acover" hidden="{{hasProfession}}">
-	<view class="abutton" hover-class="tapAbutton" bindtap="tapAbutton">
-		<view> 选择职业</view>
-	</view>
 </view>

@@ -12,11 +12,10 @@
 	<view class="inputArea">
 		<view class="intiArgs">
 		<block>
-		<view wx:if="{{profession===''?true:false}}" class="head">值勤期查询记录器R6</view>
-		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员值勤期查询记录器R6</view>
-		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员值勤期查询记录器R6</view>
-		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员值勤期查询记录器R6</view>
-		<view wx:elif="{{profession==='others'?true:false}}" class="head">工作时间记录器</view>
+		<view wx:if="{{profession===''?true:false}}" class="head">值勤期查询</view>
+		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员值勤期查询</view>
+		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员值勤期查询</view>
+		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员值勤期查询</view>
 		
 		</block>
 			
@@ -209,7 +208,6 @@
 		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
 		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >确认</view>
 		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
-		<view  wx:elif="{{profession==='others'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
 
 		
 		
@@ -312,38 +310,7 @@
 				<view>{{totalDutyTimeForShow}}</view>
 			</view>
 
-			<view class="TOInput" hidden="{{!others}}">
-				<view class="TOInputElement" >
-					<view class="wenxintishi">输入飞行段数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureFlightLegs}}" bindinput="inputFltLegs"></input>
-				</view>
-				<view class="TOInputElement" hidden="{{pilotHidde}}">
-					<view class="wenxintishi">操纵落地数：</view><input class="ToInputInput" type="number" maxlength="2" value="{{actureLandings}}" bindinput="inputLandings"></input>
-				</view>
-			</view>
-			<view class="TOInput" hidden="{{!others}}">
-				<view class="TOInputElement" >
-					<view class="wenxintishi">输入飞行时间：</view><picker id="flightTimeIput" mode="time" value="{{flightTime}}"  bindchange="selectFlightTime"> {{flightTime}}</picker>
-				</view>
-				<view class="TOInputElement" >
-						<view class="wenxintishi">飞行执勤期</view> <switch type="checkbox" checked="{{isFlightDuty}}" bindchange="switchChange"/>
-				</view>
-				<view wx:if="{{profession==='pilot'?true:false}}"  class="TOInputElement" >
-						<view class="wenxintishi">夜航落地</view> <switch type="checkbox" checked="{{nightFlight}}" bindchange="switchChangeNight"/>
-				</view>
-				
-			</view>
-			<view class="TOInput">
-				<view class="TOInputElement">
-					<view>备注：</view><input class="ToInputInput1" type="text" maxlength="50" placeholder="最多输入50个字" value="{{remarks}}" bindinput="remarks"></input>
-				</view>
-
-			</view>
-
-			<block>
-			<text class="wenxintishi" wx:if="{{hasAccount}}">温馨提示！请确认工作已经结束后再上传。</text>
-			<text class="wenxintishi" wx:if="{{hasAccount}}">记录非飞行执勤期，取消勾选‘飞行执勤期’。</text>
-			<text class="wenxintishi" wx:else>温馨提示！点击记录去注册可以体验完整功能。</text>
-			</block>
+		
 
 			
 			<text class="wenxintishi" wx:if="{{profession===''?true:false}}"  >结果仅供参考请以实际规定为准!</text>
@@ -354,27 +321,13 @@
 
 		</view>
 		<view class="confirm_button">
-		<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>
-		<block>
-		<view hover-class="pressBTN1" class="button1" hidden="{{hasAccount}}" bindtap="gotoredg">记录</view>
-			<block hidden="{{!hasAccount}}"> 
-			<view  wx:if="{{profession==='pilot'?true:false}}" hidden="{{!hasAccount}}" hover-class="pressBTN1" class="button1"  bindtap="uploadBTN">记录</view>
-			<view  wx:elif="{{profession==='attendant'?true:false}}" hidden="{{!hasAccount}}"  hover-class="pressBTN1" class="button1"  bindtap="attUploadBTN">记录</view>
-			<view  wx:elif="{{profession==='security'?true:false}}" hidden="{{!hasAccount}}" hover-class="pressBTN1" class="button1"  bindtap="seUploadBTN">记录</view>
-			<view  wx:elif="{{profession==='others'?true:false}}" hidden="{{!hasAccount}}" hover-class="pressBTN1" class="button1"  bindtap="otherUploadBTN">记录</view>
-			</block>
-			
-		
-		</block>
-			
-			
+		<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>		
 		</view>
 	</resulkt>
 <view class="profess" hidden="{{show_profess}}">
 <view hover-class="pressBTN1" class="button2" bindtap="pfToPilot">飞行员</view>
 <view hover-class="pressBTN1" class="button2" bindtap="pfToAttdent">乘务员</view>
 <view hover-class="pressBTN1" class="button2" bindtap="pfToSecurity">安全员</view>
-<view hover-class="pressBTN1" class="button2" bindtap="pfToOthers">其他</view>
 
 
 </view>

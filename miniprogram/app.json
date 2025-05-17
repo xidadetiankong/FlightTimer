@@ -1,25 +1,21 @@
 {
-  "pages": [ 
-
+  "pages": [
     "pages/echo/echo",
-    "pages/summary/summary",
-    "pages/record/record",
     "pages/profile/profile",
-    "pages/editUserInfo/editUserInfo",
     "pages/tools/tools",
     "pages/calclator/calculator",
-    "pages/professionSelect/professionSelect",
-    "pages/record/editKids/editKids",
     "pages/timeCalc/timeCalc",
-    "pages/profile/demoPage/demoPage"
-   
+    "pages/nineHundred/nineHundred"
   ],
   "window": {
     "backgroundColor": "#2A465C",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#2A465C",
-    "navigationBarTitleText": "FlightTimer",
+    "navigationBarTitleText": "巴卡飞行工具箱",
     "navigationBarTextStyle": "white"
+  },
+  "useExtendedLib": {
+    "weui": true
   },
   "tabBar": {
     "color": "#6D869A",
