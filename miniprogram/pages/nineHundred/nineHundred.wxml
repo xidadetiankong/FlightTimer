@@ -5,7 +5,7 @@
     <view class="progress-track">
       <view 
         class="progress-indicator" 
-        style="width: {{(currentIndex + 1)/sentences.length * 100}}% "
+        style="width: {{(currentIndex + 1)/sentences.length * 100}}%"
       ></view>
     </view>
     <text class="progress-text">进度：{{currentIndex + 1}}/{{sentences.length}}</text>

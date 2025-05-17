@@ -6,6 +6,7 @@ Page({
     sentences: [], // 原始数据容器
     collected: new Set(), // 收藏状态集合（使用Set提升查询性能）
     currentSentence: {} // 当前显示的句子对象
+    
   },
 
   // 生命周期函数--监听页面加载
@@ -14,7 +15,10 @@ Page({
     this.initData()
     this.loadCollections()
   },
-
+// 页面显示时
+onShow() {
+  this.checkIsCollected() // 新增
+},
   // 数据初始化方法
   initData() {
     try {
@@ -54,8 +58,8 @@ Page({
 
   // 翻页控制器
 handlePageTurn(type) {
-
-  console.log(type)
+  console.log(this.data.isCollected)
+  
 
     const { currentIndex, sentences } = this.data
     let newIndex = currentIndex
@@ -65,13 +69,13 @@ handlePageTurn(type) {
 
     if (type.currentTarget.dataset.type === "next") {
         newIndex = Math.min(currentIndex + 1, sentences.length - 1)
-        console.log("测试newIndex是否变化"+newIndex)
     } else {
         newIndex = Math.max(currentIndex - 1, 0)
     }
 
     // 增加安全判断
     if (sentences[newIndex]) {
+       
         this.setData({
             currentIndex: newIndex,
             currentSentence: this.processSentence(sentences[newIndex])
@@ -82,9 +86,21 @@ handlePageTurn(type) {
             icon: 'none'
         })
     }
+    this.checkIsCollected()
     console.log('安全索引:', newIndex, '当前数据:', this.data.currentIndex)
 },
-
+//检测句子是否被收藏并更新收藏状态
+checkIsCollected(){
+  // 同步最新存储数据（关键修正点）
+  const storageCollected = new Set(wx.getStorageSync('collected') || [])
+  // 获取当前句子的正确方式（防止数组越界）
+  const { sentences, currentIndex } = this.data
+  const currentId = sentences[currentIndex]?.id || ''
+  this.setData({
+    isCollected: storageCollected.has(currentId),
+    collected: storageCollected // 同步组件数据与存储
+  })
+},
 
 
   // 收藏/取消收藏
@@ -120,23 +136,4 @@ handlePageTurn(type) {
       icon: 'success'
     })
   },
-  // //添加下一句切换方法（需在Page中补充）
-  // nextSentence() {
-  //   const newIndex = this.data.currentIndex + 1
-  //   if (newIndex < this.data.sentences.length) {
-  //     this.setData({
-  //       currentIndex: newIndex,
-  //       // 同步更新收藏状态
-  //       isCollected: this.data.collected.has(
-  //         this.data.sentences[newIndex].id
-  //       )
-  //     })
-  //     // 触发界面更新
-  //     this.updateProgress()
-  //   } else {
-  //     wx.showToast({ title: '已经是最后一句', icon: 'none' })
-  //   }
-  // }
-
-
 })
