@@ -21,6 +21,13 @@ toolsIcon:[
   id:1
   },{
     name:'',
+  title:'英语900句',
+  
+  url:'../../img/900ENG.png',
+  pageUrl:'../../pages/nineHundred/nineHundred',
+  id:2
+  },{
+    name:'',
   title:'敬请期待',
   
   url:'../../img/willcom.png',

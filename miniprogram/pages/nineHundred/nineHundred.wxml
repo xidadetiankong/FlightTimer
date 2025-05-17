@@ -1,2 +1,74 @@
-<!--pages/nineHundred/nineHundred.wxml-->
-<text>pages/nineHundred/nineHundred.wxml</text>
+<!-- pages/nineHundred/nineHundred.wxml -->
+<view class="container">
+  <!-- 进度条模块 -->
+  <view class="progress-bar">
+    <view class="progress-track">
+      <view 
+        class="progress-indicator" 
+        style="width: {{(currentIndex + 1)/sentences.length * 100}}% "
+      ></view>
+    </view>
+    <text class="progress-text">进度：{{currentIndex + 1}}/{{sentences.length}}</text>
+  </view>
+
+  <!-- 学习卡片主体 -->
+  <view class="study-card">
+    <!-- 卡片头部信息 -->
+    <view class="card-header">
+      <view class="meta-item">
+        <text class="meta-label">序号</text>
+        <text class="meta-value">{{currentSentence.id}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-label">等级</text>
+        <text class="meta-value level-{{currentSentence.level}}">{{currentSentence.level}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-label">词数</text>
+        <text class="meta-value">{{currentSentence.wordCount}}</text>
+      </view>
+    </view>
+
+    <!-- 学习内容区域 -->
+    <view class="card-body">
+      <view class="sentence-en">{{currentSentence.sentence}}</view>
+      
+      <!-- 翻译分割线 -->
+      <view class="divider">
+        <view class="divider-line"></view>
+        <text class="divider-text">译文</text>
+        <view class="divider-line"></view>
+      </view>
+      
+      <view class="sentence-cn">{{currentSentence.translation}}</view>
+    </view>
+  </view>
+
+  <!-- 操作按钮组 -->
+  <view class="action-bar">
+    <button 
+      class="btn prev" 
+      bindtap="handlePageTurn" 
+      data-type="prev"
+      disabled="{{currentIndex === 0}}"
+    >〈 上一句</button>
+    
+        <view 
+      class="collect btn {{isCollected ? 'active' : ''}}"
+      bindtap="toggleCollect"
+    >{{isCollected ? '★ 已收藏' : '☆ 收藏'}}</view>
+
+    <!-- <button 
+      class="btn collect" 
+      bindtap="toggleCollect"
+      style="background:{{collected.has(sentences[currentIndex].id) ? '#FFD700' : '#F5F5F5'}}"
+    >{{collected.has(sentences[currentIndex].id) ? '★ 已收藏' : '☆ 收藏'}}</button> -->
+    
+    <button 
+      class="btn next" 
+      bindtap="handlePageTurn" 
+      data-type="next"
+      disabled="{{currentIndex === sentences.length - 1}}"
+    >下一句 〉</button>
+  </view>
+</view>
