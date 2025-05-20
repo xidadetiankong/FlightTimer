@@ -22,7 +22,7 @@
 }
 .textR{
  
-
+margin-right: 20rpx;
 text-overflow:ellipsis;
 
 word-wrap:break-word
