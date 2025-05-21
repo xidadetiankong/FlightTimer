@@ -1,6 +1,10 @@
 // miniprogram/pages/timeCalc/timeCalc.js
 const DATE = require('../../utils/util.js')
 const date=new Date()
+
+// 若在开发者工具中无法预览广告，请切换开发者工具中的基础库版本
+// 在页面中定义插屏广告
+let interstitialAd = null
 Page({
 
   /**
@@ -60,8 +64,8 @@ Page({
     inputValue: [],
     inputDisplay: '', // 用于显示输入内容的字符串
     resultValue: [],
-    scrolltop:0
-
+    scrolltop: 0,
+    lastAdShowTime: 0 // 上次展示广告的时间戳，用于控制广告展示频率
   },
 
   /**
@@ -88,7 +92,32 @@ Page({
     }
   },
   onLoad: function (options) {
+    // 初始化插屏广告
+    console.log('开始初始化插屏广告')
+    if (wx.createInterstitialAd) {
+      try {
+        interstitialAd = wx.createInterstitialAd({
+          adUnitId: 'adunit-ef79a9727360f28c'
+        })
+        console.log('插屏广告实例创建成功')
 
+        interstitialAd.onLoad(() => {
+          console.log('插屏广告加载成功')
+        })
+
+        interstitialAd.onError((err) => {
+          console.error('插屏广告加载失败', err)
+        })
+
+        interstitialAd.onClose(() => {
+          console.log('插屏广告关闭')
+        })
+      } catch (err) {
+        console.error('创建插屏广告实例失败:', err)
+      }
+    } else {
+      console.error('当前环境不支持插屏广告')
+    }
   },
 
   /**
@@ -102,7 +131,52 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 如果广告实例不存在，尝试重新初始化
+    if (!interstitialAd && wx.createInterstitialAd) {
+      try {
+        console.log('onShow中尝试初始化广告')
+        interstitialAd = wx.createInterstitialAd({
+          adUnitId: 'adunit-ef79a9727360f28c'
+        })
 
+        interstitialAd.onLoad(() => {
+          console.log('onShow中广告加载成功')
+        })
+
+        interstitialAd.onError((err) => {
+          console.error('onShow中广告加载失败', err)
+        })
+      } catch (err) {
+        console.error('onShow中创建广告实例失败:', err)
+      }
+    }
+  },
+
+  // 显示插屏广告
+  showInterstitialAd() {
+    // 检查距离上次展示广告是否已经过了足够时间（至少30秒）
+    const now = Date.now()
+    if (now - this.data.lastAdShowTime < 30000) {
+      console.log('广告展示间隔时间不足:', (now - this.data.lastAdShowTime) / 1000, '秒')
+      return
+    }
+
+    console.log('尝试展示广告')
+
+    // 显示广告
+    if (interstitialAd) {
+      interstitialAd.show().then(() => {
+        console.log('广告展示成功')
+        // 更新上次展示广告的时间
+        this.setData({
+          lastAdShowTime: now
+        })
+      }).catch((err) => {
+        console.error('插屏广告显示失败', err)
+      })
+    } else {
+      console.error('广告实例不存在')
+    }
   },
 
   /**
@@ -250,6 +324,9 @@ Page({
       resultValue:resultValue,
       scrolltopT:resultValue.length+10
     })
+
+    // 计算结果后展示广告
+    this.showInterstitialAd()
 
   },
 

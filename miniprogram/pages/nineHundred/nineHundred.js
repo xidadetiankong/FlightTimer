@@ -1,4 +1,7 @@
 // nineHundred.js
+// 若在开发者工具中无法预览广告，请切换开发者工具中的基础库版本
+// 在页面中定义插屏广告
+let interstitialAd = null
 Page({
   data: {
     currentIndex: 0, // 当前显示句子的索引
@@ -9,7 +12,9 @@ Page({
     jumpToIndex: '0', // 跳转输入框的值，默认为0
     showOnlyFavorites: false, // 是否只显示收藏的句子
     filteredSentences: [], // 过滤后的句子列表（用于仅看收藏功能）
-    originalIndex: 0 // 在原始数组中的索引（用于仅看收藏模式）
+    originalIndex: 0, // 在原始数组中的索引（用于仅看收藏模式）
+    clickCount: 0, // 屏幕点击计数器，用于控制广告展示频率
+    lastAdShowTime: 0 // 上次展示广告的时间戳，用于控制广告展示频率
   },
 
   // 生命周期函数--监听页面加载
@@ -18,12 +23,120 @@ Page({
     this.initData()
     this.loadCollections()
     this.loadLastPosition() // 加载上次的位置
+
+    // 初始化视频插屏广告
+    console.log('开始初始化插屏广告')
+    if (wx.createInterstitialAd) {
+      try {
+        interstitialAd = wx.createInterstitialAd({
+          adUnitId: 'adunit-6a0ba2f58015b1d0'
+        })
+        console.log('插屏广告实例创建成功')
+
+        interstitialAd.onLoad(() => {
+          console.log('插屏广告加载成功')
+        })
+
+        interstitialAd.onError((err) => {
+          console.error('插屏广告加载失败', err)
+        })
+
+        interstitialAd.onClose(() => {
+          console.log('插屏广告关闭')
+        })
+      } catch (err) {
+        console.error('创建插屏广告实例失败:', err)
+      }
+    } else {
+      console.error('当前环境不支持插屏广告')
+    }
   },
 
   // 页面显示时
   onShow() {
     this.checkIsCollected() // 新增
+
+    // 如果广告实例不存在，尝试重新初始化
+    if (!interstitialAd && wx.createInterstitialAd) {
+      try {
+        console.log('onShow中尝试初始化广告')
+        interstitialAd = wx.createInterstitialAd({
+          adUnitId: 'adunit-6a0ba2f58015b1d0'
+        })
+
+        interstitialAd.onLoad(() => {
+          console.log('onShow中广告加载成功')
+        })
+
+        interstitialAd.onError((err) => {
+          console.error('onShow中广告加载失败', err)
+        })
+      } catch (err) {
+        console.error('onShow中创建广告实例失败:', err)
+      }
+    }
   },
+
+  // 显示视频插屏广告
+  showInterstitialAd() {
+    // 检查是否需要展示广告 - 每20次点击展示一次
+    if (this.data.clickCount % 20 !== 0 || this.data.clickCount === 0) {
+      console.log('点击次数不满足展示条件:', this.data.clickCount)
+      return
+    }
+
+    // 检查距离上次展示广告是否已经过了足够时间（至少30秒）
+    const now = Date.now()
+    if (now - this.data.lastAdShowTime < 30000) {
+      console.log('广告展示间隔时间不足:', (now - this.data.lastAdShowTime) / 1000, '秒')
+      return
+    }
+
+    console.log('尝试展示广告，点击次数:', this.data.clickCount)
+
+    // 显示广告
+    if (interstitialAd) {
+      interstitialAd.show().then(() => {
+        console.log('广告展示成功')
+        // 更新上次展示广告的时间
+        this.setData({
+          lastAdShowTime: now
+        })
+      }).catch((err) => {
+        console.error('插屏广告显示失败', err)
+      })
+    } else {
+      console.error('广告实例不存在')
+    }
+  },
+
+  // 增加按钮点击计数并检查是否需要显示广告
+  increaseClickCountAndCheckAd() {
+    // 增加点击计数
+    const newClickCount = this.data.clickCount + 1
+
+    this.setData({
+      clickCount: newClickCount
+    })
+
+    console.log('按钮点击计数:', newClickCount)
+
+    // 检查是否需要显示广告
+    this.showInterstitialAd()
+
+    // 在控制台输出当前点击计数和上次广告展示时间
+    console.log('当前点击计数:', newClickCount,
+                '上次广告时间:', new Date(this.data.lastAdShowTime).toLocaleTimeString(),
+                '时间差:', Date.now() - this.data.lastAdShowTime)
+  },
+
+  // 阻止事件冒泡
+  stopPropagation() {
+    // 空函数，仅用于阻止事件冒泡
+    return false
+  },
+
+
   // 数据初始化方法
   initData() {
     try {
@@ -125,6 +238,9 @@ Page({
 
       // 保存当前位置
       this.saveCurrentPosition()
+
+      // 增加点击计数并检查是否需要显示广告
+      this.increaseClickCountAndCheckAd()
     } else {
       wx.showToast({
         title: '已到达边界',
