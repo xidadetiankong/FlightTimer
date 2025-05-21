@@ -12,7 +12,7 @@
 	<view class="inputArea">
 		<view class="intiArgs">
 		<block>
-		<view wx:if="{{profession===''?true:false}}" class="head">值勤期查询</view>
+		<view wx:if="{{profession===''?true:false}}" class="head">飞行员值勤期查询</view>
 		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员值勤期查询</view>
 		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员值勤期查询</view>
 		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员值勤期查询</view>
