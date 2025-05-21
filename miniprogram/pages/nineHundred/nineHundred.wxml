@@ -87,10 +87,7 @@
       >下一句 〉</button>
     </view>
 
-    <!-- 底部进度显示 -->
-    <view class="bottom-progress">
-      进度：{{currentIndex + 1}}/{{showOnlyFavorites ? filteredSentences.length : sentences.length}}
-    </view>
+  
   </view>
 
 
