@@ -58,6 +58,7 @@ Page({
       value: '='
     }],
     inputValue: [],
+    inputDisplay: '', // 用于显示输入内容的字符串
     resultValue: [],
     scrolltop:0
 
@@ -123,31 +124,47 @@ Page({
         title: '请先输入有效数字',
       })
     } else if (keyValue === '=') {
-      
+
       that.showResult()
-      
-    return  
+
+    return
 
     } else if (keyValue === 'back') {
       let a=this.data.inputValue
-      
+
       a.pop()
+      // 更新inputDisplay
+      let displayStr = '';
+      a.forEach(item => {
+        displayStr += item;
+      });
+
       this.setData({
-        inputValue:a
+        inputValue: a,
+        inputDisplay: displayStr
       })
       return
 
     } else if (keyValue === 'clear') {
       this.setData({
-        inputValue: []
+        inputValue: [],
+        inputDisplay: ''
       })
       return
 
     } else {
       inputValue.push(keyValue)
-       this.setData({
-        scrolltop:inputValue.length+10,
-        inputValue: inputValue
+
+      // 更新inputDisplay
+      let displayStr = '';
+      inputValue.forEach(item => {
+        displayStr += item;
+      });
+
+      this.setData({
+        scrolltop: inputValue.length+10,
+        inputValue: inputValue,
+        inputDisplay: displayStr
       })
     }
 
@@ -161,39 +178,39 @@ Page({
    var resultPool1=[]//这个数组是用来显示算式的
     var fuctionTemp=''//它是临时存储输入字符的
     var finalResult=0
-    
-    
+
+
     for(let a =0;a<inputValue.length;a++){
-      
-      
+
+
       if(inputValue[a]===':'){//如果是冒号我们就加冒号
-        
+
         fuctionTemp=fuctionTemp+':'
-        
+
       }else if(isNaN(inputValue[a])==true){//如果是运算符我们就把前面的数组转化成时间戳存到数组中并加个运算符
         let fuctionTempToStamp=this.timeTransToStamp(fuctionTemp)
         resultPool1.push(fuctionTemp)
         resultPool.push(fuctionTempToStamp)
-        fuctionTemp='' 
+        fuctionTemp=''
         resultPool.push(inputValue[a])
         resultPool1.push(inputValue[a])
       }else if(isNaN(inputValue[a])==false){//如果是数字就继续加数字知道出现运算符
-        
+
         fuctionTemp=fuctionTemp+inputValue[a]
       }
 
     }
     let fuctionTempToStamp=this.timeTransToStamp(fuctionTemp)//循环结束后将最后组合起来的数字转换成时间戳加入数组
-    resultPool1.push(fuctionTemp) 
+    resultPool1.push(fuctionTemp)
     resultPool.push(fuctionTempToStamp)
-    
-    fuctionTemp='' 
+
+    fuctionTemp=''
     var finalResultStamp=0
     console.log(resultPool)
     for(let a=0;a<resultPool.length;a=a+2){
-      
-        
-        
+
+
+
       if(resultPool[a+1]==='+'&&a!=0){
         finalResultStamp=finalResultStamp+resultPool[a+2]
       }else if(resultPool[a+1]==='-'&&a!=0){
@@ -206,9 +223,9 @@ Page({
 
           finalResultStamp=resultPool[0]
         }
-        
+
     }
-   
+
     finalResult=DATE.formatHour(finalResultStamp)
     var zuhe=''
     resultPool1.forEach(element => {
@@ -216,7 +233,7 @@ Page({
     });
     let functionIp=zuhe+'='+finalResult
     var resultValue=this.data.resultValue
-    
+
     console.log(finalResultStamp,finalResult,functionIp)
     if(isNaN(finalResultStamp)){
       wx.showToast({
@@ -229,6 +246,7 @@ Page({
 
     this.setData({
       inputValue:[],
+      inputDisplay: '',
       resultValue:resultValue,
       scrolltopT:resultValue.length+10
     })

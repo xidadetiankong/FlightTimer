@@ -4,53 +4,95 @@
   margin: 0;
   height: 100vh;
   width: 100vw;
+  background-color: #f5f5f5; /* 使用与结果区域相同的背景色 */
 }
 .resultArea{
   position: fixed;
   width: 100%;
-  bottom: 806rpx;
+  top: 0; /* 将结果区域固定在顶部 */
+  bottom: 880rpx; /* 设置底部边界，考虑到输入区域可能有两行 */
+  padding-top: 45rpx; /* 为导航栏留出空间，缩小到原来的一半 */
   font-size: 45rpx;
   font-weight: 800;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: flex-start; /* 左对齐 */
+  background-color: #f5f5f5; /* 恢复原来的背景色 */
+  z-index: 10;
 }
 .resultArea view{
-  text-align: end;
+  text-align: left; /* 修改为左对齐 */
+  width: 100%;
+}
+.resultForShow {
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 10rpx;
+  width: 100%;
 }
 .textR{
- 
-margin-right: 20rpx;
-text-overflow:ellipsis;
-
-word-wrap:break-word
+  margin-left: 0; /* 移除左侧边距 */
+  padding-left: 20rpx; /* 使用内边距代替外边距 */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  width: 100%;
+  text-align: left; /* 左对齐显示结果 */
+  padding-top: 10rpx; /* 增加上下间距 */
+  padding-bottom: 10rpx;
+  box-sizing: border-box; /* 确保内边距不会增加元素宽度 */
 }
 .inputArea {
+  margin-left: 0; /* 移除左侧边距 */
+  padding-left: 20rpx; /* 使用内边距代替外边距 */
   position: fixed;
-  bottom: 752rpx;
-  height: 50rpx;
+  bottom: 750rpx; /* 紧接在键盘区域上方 */
+  min-height: 70rpx; /* 最小高度 */
+  max-height: 130rpx; /* 最大高度，允许两行 */
   width: 100%;
   font-size: 40rpx;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-start; /* 顶部对齐 */
+  background-color: #e6f7ff; /* 添加背景色 */
+  padding-top: 5rpx; /* 增加上下内边距 */
+  padding-bottom: 5rpx;
+  box-sizing: border-box; /* 确保内边距不会增加元素宽度 */
+  z-index: 10;
+  border-top: 1rpx solid #d9d9d9; /* 添加顶部边框，增强视觉分隔 */
+  border-bottom: 1rpx solid #d9d9d9; /* 添加底部边框 */
+  overflow: auto; /* 允许滚动 */
+}
+
+.inputArea scroll-view {
+  width: 100%;
+  height: 100%;
+}
+
+.inputArea text {
+  font-size: 40rpx;
+  line-height: 60rpx;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap; /* 允许文本换行 */
+  padding-right: 20rpx; /* 右侧内边距 */
 }
 
 .keyArea {
   position: fixed;
-  bottom: 0;
+  bottom: 0; /* 吸附在底部 */
   padding: 0;
   margin: 0;
   height: 750rpx;
   width: 750rpx;
-
   z-index: 100;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
+  border-top: 1rpx solid #d9d9d9; /* 添加顶部边框 */
 }
 
 .key {
