@@ -152,6 +152,16 @@
   width: 100%;
   margin-top: 10rpx;
 }
+
+/* 底部进度显示 */
+.bottom-progress {
+  text-align: center;
+  font-size: 26rpx;
+  color: #495057;
+  margin-top: 16rpx;
+  margin-bottom: 8rpx;
+  font-weight: 500;
+}
 .btn {
  width: fit-content;
   font-size:36rpx;

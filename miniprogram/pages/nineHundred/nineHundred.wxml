@@ -51,12 +51,12 @@
       <view class="progress-track" bindtap="handleProgressBarTap" bindtouchmove="handleProgressBarDrag" bindtouchstart="handleProgressBarDragStart" bindtouchend="handleProgressBarDragEnd">
         <view
           class="progress-indicator"
-          style="width: {{(currentIndex + 1)/sentences.length * 100}}%"
+          style="width: {{(currentIndex + 1)/(showOnlyFavorites ? filteredSentences.length : sentences.length) * 100}}%"
         >
           <view class="progress-handle"></view>
         </view>
       </view>
-      <text class="progress-text">进度：{{currentIndex + 1}}/{{sentences.length}}</text>
+      <text class="progress-text">进度：{{currentIndex + 1}}/{{showOnlyFavorites ? filteredSentences.length : sentences.length}}</text>
     </view>
 
     <!-- 按钮行 -->
@@ -83,8 +83,13 @@
         class="btn next"
         bindtap="handlePageTurn"
         data-type="next"
-        disabled="{{currentIndex === sentences.length - 1}}"
+        disabled="{{currentIndex === (showOnlyFavorites ? filteredSentences.length - 1 : sentences.length - 1)}}"
       >下一句 〉</button>
+    </view>
+
+    <!-- 底部进度显示 -->
+    <view class="bottom-progress">
+      进度：{{currentIndex + 1}}/{{showOnlyFavorites ? filteredSentences.length : sentences.length}}
     </view>
   </view>
 
