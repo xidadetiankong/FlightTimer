@@ -7,15 +7,18 @@
   background: #f8f9fa;
 }
 
-/* 进度条模块 */
-.progress-bar {
-  margin-bottom: 40rpx;
+/* 进度条模块 - 底部内部 */
+.progress-bar-inside {
+  width: 100%;
+  margin: 0 0 20rpx 0;
+  padding: 0;
 }
 .progress-track {
-  height: 12rpx;
+  height: 10rpx;
   background: #e9ecef;
-  border-radius: 8rpx;
+  border-radius: 5rpx;
   overflow: hidden;
+  margin: 0 10rpx;
 }
 .progress-indicator {
   height: 100%;
@@ -28,6 +31,7 @@
   font-size: 24rpx;
   color: #868e96;
   margin-top: 10rpx;
+  margin-bottom: 6rpx;
 }
 
 /* 学习卡片 */
@@ -109,15 +113,25 @@
 /* 操作按钮组 */
 .action-bar {
   display: flex;
-justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
   position: fixed; /* 固定定位 */
-  bottom: 40rpx;
+  bottom: 20rpx;
   left: 20rpx;
   right: 20rpx;
   background: #fff;
   padding: 20rpx;
   border-radius: 12rpx;
   box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.08); /* 顶部投影 */
+  z-index: 100; /* 确保按钮在进度条上方 */
+}
+
+/* 按钮行 */
+.button-row {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 10rpx;
 }
 .btn {
  width: fit-content;
@@ -162,4 +176,76 @@ justify-content: space-evenly;
 /* 禁用按钮取消点击效果 */
 .prev[disabled]:active, .next[disabled]:active {
   transform: none;
+}
+
+/* 新增功能按钮组样式 - 顶部 */
+.function-bar-top {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 10rpx;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.function-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 16rpx 20rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 4rpx;
+  margin: 0 0 10rpx 0;
+}
+
+.jump-input {
+  width: 100rpx;
+  height: 70rpx;
+  background: #ffffff;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 4rpx;
+  padding: 0 10rpx;
+  font-size: 32rpx;
+  text-align: center;
+  margin: 0 10rpx 0 0;
+  flex: 1;
+}
+
+.func-btn {
+  font-size: 28rpx;
+  padding: 0 !important;
+  font-weight: normal !important;
+  border-radius: 4rpx !important;
+  transition: all 0.3s;
+  margin: 0 10rpx;
+  background: #e9ecef !important;
+  color: #495057 !important;
+  flex: 2;
+  height: 70rpx;
+  line-height: 70rpx;
+  border: none !important;
+}
+
+.jump-btn {
+  background: #3498db !important;
+  color: white !important;
+  box-shadow: 0 2rpx 8rpx rgba(52,152,219,0.2);
+}
+
+.favorites-btn {
+  background: #f5f5f5 !important;
+  color: #333333 !important;
+  border: 1rpx solid #e0e0e0 !important;
+}
+
+.favorites-btn.active {
+  background: #f1c40f !important;
+  color: #2c3e50 !important;
+  box-shadow: 0 2rpx 8rpx rgba(241,196,15,0.2);
+}
+
+.func-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.2) !important;
 }
