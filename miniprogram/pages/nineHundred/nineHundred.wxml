@@ -3,7 +3,7 @@
   <!-- 新增功能按钮组 - 放置在最顶部 -->
   <view class="function-bar-top">
     <view class="function-bar-inner">
-      <input type="number" class="jump-input" placeholder="890" model:value="{{jumpToIndex}}" />
+      <input type="number" class="jump-input" placeholder="890" model:value="{{jumpToIndex}}" bindinput="validateJumpInput" />
       <button class="func-btn jump-btn" bindtap="handleJumpTo">跳转</button>
       <button class="func-btn favorites-btn {{showOnlyFavorites ? 'active' : ''}}" bindtap="toggleShowOnlyFavorites">仅看收藏</button>
     </view>
@@ -48,11 +48,13 @@
   <view class="action-bar">
     <!-- 进度条模块 - 放在底部按钮内部上方 -->
     <view class="progress-bar-inside">
-      <view class="progress-track">
+      <view class="progress-track" bindtap="handleProgressBarTap" bindtouchmove="handleProgressBarDrag" bindtouchstart="handleProgressBarDragStart" bindtouchend="handleProgressBarDragEnd">
         <view
           class="progress-indicator"
           style="width: {{(currentIndex + 1)/sentences.length * 100}}%"
-        ></view>
+        >
+          <view class="progress-handle"></view>
+        </view>
       </view>
       <text class="progress-text">进度：{{currentIndex + 1}}/{{sentences.length}}</text>
     </view>

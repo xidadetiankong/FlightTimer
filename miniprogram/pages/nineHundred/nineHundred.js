@@ -6,7 +6,7 @@ Page({
     sentences: [], // 原始数据容器
     collected: new Set(), // 收藏状态集合（使用Set提升查询性能）
     currentSentence: {}, // 当前显示的句子对象
-    jumpToIndex: '', // 跳转输入框的值
+    jumpToIndex: '0', // 跳转输入框的值，默认为0
     showOnlyFavorites: false, // 是否只显示收藏的句子
     filteredSentences: [], // 过滤后的句子列表（用于仅看收藏功能）
     originalIndex: 0 // 在原始数组中的索引（用于仅看收藏模式）
@@ -136,27 +136,45 @@ Page({
     console.log('安全索引:', newIndex, '当前数据:', this.data.currentIndex)
   },
 
+  // 验证跳转输入
+  validateJumpInput(e) {
+    // 获取输入值
+    let value = e.detail.value
+
+    // 如果输入为空，设置为0
+    if (value === '') {
+      return {
+        value: '0'
+      }
+    }
+
+    // 确保输入是有效的正整数
+    const numValue = parseInt(value)
+    if (isNaN(numValue) || numValue < 0) {
+      return {
+        value: '0'
+      }
+    }
+
+    return {
+      value: numValue.toString()
+    }
+  },
+
   // 跳转到指定序号的句子
   handleJumpTo() {
     const { jumpToIndex, sentences, showOnlyFavorites } = this.data
 
-    if (!jumpToIndex) {
-      wx.showToast({
-        title: '请输入序号',
-        icon: 'none'
-      })
-      return
-    }
+    // 如果输入为空或0，默认跳转到第一句
+    let targetId = 1
 
-    // 将输入的序号转为数字
-    const targetId = parseInt(jumpToIndex)
+    if (jumpToIndex) {
+      targetId = parseInt(jumpToIndex)
 
-    if (isNaN(targetId) || targetId <= 0) {
-      wx.showToast({
-        title: '请输入有效序号',
-        icon: 'none'
-      })
-      return
+      // 再次验证，确保是有效数字
+      if (isNaN(targetId) || targetId <= 0) {
+        targetId = 1
+      }
     }
 
     // 在原始数据中查找对应ID的句子
@@ -371,5 +389,119 @@ checkIsCollected(){
       title: '已重置学习进度',
       icon: 'success'
     })
+  },
+
+  // 进度条点击事件
+  handleProgressBarTap(e) {
+    // 获取进度条元素信息
+    const query = wx.createSelectorQuery()
+    query.select('.progress-track').boundingClientRect()
+
+    query.exec(res => {
+      if (!res || !res[0]) return
+
+      const progressBar = res[0]
+      const progressBarLeft = progressBar.left
+      const progressBarWidth = progressBar.width
+
+      // 获取点击位置（tap事件中使用e.detail而不是e.touches）
+      const touchX = e.detail.x || e.changedTouches[0].clientX
+
+      // 计算点击位置相对于进度条的位置
+      const offsetX = touchX - progressBarLeft
+
+      // 确保位置在进度条范围内
+      const clampedOffsetX = Math.max(0, Math.min(offsetX, progressBarWidth))
+
+      // 计算对应的百分比
+      const percentage = clampedOffsetX / progressBarWidth
+
+      // 计算对应的句子索引
+      const dataSource = this.data.showOnlyFavorites ?
+        this.data.filteredSentences : this.data.sentences
+
+      const newIndex = Math.floor(percentage * dataSource.length)
+
+      // 更新当前句子
+      this.jumpToSentenceByIndex(newIndex)
+
+      // 保存当前位置
+      this.saveCurrentPosition()
+    })
+  },
+
+  // 进度条拖动开始事件
+  handleProgressBarDragStart(e) {
+    // 记录拖动开始时的触摸位置
+    this.startX = e.touches[0].clientX
+    this.isDragging = true
+  },
+
+  // 进度条拖动事件
+  handleProgressBarDrag(e) {
+    if (!this.isDragging) return
+
+    // 获取进度条元素
+    const query = wx.createSelectorQuery()
+    query.select('.progress-track').boundingClientRect()
+
+    query.exec(res => {
+      if (!res || !res[0]) return
+
+      const progressBar = res[0]
+      const progressBarLeft = progressBar.left
+      const progressBarWidth = progressBar.width
+
+      // 计算当前触摸位置相对于进度条的位置
+      const touchX = e.touches[0].clientX
+      const offsetX = touchX - progressBarLeft
+
+      // 确保位置在进度条范围内
+      const clampedOffsetX = Math.max(0, Math.min(offsetX, progressBarWidth))
+
+      // 计算对应的百分比
+      const percentage = clampedOffsetX / progressBarWidth
+
+      // 计算对应的句子索引
+      const dataSource = this.data.showOnlyFavorites ?
+        this.data.filteredSentences : this.data.sentences
+
+      const newIndex = Math.floor(percentage * dataSource.length)
+
+      // 如果索引变化，更新当前句子
+      if (newIndex !== this.data.currentIndex) {
+        this.jumpToSentenceByIndex(newIndex)
+      }
+    })
+  },
+
+  // 进度条拖动结束事件
+  handleProgressBarDragEnd() {
+    this.isDragging = false
+    // 保存当前位置
+    this.saveCurrentPosition()
+  },
+
+  // 跳转到指定索引的句子
+  jumpToSentenceByIndex(index) {
+    const dataSource = this.data.showOnlyFavorites ?
+      this.data.filteredSentences : this.data.sentences
+
+    // 确保索引在有效范围内
+    const validIndex = Math.max(0, Math.min(index, dataSource.length - 1))
+
+    // 如果是收藏模式，记录在原始数组中的位置
+    let originalIndex = validIndex
+    if (this.data.showOnlyFavorites && dataSource[validIndex]) {
+      originalIndex = this.data.sentences.findIndex(item => item.id === dataSource[validIndex].id)
+    }
+
+    this.setData({
+      currentIndex: validIndex,
+      currentSentence: this.processSentence(dataSource[validIndex]),
+      originalIndex: originalIndex
+    })
+
+    this.checkIsCollected()
   },
 })
