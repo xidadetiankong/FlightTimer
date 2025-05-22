@@ -11,15 +11,11 @@
 
 	<view class="inputArea">
 		<view class="intiArgs">
-		<block>
-		<view wx:if="{{profession===''?true:false}}" class="head">飞行员值勤期查询</view>
-		<view wx:elif="{{profession==='pilot'?true:false}}" class="head">飞行员值勤期查询</view>
-		<view wx:elif="{{profession==='attendant'?true:false}}" class="head">乘务员值勤期查询</view>
-		<view wx:elif="{{profession==='security'?true:false}}" class="head">安全员值勤期查询</view>
-		
-		</block>
-			
-
+		<view class="head">
+			<block wx:if="{{profession==='attendant'}}">乘务员值勤期查询</block>
+			<block wx:elif="{{profession==='security'}}">安全员值勤期查询</block>
+			<block wx:else>飞行员值勤期查询</block>
+		</view>
 
 			<view class="timeInti">
 				<view class="checkIn">
@@ -34,7 +30,6 @@
 					</view>
 				</view>
 			</view>
-
 
 			<view class="timeInti" hidden="{{pilotHidde}}">
 				<view class="checkIn">
@@ -61,14 +56,10 @@
 				</view>
 			</view>
 		</view>
-       <!-- attendant -->
-			 
 
-
-			 	<view class="selected_view" hidden="{{attendentHidde}}">
-
-
-				 	<view class="timeInti" >
+		<!-- 乘务员选项 -->
+		<view class="selected_view" hidden="{{attendentHidde}}">
+			<view class="timeInti" >
 				<view class="checkIn">
 					<view class="title">座位数：</view>
 					<view class="checkIn_class">
@@ -79,34 +70,22 @@
 				</view>
 			</view>
 				 
-				 
-				<view class="timeInti" id="attendantNum">
-					<view class="title">乘务数：</view>
-					<view class="title_radiogroup">
-						<radio-group bindchange="choseAttNum">
-						<radio value='0'checked >低配</radio>
-							<radio value='1' >+1名</radio>
-							<radio value='2'>+2名</radio>
-							<radio value='3'>+3名或以上</radio>
-						</radio-group>
-					</view>
+			<view class="timeInti" id="attendantNum">
+				<view class="title">乘务数：</view>
+				<view class="title_radiogroup">
+					<radio-group bindchange="choseAttNum">
+						<radio value='0' checked>低配</radio>
+						<radio value='1'>+1名</radio>
+						<radio value='2'>+2名</radio>
+						<radio value='3'>+3名或以上</radio>
+					</radio-group>
 				</view>
+			</view>
+		</view>
 
-
-
-				 
-				 </view>
-		
-
-
-        <!-- attendant -->
-
-
-
+		<!-- 飞行员选项 -->
 		<view class="selected_view" hidden="{{pilotHidde}}">
-
-			<view class="unaugment" hidden="{{selectedTeam==='扩编机组'?true:false}}">
-
+			<view class="unaugment" hidden="{{selectedTeam==='扩编机组'}}">
 				<view class="timeInti">
 					<view class="title">段数：</view>
 					<view class="title_radiogroup">
@@ -117,11 +96,9 @@
 							<radio value='7'>7段或以上</radio>
 						</radio-group>
 					</view>
-
 				</view>
 			</view>
-			<view class="augment" hidden="{{selectedTeam==='非扩编机组'?true:false}}">
-
+			<view class="augment" hidden="{{selectedTeam==='非扩编机组'}}">
 				<view class="timeInti">
 					<view class="title">休息设施等级：</view>
 					<view class="title_radiogroup">
@@ -131,8 +108,6 @@
 							<radio value='3' checked>3级</radio>
 						</radio-group>
 					</view>
-
-
 				</view>
 				<view class="timeInti">
 					<view class="title">飞行机组人数：</view>
@@ -142,9 +117,7 @@
 							<radio value='4'>4名</radio>
 						</radio-group>
 					</view>
-
 				</view>
-
 			</view>
 		</view>
 		
@@ -154,107 +127,47 @@
 
 
 	<view class="submit">
-		<view hover-class="reBTN" class="refreshBTN" bindtap="refreshBTN"> 重置</view>
+		<view hover-class="reBTN" class="refreshBTN" bindtap="refreshBTN">重置</view>
 
 		<view hover-class="reBTN" class="tipsBTN" bindtap="tipsBTN">选择职业</view>
-		<block>
-		<view  wx:if="{{profession==='pilot'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
-		<view  wx:elif="{{profession===''?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="resultBTN" >确认</view>
-		<view  wx:elif="{{profession==='attendant'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN" >确认</view>
-		<view  wx:elif="{{profession==='security'?true:false}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN" >确认</view>
-
-		
-		
-		</block>
+		<view wx:if="{{profession==='attendant'}}" hover-class="reBTN" class="resultBTN" bindtap="attresultBTN">确认</view>
+		<view wx:elif="{{profession==='security'}}" hover-class="reBTN" class="resultBTN" bindtap="secResultBTN">确认</view>
+		<view wx:else hover-class="reBTN" class="resultBTN" bindtap="resultBTN">确认</view>
 		
 	</view>
 
 	<resulkt myProperty="{{show_result}}">
-
 		<view class="resultArea">
-
-		<view class="resultText"  hidden="{{attendentHidde}}">
+			<!-- 乘务员特有显示 -->
+			<view class="resultText" hidden="{{attendentHidde}}">
 				<view>最低人数：</view>
 				<view>至少{{mincrew}}人</view>
 			</view>
 
+			<!-- 飞行员特有显示 -->
 			<view class="resultText" hidden="{{pilotHidde}}">
 				<view>最大飞行时间：</view>
 				<view>{{maxFlightTime}}</view>
 			</view>
 
+			<!-- 飞行员和乘务员共有显示 -->
+			<block wx:if="{{profession !== 'security'}}">
+				<view class="resultText">
+					<view>最大值勤时间：</view>
+					<view>{{maxDutyTime}}</view>
+				</view>
+				<view class="resultText">
+					<view>值勤期查询截止：</view>
+					<view>{{dutyEndTime}}</view>
+				</view>
+				<view class="resultText">
+					<view>剩余值勤时间：</view>
+					<view>{{dutyTimeRemainForShow}}</view>
+				</view>
+			</block>
 
-<block>
-<block wx:if="{{profession===''?true:false}}"   >
-       <view class="resultText"  >
-				<view>最大值勤时间：</view>
-				<view>{{maxDutyTime}}</view>
-			</view>
-			<view class="resultText"  >
-				<view>值勤期查询截止：</view>
-				<view>{{dutyEndTime}}</view>
-			</view>
-			<view class="resultText"  >
-				<view>剩余值勤时间：</view>
-				<view>{{dutyTimeRemainForShow}}</view>
-			</view>
-
- </block>
-
-
-<block wx:elif="{{profession==='pilot'?true:false}}" >
-<view class="resultText"  >
-				<view>最大值勤时间：</view>
-				<view>{{maxDutyTime}}</view>
-			</view>
-			<view class="resultText"  >
-				<view>值勤期查询截止：</view>
-				<view>{{dutyEndTime}}</view>
-			</view>
-			<view class="resultText"  >
-				<view>剩余值勤时间：</view>
-				<view>{{dutyTimeRemainForShow}}</view>
-			</view>
-
-
-</block>
-<block wx:elif="{{profession==='attendant'?true:false}}">
-<view class="resultText"  >
-				<view>最大值勤时间：</view>
-				<view>{{maxDutyTime}}</view>
-			</view>
-			<view class="resultText"  >
-				<view>值勤期查询截止：</view>
-				<view>{{dutyEndTime}}</view>
-			</view>
-			<view class="resultText"  >
-				<view>剩余值勤时间：</view>
-				<view>{{dutyTimeRemainForShow}}</view>
-			</view>
-
-</block>
-<block wx:elif="{{profession==='security'?true:false}}"></block>
-<block wx:elif="{{profession==='others'?true:false}}"></block>
-
-
-
-
-
-
-
-
-</block>
-
-			
-
-
-
-
-
-
-
-
-			<view class="resultText" >
+			<!-- 所有人员共有显示 -->
+			<view class="resultText">
 				<view>中间休息时间：</view>
 				<view>{{totalRestTimeInhours}}</view>
 			</view>
@@ -264,18 +177,10 @@
 				<view>{{totalDutyTimeForShow}}</view>
 			</view>
 
-		
-
-			
-			<text class="wenxintishi" wx:if="{{profession===''?true:false}}"  >结果仅供参考请以实际规定为准!</text>
-			<text class="wenxintishi" wx:elif="{{profession==='pilot'?true:false}}" >结果仅供参考请以实际规定为准!</text>
-			<text class="wenxintishi" wx:elif="{{profession==='attendant'?true:false}}">结果仅供参考请以实际规定为准!</text>
-			<text class="wenxintishi" wx:elif="{{profession==='security'?true:false}}" >结果仅供参考请以实际规定为准!</text>
-
-
+			<text class="wenxintishi">结果仅供参考请以实际规定为准!</text>
 		</view>
 		<view class="confirm_button">
-		<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>		
+			<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>		
 		</view>
 	</resulkt>
 <view class="profess" hidden="{{show_profess}}">

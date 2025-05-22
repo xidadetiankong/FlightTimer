@@ -62,62 +62,37 @@ Page({
     //夜航判定
     nightFlight:false
   },
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
+  onShareAppMessage: function () {
     return {
-      title: '最好用的R6执勤期记录APP',
-      path: '/page/user?id=123'
+      title: '大家都在用的值勤时间记录小程序',
+      imageUrl: '../../img/shareimage1.png'
     }
   },
-  onShareTimeline: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
+  onShareTimeline: function () {
     return {
-      title: '最好用的R6执勤期记录APP',
+      title: '大家都在用的值勤时间记录小程序',
       path: '/page/user?id=123'
     }
   },
   onLoad: function () {
     const updateManager = wx.getUpdateManager()
-
-    updateManager.onCheckForUpdate(function (res) {
-      // 请求完新版本信息的回调
-      console.log(res.hasUpdate)
-    })
-
     updateManager.onUpdateReady(function () {
       wx.showModal({
         title: '更新提示',
         content: '新版本已经准备好，是否重启应用？',
         success: function (res) {
           if (res.confirm) {
-            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
             updateManager.applyUpdate()
           }
         }
       })
     })
-
-    updateManager.onUpdateFailed(function () {
-      // 新版本下载失败
-    })
-
-    
   },
 
   onShow: function () {
-
-    
     this.setData({
       show_result: true
     })
-
-   
   },
   onReady: function () {
    
@@ -246,7 +221,6 @@ Page({
     this.setData({
       selectedTeam: teamSize[e.detail.value]
     })
-    console.log(this.data.selectedTeam)
   },
   //中途离场
 
@@ -322,8 +296,6 @@ Page({
         flightSegment: e.detail.value
       })
     }
-
-    console.log(this.data.flightSegment)
   },
   //chosePilotNumbers
   chosePilotNumbers: function (e) {
@@ -332,7 +304,6 @@ Page({
         crewNumbers: e.detail.value
       })
     }
-    console.log(this.data.crewNumbers)
   },
   //chose rest facility level
   choseRestFacility: function (e) {
@@ -341,32 +312,29 @@ Page({
         rstFaciliyLevel: e.detail.value
       })
     }
-    console.log(this.data.rstFaciliyLevel)
   },
   //add flightlegs and landings//actureFlightLegs:0, actureLandings:0,
 
 
   inputFltLegs: function (ev) {
-    let value = ev.detail.value;
-    this.data.actureFlightLegs = parseInt(value)
+    this.data.actureFlightLegs = parseInt(ev.detail.value)
 
   },
   inputLandings: function (ev) {
-    let value = ev.detail.value;
-    this.data.actureLandings = parseInt(value)
+    this.data.actureLandings = parseInt(ev.detail.value)
 
   },
   remarks: function (ev) {
-    let value = ev.detail.value;
-    this.data.remarks = value
+    this.data.remarks = ev.detail.value
 
   },
-  addRestTime: function () { //optimized
+  // 宾休时间相关
+  addRestTime: function () {
     var checkintime = DATE.timeToStamp(this.data.date, this.data.time);
     var CheckOutTime = DATE.timeToStamp(this.data.CheckOutDate, this.data.CheckOutTime);
     var CheckInTime2 = DATE.timeToStamp(this.data.CheckInDate2, this.data.CheckInTime2);
-    var pauseTime = this.data.pauseTime; //中间休息时间组成的数组
-    var timediff = CheckInTime2 - CheckOutTime; //number
+    var pauseTime = this.data.pauseTime;
+    var timediff = CheckInTime2 - CheckOutTime;
 
     if (checkintime > CheckOutTime) {
       wx.showToast({
@@ -374,35 +342,36 @@ Page({
         icon: 'none'
       })
       return
-    } else {
-      if (timediff < 0) {
-        wx.showToast({
-          title: '中途进场时间需晚于中途退场时间',
-          icon: 'none'
-        })
-        return
-      } else if (timediff > 0) {
-        this.data.pauseTime.push(timediff)
-        wx.showToast({
-          title: '添加成功',
-        })
-        this.setData({
-          takerest: true,
-          hideRestTimeModal: true // 添加成功后隐藏悬浮窗
-        })
-      } else {
-        wx.showToast({
-          title: '未输入有效时间',
-          icon: 'none'
-        })
-        return
-      }
     }
-
-    // 使用util中的计算总休息时间函数
+    
+    if (timediff < 0) {
+      wx.showToast({
+        title: '中途进场时间需晚于中途退场时间',
+        icon: 'none'
+      })
+      return
+    } 
+    
+    if (timediff == 0) {
+      wx.showToast({
+        title: '未输入有效时间',
+        icon: 'none'
+      })
+      return
+    }
+    
+    // 添加休息时间
+    this.data.pauseTime.push(timediff)
+    wx.showToast({
+      title: '添加成功',
+    })
+    
+    // 计算总休息时间
     var totalRestTime = DATE.calculateTotalRestTime(pauseTime);
     
     this.setData({
+      takerest: true,
+      hideRestTimeModal: true,
       totalRestTime: totalRestTime,
       totalRestTimeInhours: DATE.formatHour(totalRestTime)
     })
@@ -501,133 +470,64 @@ Page({
     return totalDutyTime;
   },
 
-  maxFlightTime: function () { //根据机组编制分为两组两个条件，条件一根据签到时间输出结果，条件二根据机组人数输出结果
+  maxFlightTime: function () {
     var checkintime = new Date((('1970/01/01') + ' ' + this.data.time)).valueOf();
     var am5 = new Date((('1970/01/01') + ' ' + '05:00')).valueOf()
     var pm8 = new Date((('1970/01/01') + ' ' + '20:00')).valueOf()
-    var am00 = new Date((('1970/01/01') + ' ' + '24:00')).valueOf()
-    var maxFlightTime = this.data.maxFlightTime;
-    var crewNumbers = this.data.crewNumbers;
+    
     if (this.data.selectedTeam === '非扩编机组') {
-      if ((checkintime >= am5) && (checkintime < pm8)) {
-        maxFlightTime = '9:00'
-      } else if (checkintime < am5 || checkintime >= pm8) {
-        maxFlightTime = '8:00'
-      }
-
-      return maxFlightTime
-    } else if (this.data.selectedTeam === '扩编机组') {
-      if (crewNumbers === '3') {
-        maxFlightTime = '13:00'
-
-      } else if (crewNumbers === '4') {
-        maxFlightTime = '17:00'
-      }
-
-      return maxFlightTime
-
+      // 根据签到时间判断最大飞行时间
+      return (checkintime >= am5 && checkintime < pm8) ? '9:00' : '8:00';
+    } else {
+      // 根据机组人数判断最大飞行时间
+      return this.data.crewNumbers === '3' ? '13:00' : '17:00';
     }
-
-    console.log(new Date((('1970/01/01') + ' ' + time)).valueOf())
-
   },
   //计算最大值勤期
   maxDutyTime: function () {
     var checkintime = new Date((('1970/01/01') + ' ' + this.data.time)).valueOf();
-    var am5 = new Date((('1970/01/01') + ' ' + '05:00')).valueOf()
-    var am12 = new Date((('1970/01/01') + ' ' + '12:00')).valueOf()
-    var pm12 = new Date((('1970/01/01') + ' ' + '24:00')).valueOf()
-
-    var crewNumbers = this.data.crewNumbers;
+    var am5 = new Date((('1970/01/01') + ' ' + '05:00')).valueOf();
+    var am12 = new Date((('1970/01/01') + ' ' + '12:00')).valueOf();
     var flightSegment = this.data.flightSegment;
-    var maxDutyTime = this.data.maxDutyTime;
-    var rstFaciliyLevel = this.data.rstFaciliyLevel
+    var rstFaciliyLevel = this.data.rstFaciliyLevel;
+    var crewNumbers = this.data.crewNumbers;
+    
     if (this.data.selectedTeam === '非扩编机组') {
-      if (checkintime < am5) {
-        switch (flightSegment) {
-          case '4':
-            maxDutyTime = '12:00'
-            break;
-          case '5':
-            maxDutyTime = '11:00'
-            break;
-          case '6':
-            maxDutyTime = '10:00'
-            break;
-          case '7':
-            maxDutyTime = '9:00'
-            break;
-
-        }
-
-      } else if ((checkintime >= am5) && (checkintime < am12)) {
-        switch (flightSegment) {
-          case '4':
-            maxDutyTime = '14:00'
-            break;
-          case '5':
-            maxDutyTime = '13:00'
-            break;
-          case '6':
-            maxDutyTime = '12:00'
-            break;
-          case '7':
-            maxDutyTime = '11:00'
-            break;
-
-        }
+      // 非扩编机组 - 根据签到时间和飞行段数
+      let timeRangeIndex = 0; // 0: < 5:00, 1: 5:00-12:00, 2: >= 12:00
+      
+      if (checkintime >= am5 && checkintime < am12) {
+        timeRangeIndex = 1;
       } else if (checkintime >= am12) {
-        switch (flightSegment) {
-          case '4':
-            maxDutyTime = '13:00'
-            break;
-          case '5':
-            maxDutyTime = '12:00'
-            break;
-          case '6':
-            maxDutyTime = '11:00'
-            break;
-          case '7':
-            maxDutyTime = '10:00'
-            break;
-
-        }
+        timeRangeIndex = 2;
       }
-
-      return maxDutyTime
-
-
-    } else if (this.data.selectedTeam === '扩编机组') {
-
+      
+      // 时间矩阵 [时间段][飞行段数] - '4', '5', '6', '7'
+      const dutyTimeMatrix = [
+        ['12:00', '11:00', '10:00', '9:00'],  // < 5:00
+        ['14:00', '13:00', '12:00', '11:00'], // 5:00-12:00
+        ['13:00', '12:00', '11:00', '10:00']  // >= 12:00
+      ];
+      
+      // 段数索引 (flightSegment - 4)
+      const segmentIndex = parseInt(flightSegment) - 4;
+      return dutyTimeMatrix[timeRangeIndex][segmentIndex];
+      
+    } else {
+      // 扩编机组 - 根据机组人数和休息设施等级
       if (crewNumbers === '3') {
         switch (rstFaciliyLevel) {
-          case '1':
-            maxDutyTime = '18:00'
-            break;
-          case '2':
-            maxDutyTime = '17:00'
-            break;
-          case '3':
-            maxDutyTime = '16:00'
-            break;
+          case '1': return '18:00';
+          case '2': return '17:00';
+          case '3': return '16:00';
         }
-
-      } else if (crewNumbers === '4') {
+      } else {
         switch (rstFaciliyLevel) {
-          case '1':
-            maxDutyTime = '20:00'
-            break;
-          case '2':
-            maxDutyTime = '19:00'
-            break;
-          case '3':
-            maxDutyTime = '18:00'
-            break;
+          case '1': return '20:00';
+          case '2': return '19:00';
+          case '3': return '18:00';
         }
       }
-
-      return maxDutyTime
-
     }
   },
   dutyTimeRemain: function () {
@@ -682,18 +582,6 @@ Page({
     return dutyEndTime;
   },
 
-  onShareAppMessage: function (res) {
-
-    return {
-      title: '大家都在用的值勤时间记录小程序',
-      imageUrl: '../../img/shareimage1.png'
-    }
-
-  },
-
-
-
-
   //乘务员数据计算
   selectSeatRange: function (e) {
 
@@ -702,8 +590,6 @@ Page({
     this.setData({
       selecedSeats: seatRange[e.detail.value]
     })
-    console.log(this.data.selecedSeats)
-
   },
   //计算最低配置人数输出数字
   minimumCrew: function () {
