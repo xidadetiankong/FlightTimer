@@ -11,6 +11,6 @@
 		</scroll-view>
 	</view>
 	<view class="keyArea">
-		<view class="key" wx:for="{{keyValue}}" wx:key="index" id="{{item.value}}" hover-class="tapKey" bindtap="tapKey"><view>{{item.name}}</view></view>
+		<view class="key {{item.type}}" wx:for="{{keyValue}}" wx:key="index" id="{{item.value}}" hover-class="tapKey" bindtap="tapKey"><view>{{item.name}}</view></view>
 	</view>
 </view>

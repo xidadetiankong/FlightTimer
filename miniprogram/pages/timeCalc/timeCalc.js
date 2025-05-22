@@ -14,52 +14,68 @@ Page({
   data: {
     keyValue: [{
       name: 'CLR',
-      value: 'clear'
+      value: 'clear',
+      type: 'function-key'
     }, {
       name: '←',
-      value: 'back'
+      value: 'back',
+      type: 'function-key'
     }, {
       name: ':',
-      value: ':'
+      value: ':',
+      type: 'operator-key'
     }, {
       name: '0',
-      value: 0
+      value: 0,
+      type: 'number-key'
     }, {
       name: '7',
-      value: 7
+      value: 7,
+      type: 'number-key'
     }, {
       name: '8',
-      value: 8
+      value: 8,
+      type: 'number-key'
     }, {
       name: '9',
-      value: 9
+      value: 9,
+      type: 'number-key'
     }, {
       name: '-',
-      value: '-'
+      value: '-',
+      type: 'operator-key'
     }, {
       name: '4',
-      value: 4
+      value: 4,
+      type: 'number-key'
     }, {
       name: '5',
-      value: 5
+      value: 5,
+      type: 'number-key'
     }, {
       name: '6',
-      value: 6
+      value: 6,
+      type: 'number-key'
     }, {
       name: '+',
-      value: '+'
+      value: '+',
+      type: 'operator-key'
     }, {
       name: '1',
-      value: 1
+      value: 1,
+      type: 'number-key'
     }, {
       name: '2',
-      value: 2
+      value: 2,
+      type: 'number-key'
     }, {
       name: '3',
-      value: 3
+      value: 3,
+      type: 'number-key'
     }, {
       name: '=',
-      value: '='
+      value: '=',
+      type: 'equal-key'
     }],
     inputValue: [],
     inputDisplay: '', // 用于显示输入内容的字符串
