@@ -26,6 +26,7 @@ Page({
     show_result: true, //是否隐藏结果弹出组件
     show_profess: true,
     hideRestTimeModal: true, // 隐藏宾休悬浮窗
+    hideRecordModal: true, // 隐藏记录悬浮窗
     hasAccount: false,
     isFlightDuty:true,
     //非扩编机组
@@ -60,7 +61,13 @@ Page({
     security: true,
     others: true,
     //夜航判定
-    nightFlight:false
+    nightFlight:false,
+
+    // 记录相关参数
+    recordSegments: '', // 记录的段数
+    recordFlightNumber: '', // 记录的航班号
+    recordFlightRoute: '', // 记录的航段
+    recordRemarks: '', // 记录的备注
   },
   onShareAppMessage: function () {
     return {
@@ -133,6 +140,7 @@ Page({
       show_result: true, //是否隐藏结果弹出组件
       show_profess: true,
       hideRestTimeModal: true, // 重置时隐藏宾休悬浮窗
+      hideRecordModal: true,  // 添加记录弹窗的重置
       isFlightDuty:true,
       //非扩编机组
       flightSegment: '4', //飞行段数
@@ -157,6 +165,12 @@ Page({
       totalRestTime: 0, //total rest time in millisecond
       totalRestTimeInhours: '00:00',
       flightTime: '00:00',
+      
+      // 记录相关参数重置
+      recordSegments: '',
+      recordFlightNumber: '',
+      recordFlightRoute: '',
+      recordRemarks: '',
     })
   },
   pfToPilot: function () {
@@ -765,4 +779,101 @@ Page({
     });
   },
 
+  // 记录功能相关方法
+  showRecordModal: function() {
+    // 默认段数为flightSegment
+    let segmentValue = this.data.flightSegment;
+    if (this.data.selectedTeam === '扩编机组') {
+      segmentValue = ''; // 扩编机组不显示默认段数
+    }
+    
+    this.setData({
+      hideRecordModal: false,
+      recordSegments: segmentValue,
+      recordFlightNumber: '',
+      recordFlightRoute: '',
+      recordRemarks: ''
+    });
+  },
+
+  hideRecordModal: function() {
+    this.setData({
+      hideRecordModal: true
+    });
+  },
+  
+  inputSegments: function(e) {
+    this.setData({
+      recordSegments: e.detail.value
+    });
+  },
+  
+  inputFlightNumber: function(e) {
+    this.setData({
+      recordFlightNumber: e.detail.value
+    });
+  },
+  
+  inputFlightRoute: function(e) {
+    this.setData({
+      recordFlightRoute: e.detail.value
+    });
+  },
+  
+  inputRemarks: function(e) {
+    this.setData({
+      recordRemarks: e.detail.value
+    });
+  },
+  
+  saveRecord: function() {
+    // 验证必填字段
+    if (!this.data.recordSegments) {
+      wx.showToast({
+        title: '请输入段数',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    // 创建记录对象
+    const recordData = {
+      date: this.data.date,
+      segments: this.data.recordSegments,
+      flightTime: this.data.maxFlightTime,
+      dutyTime: this.data.maxDutyTime,
+      flightNumber: this.data.recordFlightNumber,
+      flightRoute: this.data.recordFlightRoute,
+      remarks: this.data.recordRemarks,
+      timestamp: new Date().getTime() // 添加时间戳用于排序
+    };
+    
+    // 获取已有记录
+    let records = wx.getStorageSync('dutyRecords') || [];
+    
+    // 添加新记录
+    records.push(recordData);
+    
+    // 保存到本地存储
+    wx.setStorageSync('dutyRecords', records);
+    
+    // 先关闭弹窗
+    this.setData({
+      hideRecordModal: true
+    });
+    
+    // 提示保存成功
+    wx.showToast({
+      title: '记录已保存',
+      icon: 'success'
+    });
+    
+    // 提示用户可以在记录页查看
+    setTimeout(() => {
+      wx.showToast({
+        title: '可在记录页查看',
+        icon: 'none'
+      });
+    }, 1500);
+  },
 })

@@ -178,6 +178,17 @@
 			</view>
 
 			<text class="wenxintishi">结果仅供参考请以实际规定为准!</text>
+			
+			<view class="recordTips">
+				<text>增加记录按钮，</text>
+				<text>弹出记录弹窗，</text>
+				<text>将数据记录在本地</text>
+			</view>
+
+			<view class="record_buttons">
+				<view hover-class="pressBTN1" class="recordBtn cancel" bindtap="cancleUpload">取消</view>
+				<view hover-class="pressBTN1" class="recordBtn record" bindtap="showRecordModal">记录</view>
+			</view>
 		</view>
 		<view class="confirm_button">
 			<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>		
@@ -234,6 +245,55 @@
 		<view class="restTimeButtons">
 			<view class="restTimeBtn" hover-class="addRestBtn_h" bindtap="hideRestTimeModal">取消</view>
 			<view class="restTimeBtn" hover-class="addRestBtn_h" bindtap="addRestTime">确认</view>
+		</view>
+	</view>
+</view>
+
+<!-- 记录悬浮窗 -->
+<view class="recordModal" hidden="{{hideRecordModal}}">
+	<view class="recordContent">
+		<view class="recordTitle">记录值勤数据</view>
+		
+		<view class="recordForm">
+			<view class="recordItem">
+				<text class="recordLabel">日期</text>
+				<text class="recordValue">{{date}}</text>
+			</view>
+			
+			<view class="recordItem">
+				<text class="recordLabel">段数</text>
+				<input class="recordInput" type="number" bindinput="inputSegments" placeholder="请输入段数" value="{{recordSegments}}"/>
+			</view>
+			
+			<view class="recordItem">
+				<text class="recordLabel">飞行时间</text>
+				<text class="recordValue">{{maxFlightTime}}</text>
+			</view>
+			
+			<view class="recordItem">
+				<text class="recordLabel">值勤时间</text>
+				<text class="recordValue">{{maxDutyTime}}</text>
+			</view>
+			
+			<view class="recordItem">
+				<text class="recordLabel">航班号</text>
+				<input class="recordInput" bindinput="inputFlightNumber" placeholder="请输入航班号" value="{{recordFlightNumber}}"/>
+			</view>
+			
+			<view class="recordItem">
+				<text class="recordLabel">航段</text>
+				<input class="recordInput" bindinput="inputFlightRoute" placeholder="例：北京-上海" value="{{recordFlightRoute}}"/>
+			</view>
+			
+			<view class="recordItem">
+				<text class="recordLabel">备注</text>
+				<input class="recordInput" bindinput="inputRemarks" placeholder="备注信息" value="{{recordRemarks}}"/>
+			</view>
+		</view>
+		
+		<view class="recordButtons">
+			<view class="recordBtn" hover-class="recordBtn_h" bindtap="hideRecordModal">取消</view>
+			<view class="recordBtn" hover-class="recordBtn_h" bindtap="saveRecord">记录</view>
 		</view>
 	</view>
 </view>

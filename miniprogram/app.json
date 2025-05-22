@@ -5,7 +5,8 @@
     "pages/tools/tools",
     "pages/calclator/calculator",
     "pages/timeCalc/timeCalc",
-    "pages/nineHundred/nineHundred"
+    "pages/nineHundred/nineHundred",
+    "pages/records/records"
   ],
   "window": {
     "backgroundColor": "#2A465C",
@@ -28,6 +29,12 @@
         "iconPath": "img/UNqueryDuty.png",
         "selectedIconPath": "img/queryDuty.png",
         "text": "执勤期查询"
+      },
+      {
+        "pagePath": "pages/records/records",
+        "iconPath": "img/profileUS.png",
+        "selectedIconPath": "img/profileS.png",
+        "text": "执勤记录"
       },
       {
         "pagePath": "pages/tools/tools",

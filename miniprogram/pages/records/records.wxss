@@ -1,0 +1,249 @@
+/* pages/records/records.wxss */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.date-filter {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.date-range {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-item {
+  width: 48%;
+}
+
+.date-item text {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.picker {
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0 20rpx;
+  border: 1px solid #ddd;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.records-table {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.table-header {
+  display: flex;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  font-size: 28rpx;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.th {
+  flex: 1;
+  padding: 20rpx 10rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.table-row:active {
+  background-color: #f9f9f9;
+}
+
+.td {
+  flex: 1;
+  padding: 20rpx 10rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remarks {
+  max-width: 150rpx;
+}
+
+.no-records {
+  padding: 100rpx 0;
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.export-btn {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #2A465C;
+  color: #fff;
+  font-size: 32rpx;
+  border-radius: 0;
+  margin: 30rpx 0 0 0;
+}
+
+.date-tip {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-top: 15rpx;
+}
+
+.record-count {
+  font-size: 24rpx;
+  color: #666;
+  text-align: right;
+}
+
+/* 汇总统计区域样式 */
+.summary-section {
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.summary-toggle {
+  padding: 20rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  color: #636363;
+  font-size: 28rpx;
+}
+
+.summary-toggle:active {
+  background-color: #f9f9f9;
+}
+
+.summary-data {
+  padding: 20rpx;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  padding: 0 20rpx;
+}
+
+.summary-label {
+  color: #666;
+  font-weight: normal;
+}
+
+.summary-value {
+  color: #333;
+  font-weight: 500;
+}
+
+/* 表格列宽度调整 */
+.date-col {
+  flex: 1.2;
+  min-width: 90rpx;
+}
+
+.seg-col {
+  flex: 0.5;
+  min-width: 40rpx;
+}
+
+.flight-col, .duty-col {
+  flex: 0.8;
+  min-width: 70rpx;
+}
+
+.flight-no-col {
+  flex: 1;
+  min-width: 80rpx;
+}
+
+.remarks-col {
+  flex: 1;
+  min-width: 80rpx;
+}
+
+.summary-header {
+  display: none;
+}
+
+.summary-info {
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+/* 记录数量更改为右对齐 */
+.record-count {
+  font-size: 24rpx;
+  color: #666;
+  text-align: right;
+}
+
+/* 汇总表格样式 */
+.summary-table {
+  width: 100%;
+  padding: 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 15rpx 30rpx;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 28rpx;
+  background-color: #fff;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  color: #666;
+  font-weight: normal;
+  text-align: left;
+  flex: 1;
+}
+
+.summary-value {
+  color: #333;
+  font-weight: 500;
+  text-align: right;
+  width: 120rpx;
+} 

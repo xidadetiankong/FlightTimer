@@ -1,0 +1,80 @@
+<!--pages/records/records.wxml-->
+<view class="container">
+  <view class="date-filter">
+    <view class="date-range">
+      <view class="date-item">
+        <text>开始日期</text>
+        <picker mode="date" value="{{startDate}}" start="2000-01-01" end="2099-12-31" bindchange="selectStartDate">
+          <view class="picker">{{startDate || '请选择'}}</view>
+        </picker>
+      </view>
+      <view class="date-item">
+        <text>结束日期</text>
+        <picker mode="date" value="{{endDate}}" start="2000-01-01" end="2099-12-31" bindchange="selectEndDate">
+          <view class="picker">{{endDate || '请选择'}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="date-tip">默认显示最近90天记录，日期区间最多选择90天</view>
+  </view>
+
+  <view class="records-table">
+    <view class="table-header">
+      <view class="th date-col">日期</view>
+      <view class="th seg-col">段数</view>
+      <view class="th flight-col">飞行时间</view>
+      <view class="th duty-col">值勤时间</view>
+      <view class="th flight-no-col">航班号</view>
+      <view class="th remarks-col">备注</view>
+    </view>
+    
+    <view class="no-records" wx:if="{{!hasRecords}}">
+      <text>暂无记录</text>
+    </view>
+    
+    <view class="no-records" wx:elif="{{filteredRecords.length === 0}}">
+      <text>当前日期范围内无记录</text>
+    </view>
+    
+    <view class="table-body" wx:else>
+      <view class="table-row" wx:for="{{filteredRecords}}" wx:key="timestamp" bindtap="deleteRecord" data-index="{{index}}">
+        <view class="td date-col">{{item.date}}</view>
+        <view class="td seg-col">{{item.segments}}</view>
+        <view class="td flight-col">{{item.flightTime}}</view>
+        <view class="td duty-col">{{item.dutyTime}}</view>
+        <view class="td flight-no-col">{{item.flightNumber || '-'}}</view>
+        <view class="td remarks-col">{{item.remarks || '-'}}</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="summary-section" wx:if="{{filteredRecords.length > 0}}">
+    <view class="summary-toggle" bindtap="toggleSummary">
+      <text>{{showSummary ? '隐藏' : '展示'}}汇总数据</text>
+      <text class="record-count">当前显示 {{filteredRecords.length}} 条记录</text>
+    </view>
+    
+    <view class="summary-info" wx:if="{{showSummary}}">
+      <view class="summary-data">
+        <view class="summary-item">
+          <text class="summary-label">总段数:</text>
+          <text class="summary-value">{{totalSegments}}</text>
+        </view>
+        <view class="summary-item">
+          <text class="summary-label">总飞行时间:</text>
+          <text class="summary-value">{{totalFlightTime}}</text>
+        </view>
+        <view class="summary-item">
+          <text class="summary-label">总值勤时间:</text>
+          <text class="summary-value">{{totalDutyTime}}</text>
+        </view>
+        <view class="summary-item">
+          <text class="summary-label">平均每日段数:</text>
+          <text class="summary-value">{{averageSegments}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="export-btn" bindtap="exportToExcel">保存到手机</view>
+</view> 
