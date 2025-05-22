@@ -47,53 +47,6 @@
 				</view>
 			</view>
 
-
-			<view class="timeInti">
-				<view class="checkIn2">
-				<block>	
-				
-				<view class="title" hidden="{{others}}">中途休息：</view>
-				<view class="title" hidden="{{!others}}" >中途退场：</view>
-				
-				</block>
-				
-					<view class="checkIn_class">
-						<view class="checkIn_date1">
-							<picker mode="date" value="{{CheckOutDate}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckOutDate"> {{CheckOutDate}}</picker>
-						</view>
-						<view class="checkIn_date1">
-							<picker mode="time" value="{{CheckOutTime}}" start="00:00" end="24:00" bindchange="selectCheckOutTime"> {{CheckOutTime}}</picker>
-						</view>
-					</view>
-
-				</view>
-
-			</view>
-
-
-			<view class="timeInti">
-				<view class="checkIn2">
-
-					<block>	
-				
-				<view class="title" hidden="{{others}}">中途报到：</view>
-				<view class="title" hidden="{{!others}}" >中途进场：</view>
-				
-				</block>
-					<view class="checkIn_class">
-						<view class="checkIn_date1">
-							<picker mode="date" value="{{CheckInDate2}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDate2"> {{CheckInDate2}}</picker>
-						</view>
-						<view class="checkIn_date1">
-							<picker mode="time" value="{{CheckInTime2}}" start="00:00" end="24:00" bindchange="selectCheckInTime2"> {{CheckInTime2}}</picker>
-						</view>
-					</view>
-				</view>
-				<view class="addRestBtn" hover-class="addRestBtn_h" bindtap="addRestTime">添加</view>
-			</view>
-
-
-
 			<view class="timeInti">
 				<view class="checkIn">
 					<view class="title">截止时间：</view>
@@ -195,6 +148,7 @@
 			</view>
 		</view>
 		
+		<view class="addBinxiuBtn" hover-class="addBinxiuBtn_h" bindtap="showRestTimeModal">添加宾休</view>
 	</view>
 
 
@@ -330,6 +284,53 @@
 <view hover-class="pressBTN1" class="button2" bindtap="pfToSecurity">安全员</view>
 
 
+</view>
+
+<!-- 宾休悬浮窗 -->
+<view class="restTimeModal" hidden="{{hideRestTimeModal}}">
+	<view class="restTimeContent">
+		<view class="restTimeTitle">添加宾休时间</view>
+		
+		<view class="timeInti">
+			<view class="checkIn2">
+				<block>	
+				<view class="title" hidden="{{others}}">中途休息：</view>
+				<view class="title" hidden="{{!others}}" >中途退场：</view>
+				</block>
+				
+				<view class="checkIn_class">
+					<view class="checkIn_date1">
+						<picker mode="date" value="{{CheckOutDate}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckOutDate"> {{CheckOutDate}}</picker>
+					</view>
+					<view class="checkIn_date1">
+						<picker mode="time" value="{{CheckOutTime}}" start="00:00" end="24:00" bindchange="selectCheckOutTime"> {{CheckOutTime}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="timeInti">
+			<view class="checkIn2">
+				<block>	
+				<view class="title" hidden="{{others}}">中途报到：</view>
+				<view class="title" hidden="{{!others}}" >中途进场：</view>
+				</block>
+				<view class="checkIn_class">
+					<view class="checkIn_date1">
+						<picker mode="date" value="{{CheckInDate2}}" start="1900-0-01" end="2200-12-31" bindchange="selectCheckInDate2"> {{CheckInDate2}}</picker>
+					</view>
+					<view class="checkIn_date1">
+						<picker mode="time" value="{{CheckInTime2}}" start="00:00" end="24:00" bindchange="selectCheckInTime2"> {{CheckInTime2}}</picker>
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="restTimeButtons">
+			<view class="restTimeBtn" hover-class="addRestBtn_h" bindtap="hideRestTimeModal">取消</view>
+			<view class="restTimeBtn" hover-class="addRestBtn_h" bindtap="addRestTime">确认</view>
+		</view>
+	</view>
 </view>
 
 </view>

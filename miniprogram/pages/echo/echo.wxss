@@ -316,3 +316,72 @@ margin-top: 45rpx;
   justify-content: center;
   align-items: center;
 }
+
+/* 添加宾休按钮样式 */
+.addBinxiuBtn {
+  width: 90%;
+  height: 80rpx;
+  background: #2A465C;
+  color: white;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx auto 30rpx auto;
+}
+
+.addBinxiuBtn_h {
+  transform: scale(0.98, 0.98);
+  background: #1d3245;
+}
+
+/* 宾休悬浮窗样式 */
+.restTimeModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.restTimeContent {
+  width: 85%;
+  background: #6D869A;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.restTimeTitle {
+  font-size: 36rpx;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.restTimeButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rpx;
+}
+
+.restTimeBtn {
+  width: 40%;
+  height: 80rpx;
+  background: #2A465C;
+  color: white;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+}

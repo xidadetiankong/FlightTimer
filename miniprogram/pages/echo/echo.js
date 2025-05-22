@@ -23,6 +23,7 @@ Page({
     EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
     show_result: true, //是否隐藏结果弹出组件
     show_profess: true,
+    hideRestTimeModal: true, // 隐藏宾休悬浮窗
     hasAccount: false,
     isFlightDuty:true,
     //非扩编机组
@@ -154,6 +155,7 @@ Page({
       EndTime: DATE.formatTime(date).substring(11, 16), //关车时间
       show_result: true, //是否隐藏结果弹出组件
       show_profess: true,
+      hideRestTimeModal: true, // 重置时隐藏宾休悬浮窗
       isFlightDuty:true,
       //非扩编机组
       flightSegment: '4', //飞行段数
@@ -385,7 +387,8 @@ Page({
           title: '添加成功',
         })
         this.setData({
-          takerest: true
+          takerest: true,
+          hideRestTimeModal: true // 添加成功后隐藏悬浮窗
         })
       } else {
         wx.showToast({
@@ -871,6 +874,18 @@ Page({
     })
   },
 
-  
+  // 显示宾休悬浮窗
+  showRestTimeModal: function() {
+    this.setData({
+      hideRestTimeModal: false
+    });
+  },
+
+  // 隐藏宾休悬浮窗
+  hideRestTimeModal: function() {
+    this.setData({
+      hideRestTimeModal: true
+    });
+  },
 
 })
