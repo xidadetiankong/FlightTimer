@@ -199,8 +199,34 @@ const collectitem=res=> {
   }
 }
 
+// 新增计算总休息时间的函数
+const calculateTotalRestTime = (pauseTime) => {
+  let totalRestTime = 0;
+  for (let i = 0; i < pauseTime.length; i++) {
+    totalRestTime = totalRestTime + pauseTime[i];
+  }
+  return totalRestTime;
+}
 
+// 新增计算实际执勤时间的函数
+const calculateTotalDutyTime = (checkInTime, endTime, totalRestTime) => {
+  if (endTime < checkInTime) {
+    return null; // 表示截止时间早于签到时间
+  } else {
+    return endTime - checkInTime - totalRestTime;
+  }
+}
 
+// 新增计算值勤截止时间的函数
+const calculateDutyEndTime = (checkInTime, maxDutyTime, totalRestTime) => {
+  let dutyEndTimeStamp = checkInTime + maxDutyTime + totalRestTime - 28800000;
+  return new Date(dutyEndTimeStamp);
+}
+
+// 新增计算剩余值勤时间的函数
+const calculateDutyTimeRemain = (maxDutyTime, totalDutyTime) => {
+  return maxDutyTime - totalDutyTime;
+}
 
 module.exports = {
   arrySum:arrySum,
@@ -216,5 +242,9 @@ module.exports = {
   dayNow:dayNow,
   timeNow:timeNow,
   appleFormate:appleFormate,
-  collectitem:collectitem
+  collectitem:collectitem,
+  calculateTotalRestTime: calculateTotalRestTime,
+  calculateTotalDutyTime: calculateTotalDutyTime,
+  calculateDutyEndTime: calculateDutyEndTime,
+  calculateDutyTimeRemain: calculateDutyTimeRemain
 }
