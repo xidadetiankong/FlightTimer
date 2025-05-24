@@ -21,6 +21,7 @@ Page({
     CheckInDate2: formattedDate, //中途进场日期
     CheckOutTime: formattedTime, //中途退场时间
     CheckInTime2: formattedTime, //中途进场时间
+    shuttleTime: '02:30', // 摆渡时间默认值
     EndDate: formattedDate, //关车日期
     EndTime: formattedTime, //关车时间
     show_result: true, //是否隐藏结果弹出组件
@@ -66,6 +67,7 @@ Page({
     // 记录相关参数
     recordSegments: '', // 记录的段数
     recordFlightNumber: '', // 记录的航班号
+    recordFlightTime: '', // 记录的飞行时间
     recordFlightRoute: '', // 记录的航段
     recordRemarks: '', // 记录的备注
   },
@@ -135,6 +137,7 @@ Page({
       CheckInDate2: formattedDate, //中途进场日期
       CheckOutTime: formattedTime, //中途退场时间
       CheckInTime2: formattedTime, //中途进场时间
+      shuttleTime: '02:30', // 重置摆渡时间为默认值
       EndDate: formattedDate, //关车日期
       EndTime: formattedTime, //关车时间
       show_result: true, //是否隐藏结果弹出组件
@@ -349,6 +352,9 @@ Page({
     var CheckInTime2 = DATE.timeToStamp(this.data.CheckInDate2, this.data.CheckInTime2);
     var pauseTime = this.data.pauseTime;
     var timediff = CheckInTime2 - CheckOutTime;
+    
+    // 获取摆渡时间（毫秒）
+    var shuttleTimeMs = DATE.timeToStamp('1970/01/01', this.data.shuttleTime) - DATE.timeToStamp('1970/01/01', '00:00');
 
     if (checkintime > CheckOutTime) {
       wx.showToast({
@@ -374,8 +380,17 @@ Page({
       return
     }
     
-    // 添加休息时间
-    this.data.pauseTime.push(timediff)
+    // 扣除摆渡时间
+    if (timediff <= shuttleTimeMs) {
+      wx.showToast({
+        title: '休息时间不能小于摆渡时间',
+        icon: 'none'
+      })
+      return
+    }
+    
+    // 添加有效休息时间（扣除摆渡时间后）
+    this.data.pauseTime.push(timediff - shuttleTimeMs)
     wx.showToast({
       title: '添加成功',
     })
@@ -790,6 +805,7 @@ Page({
     this.setData({
       hideRecordModal: false,
       recordSegments: segmentValue,
+      recordFlightTime: this.data.maxFlightTime || '',
       recordFlightNumber: '',
       recordFlightRoute: '',
       recordRemarks: ''
@@ -826,6 +842,13 @@ Page({
     });
   },
   
+  // 选择飞行时间
+  selectRecordFlightTime: function(e) {
+    this.setData({
+      recordFlightTime: e.detail.value
+    });
+  },
+  
   saveRecord: function() {
     // 验证必填字段
     if (!this.data.recordSegments) {
@@ -840,7 +863,7 @@ Page({
     const recordData = {
       date: this.data.date,
       segments: this.data.recordSegments,
-      flightTime: this.data.maxFlightTime,
+      flightTime: this.data.recordFlightTime || this.data.maxFlightTime,
       dutyTime: this.data.maxDutyTime,
       flightNumber: this.data.recordFlightNumber,
       flightRoute: this.data.recordFlightRoute,
@@ -875,5 +898,12 @@ Page({
         icon: 'none'
       });
     }, 1500);
+  },
+
+  // 设置摆渡时间
+  selectShuttleTime: function(e) {
+    this.setData({
+      shuttleTime: e.detail.value
+    })
   },
 })

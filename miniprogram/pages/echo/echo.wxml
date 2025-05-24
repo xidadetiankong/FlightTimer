@@ -190,9 +190,6 @@
 				<view hover-class="pressBTN1" class="recordBtn record" bindtap="showRecordModal">记录</view>
 			</view>
 		</view>
-		<view class="confirm_button">
-			<view hover-class="pressBTN1" class="button1" bindtap="cancleUpload">取消</view>		
-		</view>
 	</resulkt>
 <view class="profess" hidden="{{show_profess}}">
 <view hover-class="pressBTN1" class="button2" bindtap="pfToPilot">飞行员</view>
@@ -242,6 +239,20 @@
 			</view>
 		</view>
 		
+		<view class="timeInti">
+			<view class="checkIn2">
+				<view class="title">扣除时间：</view>
+				<view class="checkIn_class">
+					<view class="checkIn_date1">
+						<picker mode="time" value="{{shuttleTime}}" start="00:00" end="24:00" bindchange="selectShuttleTime">{{shuttleTime}}</picker>
+					</view>
+					<view class="shuttleTimeDesc">
+						<text class="shuttleTimeInfo">可点击修改</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		
 		<view class="restTimeButtons">
 			<view class="restTimeBtn" hover-class="addRestBtn_h" bindtap="hideRestTimeModal">取消</view>
 			<view class="restTimeBtn" hover-class="addRestBtn_h" bindtap="addRestTime">确认</view>
@@ -267,7 +278,9 @@
 			
 			<view class="recordItem">
 				<text class="recordLabel">飞行时间</text>
-				<text class="recordValue">{{maxFlightTime}}</text>
+				<picker mode="time" value="{{recordFlightTime}}" start="00:00" end="23:59" bindchange="selectRecordFlightTime">
+					<view class="recordInput" style="color: #333; background-color: #f8f8f8;">{{recordFlightTime || '输入时间'}}</view>
+				</picker>
 			</view>
 			
 			<view class="recordItem">

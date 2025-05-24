@@ -32,6 +32,13 @@
 			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
 		</view>
 
+		<view class="list" hover-class="tapList">
+			<view class="title">
+				<image class="titleimg" src="../../img/service.png"></image> <button class="titleBTN" open-type="contact">联系作者提意见</button>
+			</view>
+			<image class="point" src="../../img/point.png" mode="aspectFit"></image>
+		</view>
+
 	
 
 
@@ -42,7 +49,7 @@
 		
 
 
-		<view class="versionInfo">Flight Timer Version 1.6.0</view>
+		<view class="versionInfo">Flight Timer Version 1.6.1</view>
 
 	</view>
 

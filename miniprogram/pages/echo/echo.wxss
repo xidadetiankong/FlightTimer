@@ -386,6 +386,18 @@ margin-top: 45rpx;
   border: 1px solid white;
 }
 
+/* 摆渡时间相关样式 */
+.shuttleTimeDesc {
+  display: flex;
+  align-items: center;
+  margin-left: 10rpx;
+}
+
+.shuttleTimeInfo {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /* 记录按钮样式 */
 .recordTips {
   color: #ff5050;
@@ -497,6 +509,9 @@ margin-top: 45rpx;
   padding: 5rpx 10rpx;
   border: 1px solid #eee;
   border-radius: 8rpx;
+  min-width: 180rpx;
+  display: inline-block;
+  box-sizing: border-box;
 }
 
 .recordButtons {

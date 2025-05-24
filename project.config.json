@@ -1,7 +1,5 @@
 {
- 
   "miniprogramRoot": "miniprogram/",
-
   "setting": {
     "urlCheck": true,
     "es6": true,

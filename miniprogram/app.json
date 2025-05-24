@@ -32,8 +32,8 @@
       },
       {
         "pagePath": "pages/records/records",
-        "iconPath": "img/profileUS.png",
-        "selectedIconPath": "img/profileS.png",
+        "iconPath": "img/recordUS.png",
+        "selectedIconPath": "img/record.png",
         "text": "执勤记录"
       },
       {
